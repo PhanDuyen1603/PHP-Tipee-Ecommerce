@@ -2,7 +2,7 @@
    <div class=" header-list-item-nav">
       <div class="middle-feft">
          <div class="logo-tipee"><a data-view-id="header_main_logo" href="#">
-            <i class="tikicon icon-tiki_short" src="./image/tipee logo.png"></i></a><a href="#" aria-label=""
+            <i class="tikicon icon-tiki_short" src="./images/tipee-logo.png"></i></a><a href="#" aria-label=""
                data-view-id="header_campaign_logo"></a>
          </div>
          <div class="search-form">

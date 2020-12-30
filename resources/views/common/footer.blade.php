@@ -39,13 +39,7 @@
                                     <input type="text" class="form-control col-9 login-input" id="phone_number"
                                         name="phone_number" placeholder="Nhập số điện thoại">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="otp_code" class="col-3 col-form-label">Mã xác
-                                        thực</label>
-                                    <input type="text" class="form-control col-6 login-input" id="otp_code"
-                                        name="otp_code" placeholder="Nhập mã xác thực gửi tới số điện thoại trên">
-                                    <div class="col-3 phone-auth" style="">Gửi mã xác thực</div>
-                                </div>
+                                
                                 <div class="form-group row">
                                     <label for="email" class="col-3 col-form-label">Email</label>
                                     <input type="text" class="form-control col-9 login-input" id="email" name="email"
