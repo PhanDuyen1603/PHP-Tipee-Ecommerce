@@ -42,7 +42,7 @@
                         </div>
                         <div width="50%" height="181px" class="banner-right-item">
                             <a data-view-index="1" data-view-id="home_top_banner_right_container" href=""
-                                aria-label=""><img width="206" height="181" src="./images/tiki-banner-2.png"
+                                aria-label=""><img width="206" height="181" src="./images/banner-left-1.png"
                                     alt="" /></a>
                         </div>
                         <div width="50%" height="181px" class="banner-right-item">
