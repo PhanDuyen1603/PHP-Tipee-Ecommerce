@@ -1,0 +1,135 @@
+.sidebar-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: all 0.3s linear;
+
+  .header-menu span {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 15px 20px 5px 20px;
+    display: inline-block;
+    color: $color_item_hilight;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    a:hover i,
+    a:hover::before,
+    li.active a i {
+      color: $color_menu_icon_active;
+    }
+
+    li a {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      text-decoration: none;
+      padding: 8px 5px 2px 5px;
+
+      /*
+      &:hover > i::before {
+        display: inline-block;
+      }
+*/
+      i {
+        margin-right: 10px;
+        font-size: 12px;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        flex-shrink: 0;
+        background-color: $color_menu_icon_bg;
+      }
+
+      .menu-text {
+        flex: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    li:not(.sidebar-dropdown) {
+      > a:after {
+        width: 22px;
+        content: ' ';
+      }
+    }
+  }
+
+  .sidebar-dropdown {
+    > a:after {
+      font-family: 'Material Design Icons';
+      font-weight: 900;
+      font-size: 1.3rem;
+      content: '\f0142';
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      margin-left: 2px;
+    }
+
+    .sidebar-submenu {
+      background-color: $color_submenu_bg;
+      display: none;
+
+      ul {
+        padding: 5px 0;
+      }
+
+      li {
+        padding-left: 25px;
+        font-size: 13px;
+
+        a {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          &:before {
+            content: '\f0766';
+            font-family: 'Material Design Icons';
+            font-weight: 400;
+            font-style: normal;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin-right: 10px;
+            font-size: 8px;
+          }
+
+          .badge,
+          .label {
+            margin-left: auto;
+          }
+        }
+      }
+    }
+
+    &.active {
+      .sidebar-submenu {
+        display: block;
+      }
+    }
+    &:not(.active) {
+      .sidebar-submenu {
+        display: '';
+      }
+    }
+
+    &.active > a:after {
+      transform: rotate(90deg);
+      right: 8px;
+    }
+  }
+}
