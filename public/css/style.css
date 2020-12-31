@@ -123,6 +123,23 @@ img {
     color: rgb(0, 0, 0);
 }
 
+.wishlist a {
+    color: #fff;
+    position: relative;
+    top: -5px;
+}
+
+.wishlist a svg {
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+}
+
+.wishlist a:hover {
+    color: white;
+    text-decoration: none;
+}
+
 .list-sp .Menu-button {
     display: flex;
     -webkit-box-align: center;
@@ -132,6 +149,12 @@ img {
     font-weight: 600;
     line-height: 27px;
     letter-spacing: 0.6px;
+}
+
+.cart a:hover,
+.order a:hover {
+    color: #0056b3;
+    text-decoration: none;
 }
 
 .list-sp {
