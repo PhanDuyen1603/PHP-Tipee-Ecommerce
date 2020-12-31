@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^2.3"
+        "laravel/ui": "^2.3",
+        "olimortimer/laravelshoppingcart": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -39,7 +40,9 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": ["app/Helper.php"]
+
     },
     "autoload-dev": {
         "psr-4": {

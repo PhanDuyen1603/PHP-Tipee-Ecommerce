@@ -140,6 +140,7 @@
         </div>
     </div>
 </div>
+{{\App\myHelper::getLogin()}}
 <!-- Modal -->
 <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalTitle"
     aria-hidden="true">

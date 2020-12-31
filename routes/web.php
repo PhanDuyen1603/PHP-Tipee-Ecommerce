@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 
 //frontend
-Route::get('/','App\Http\Controllers\HomeController@index'); // DẤU / LÀ THƯ MỤC GỐC
-Route::get('/trang-chu','App\Http\Controllers\HomeController@index');
+Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
+
+Route::get('/','App\Http\Controllers\HomeController@index')->name('index'); // DẤU / LÀ THƯ MỤC GỐC
+Route::get('/trang-chu','App\Http\Controllers\HomeController@index')->name('index'); 
 Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@registerAccount')->name('register-account');
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
@@ -28,7 +30,6 @@ Route::get('/product-detail/{category_id}','App\Http\Controllers\Product@product
 
 
 //backend
-Route::get('/admin','App\Http\Controllers\AdminController@index');
 Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
 Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 // Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
