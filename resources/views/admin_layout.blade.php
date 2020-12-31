@@ -7,8 +7,8 @@
     <title>Material Design Inspired Side Navigation Example</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.2/materia/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="{{asset('public/backend/css/sidebar.css')}}">
-    <link rel="stylesheet" href="{{asset('public/backend/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('/backend/css/sidebar.css')}}">
+    <link rel="stylesheet" href="{{asset('/backend/css/main.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 </head>
 <body>
@@ -16,7 +16,7 @@
         <aside>
             <nav class="sidebar">
                 <div class="sidebar-header">
-                    <a href="#" class="ml-4"><img width="200" src="{{asset('public/backend/images/logo.png')}}" alt=""></a>
+                    <a href="#" class="ml-4"><img width="200" src="{{asset('/backend/images/logo.png')}}" alt=""></a>
                     <i class="btn-sidebar-close mdi mdi-close mdi-24px"></i>
                 </div>
                 <div class="sidebar-content">
@@ -253,6 +253,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-<script src="{{asset('public/backend/js/main.js')}}"></script>
+<script src="{{asset('/backend/js/main.js')}}"></script>
 </body>
 </html>

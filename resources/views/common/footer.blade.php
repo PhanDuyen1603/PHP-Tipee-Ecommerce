@@ -12,14 +12,13 @@
                     <img src="images/graphic-map-tipee.png" alt="">
                 </div>
                 <div class="col-7 log-right">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
-                            aria-hidden="true">&times;</span>
-                    </button>
+                <div class="icon-close" >
+                    <span type="button" class="tikicon icon-circle-close" data-dismiss="modal" aria-label="Close"> </div>
                     <div class="test">
                         <div class="log-right-header">
                             <ul class="list-inline">
                                 <li class="list-inline-item "><a class="social-icon text-xs-center" href="">Đăng
-                                        nhập</a>
+                                        nhập</a>    
                                 </li>
                                 <li class="list-inline-item log-active"><a class="social-icon text-xs-center"
                                         href="">Tạo tài khoản</a>
@@ -145,9 +144,8 @@
                     <img src="images/graphic-map-tipee.png" alt="">
                 </div>
                 <div class="col-7 log-right">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
-                            aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="icon-close" >
+                    <span type="button" class="tikicon icon-circle-close" data-dismiss="modal" aria-label="Close"> </div>
                     <div class="test">
                         <div class="log-right-header">
                             <ul class="list-inline">

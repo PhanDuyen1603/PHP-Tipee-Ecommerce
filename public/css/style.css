@@ -11,11 +11,6 @@
     }
 }
 
-.cart a:hover {
-    color: white;
-    text-decoration: none;
-}
-
 .hotline {
     margin-bottom: 10px;
     color: rgb(196, 1, 26);
@@ -120,31 +115,6 @@ img {
     vertical-align: middle;
 }
 
-.uSLJP a:hover,
-.uSLJP a:active,
-.uSLJP a:focus,
-.uSLJP a.is-active {
-    background-color: rgb(236, 236, 236);
-    color: rgb(0, 0, 0);
-}
-
-.wishlist a {
-    color: #fff;
-    position: relative;
-    top: -5px;
-}
-
-.wishlist a svg {
-    margin-right: 10px;
-    position: relative;
-    top: 2px;
-}
-
-.wishlist a:hover {
-    color: white;
-    text-decoration: none;
-}
-
 .list-sp .Menu-button {
     display: flex;
     -webkit-box-align: center;
@@ -154,12 +124,6 @@ img {
     font-weight: 600;
     line-height: 27px;
     letter-spacing: 0.6px;
-}
-
-.cart a:hover,
-.order a:hover {
-    color: #0056b3;
-    text-decoration: none;
 }
 
 .list-sp {
@@ -234,6 +198,36 @@ img {
     border-radius: 4px;
     background-color: #ca2425;
     outline: none;
+}
+
+.wishlist a,
+.wishlist a:hover {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    top: -4px;
+    position: relative;
+}
+
+.fIfNjl {
+    cursor: pointer;
+    position: absolute;
+    top: -11px;
+    right: -12px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(150, 150, 150) -1px 1px 1px;
+}
+
+.wishlist svg {
+    margin-right: 8px;
+    position: relative;
+    top: 2px;
+}
+
+.order a:hover {
+    color: white;
+    text-decoration: none;
 }
 
 h4 {
@@ -830,6 +824,23 @@ i.tikicon.icon-arrow-down {
     height: 18px;
 }
 
+.tikicon.icon-circle-close {
+    background-image: url(../images/sprite.png?v=100000000);
+    background-position: -304px -29px;
+    width: 24px;
+    height: 24px;
+}
+
+.icon-close {
+    cursor: pointer;
+    position: absolute;
+    top: -11px;
+    right: 3px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(150, 150, 150) -1px 1px 1px;
+}
+
 .tikicon.icon-clearance-sale {
     background-image: url(../images/sprite.png?v=100000000);
     background-position: -173px -317px;
@@ -1323,7 +1334,7 @@ i.tikicon.icon-arrow-down {
 }
 
 .tikicon.icon-tiki_short {
-    background-image: url(../images/tipee-logo.png);
+    background-image: url(../images/sprite.png?v=100000000);
     background-position: -148px 0px;
     width: 50px;
     height: 33px;
