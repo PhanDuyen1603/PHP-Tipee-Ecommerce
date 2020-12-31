@@ -1,0 +1,72 @@
+@import './variables';
+@import './sidebar-content';
+@import './sidebar-footer';
+
+.sidebar {
+  font-size: 0.9rem;
+  width: $width;
+  height: 100vh;
+  background-color: $color_background;
+  color: $color_item;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &.hidden {
+    & + .btn-sidebar-show {
+      left: 0;
+    }
+
+    .sidebar-header,
+    .sidebar-content,
+    .sidebar-footer,
+    .sidebar .mdi {
+      display: none;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    transition: color 0.1s linear;
+
+    &:not(.dropdown-item) {
+      color: $color_item;
+
+      &:hover {
+        color: $color_item_hilight;
+      }
+    }
+  }
+
+  .sidebar-header {
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $color_border;
+    transition: all 0.3s linear;
+
+    & > a {
+      text-transform: uppercase;
+      font-weight: bold;
+      flex-grow: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .btn-sidebar-close {
+    color: $color_item;
+    &:hover {
+      color: $color_item_hilight;
+    }
+  }
+}
+
+.btn-sidebar-show {
+  position: fixed;
+  left: -40px;
+  top: 10px;
+  border-radius: 0 4px 4px 0px;
+  width: 35px;
+}
