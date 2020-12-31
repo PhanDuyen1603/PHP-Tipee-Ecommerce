@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 //frontend
 Route::get('/','App\Http\Controllers\HomeController@index'); // DẤU / LÀ THƯ MỤC GỐC
 Route::get('/trang-chu','App\Http\Controllers\HomeController@index');
+Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@registerAccount')->name('register-account');
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');

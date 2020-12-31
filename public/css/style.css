@@ -205,7 +205,7 @@ img {
     color: white;
     text-decoration: none;
     font-weight: 400;
-    top: -4px;
+    top: -9px;
     position: relative;
 }
 
@@ -831,6 +831,58 @@ i.tikicon.icon-arrow-down {
     height: 24px;
 }
 
+.message {
+    position: fixed;
+    bottom: 75px;
+    right: 15px;
+    z-index: 999;
+}
+
+.message a {
+    display: flex;
+    margin-right: 12px;
+}
+
+.message a,
+a:focus,
+a:hover {
+    text-decoration: none;
+    outline: 0;
+    transition: all .3s ease-in-out;
+}
+
+.message i {
+    font-style: normal;
+    background: 0 0;
+    height: 48px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 44px;
+    border: 2px solid #339bef;
+    position: relative;
+    flex: 0 0 48px;
+}
+
+.message i img {
+    -webkit-animation: ring 4s .7s ease-in-out infinite;
+    -webkit-transform-origin: 50% 4px;
+    -moz-animation: ring 4s .7s ease-in-out infinite;
+    -moz-transform-origin: 50% 4px;
+    animation: ring 4s .7s ease-in-out infinite;
+    transform-origin: 50% 4px;
+    display: block;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+    padding-left: 18px;
+    font-size: 13px;
+    font-style: italic;
+}
+
 .icon-close {
     cursor: pointer;
     position: absolute;
@@ -839,6 +891,81 @@ i.tikicon.icon-arrow-down {
     border-radius: 50%;
     background-color: rgb(255, 255, 255);
     box-shadow: rgb(150, 150, 150) -1px 1px 1px;
+}
+
+@keyframes ring {
+    0% {
+        transform: rotate(0)
+    }
+    1% {
+        transform: rotate(30deg)
+    }
+    3% {
+        transform: rotate(-28deg)
+    }
+    5% {
+        transform: rotate(34deg)
+    }
+    7% {
+        transform: rotate(-32deg)
+    }
+    9% {
+        transform: rotate(30deg)
+    }
+    11% {
+        transform: rotate(-28deg)
+    }
+    13% {
+        transform: rotate(26deg)
+    }
+    15% {
+        transform: rotate(-24deg)
+    }
+    17% {
+        transform: rotate(22deg)
+    }
+    19% {
+        transform: rotate(-20deg)
+    }
+    21% {
+        transform: rotate(18deg)
+    }
+    23% {
+        transform: rotate(-16deg)
+    }
+    25% {
+        transform: rotate(14deg)
+    }
+    27% {
+        transform: rotate(-12deg)
+    }
+    29% {
+        transform: rotate(10deg)
+    }
+    31% {
+        transform: rotate(-8deg)
+    }
+    33% {
+        transform: rotate(6deg)
+    }
+    35% {
+        transform: rotate(-4deg)
+    }
+    37% {
+        transform: rotate(2deg)
+    }
+    39% {
+        transform: rotate(-1deg)
+    }
+    41% {
+        transform: rotate(1deg)
+    }
+    43% {
+        transform: rotate(0)
+    }
+    100% {
+        transform: rotate(0)
+    }
 }
 
 .tikicon.icon-clearance-sale {
@@ -3094,7 +3221,13 @@ button.slick-next.slick-arrow {
     border-color: #ca2425
 }
 
-.menu-header-left:hover>a {
+.wishlist a svg {
+    width: 24px;
+    height: 24px;
+    top: 7px;
+}
+
+.menu-header-left:hover>a>span {
     color: #fff
 }
 

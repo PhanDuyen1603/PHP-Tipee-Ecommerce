@@ -195,6 +195,11 @@ img {
     color: rgb(78, 80, 82);
 }
 
+.wishlist a svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
 .NewsLetter-description h5 {
     margin: 0px;
     font-size: 14px;
