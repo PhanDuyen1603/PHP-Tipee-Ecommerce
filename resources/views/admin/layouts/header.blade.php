@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Font Awesome -->
   <!-- Admin Css -->
-  <link rel="stylesheet" href="{{asset('css/admin-expro.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/admin-diendien.min.css')}}">
   <!-- Admin Custom Css -->
   <link rel="stylesheet" href="{{asset('css/style_admin.css')}}">
   <!-- Admin js -->
-  <script src="{{asset('js/admin.expro.js')}}"></script>
+  <script src="{{asset('js/admin.diendienv2.js')}}"></script>
   <script src="{{asset('js/js_admin.js')}}"></script>
   <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
 </head>

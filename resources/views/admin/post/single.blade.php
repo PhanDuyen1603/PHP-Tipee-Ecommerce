@@ -400,22 +400,6 @@ $seo = WebService::getSEO($data_seo);
     });
 </script>
 <script type="text/javascript">
-	CKEDITOR.replace('post_content',{
-		width: '100%',
-		resize_maxWidth: '100%',
-		resize_minWidth: '100%',
-		height:'300',
-		filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-	});
-	CKEDITOR.instances['post_content'];
-
-    CKEDITOR.replace('post_content_en',{
-        width: '100%',
-        resize_maxWidth: '100%',
-        resize_minWidth: '100%',
-        height:'300',
-        filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-    });
-    CKEDITOR.instances['post_content_en'];
+	
 </script>
 @endsection

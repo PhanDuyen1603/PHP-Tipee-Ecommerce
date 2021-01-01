@@ -45,12 +45,12 @@ class HomeController extends Controller
         return redirect()->route('index');
     }
     
-    public function registerAccount (Request $rq){
+    public function registerAccount(Request $rq){
         $validation_rules = array(
             'full_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
-            'phone_number' => 'required|max:10|unique:users',
+            'phone' => 'required|unique:users',
         );
         $messages = array(
             'full_name.required' => 'Hãy nhập họ của bạn',
@@ -61,23 +61,22 @@ class HomeController extends Controller
             'email.unique' => 'Địa chỉ Email đã tồn tại',
             'password.required' => 'Hãy nhập mật khẩu',
             'password.min' => 'Mật khẩu tối thiểu 6 ký tự',
-            
-            'phone_number.required' => 'Hãy nhập số điện thoại',
-            'phone_number.max' => 'Số điện thoại tối đa 12 ký tự',
-            'phone_number.unique' => 'Số điện thoại đã tồn tại',
+            'phone.required' => 'Hãy nhập số điện thoại',
+            'phone.unique' => 'Số điện thoại đã tồn tại',
         );
         $validator = Validator::make($rq->all(), $validation_rules, $messages);
         if($validator->fails()) {
             return  Redirect::back()->withErrors($validator);
         }
-
         $new_cus = new User();
+
         $new_cus->name = $rq->full_name;
         $new_cus->email = $rq->email;
         $new_cus->birthday = $rq->year.'-'.$rq->month.'-'.$rq->day;
+
         $new_cus->phone = $rq->phone;
+        $new_cus->gender = $rq->gender;
         $new_cus->password = bcrypt($rq->password);
-        dd($new_cus);
         $new_cus->save();
         Auth::login($new_cus);
         return redirect()->route('index');

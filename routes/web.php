@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 
 //frontend
+Route::get('/{slug1}.html', array(
+    'as' => 'category.list',
+    'uses' => 'MinhnnController@category')
+)->where('any', '(.*)\/$');
 Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
-
+Route::get('/{slug1}/{slug2}.html', array(
+    'as' => 'tintuc.details',
+    'uses' => 'HomeController@singleDetails'));
 Route::get('/','App\Http\Controllers\HomeController@index')->name('index'); // DẤU / LÀ THƯ MỤC GỐC
 Route::get('/trang-chu','App\Http\Controllers\HomeController@index')->name('index'); 
 Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@registerAccount')->name('register-account');
@@ -51,7 +57,6 @@ Route::get('/add-brand','App\Http\Controllers\Brand@add_brand');
 Route::get('/edit-brand/{brand_id}','App\Http\Controllers\Brand@edit_brand');
 Route::get('/delete-brand/{brand_id}','App\Http\Controllers\Brand@delete_brand');
 Route::get('/all-brand','App\Http\Controllers\Brand@all_brand');
- 
 Route::get('/unactive-brand/{brand_id}','App\Http\Controllers\Brand@unactive_brand');
 Route::get('/active-brand/{brand_id}','App\Http\Controllers\Brand@active_brand');
 

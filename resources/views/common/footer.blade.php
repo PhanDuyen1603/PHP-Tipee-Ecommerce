@@ -39,11 +39,11 @@
                     @endif
                                 </div>
                                 <div class="form-group row">
-                                    <label for="phone_number" class="col-3 col-form-label">SĐT</label>
-                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="phone_number"
-                                        name="phone_number" placeholder="Nhập số điện thoại">
-                                         @if($errors->has('phone_number'))
-                        <div class="error"><?php echo $errors->first('phone_number');
+                                    <label for="phone" class="col-3 col-form-label">SĐT</label>
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="phone"
+                                        name="phone" placeholder="Nhập số điện thoại">
+                                         @if($errors->has('phone'))
+                        <div class="error"><?php echo $errors->first('phone');
                          ?></div>
                     @endif
                                 </div>

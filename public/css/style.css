@@ -13,6 +13,32 @@
     font-size: 13px;
 }
 
+.icon-close a:hover {
+    opacity: 0.95;
+}
+
+.icon-close {
+    cursor: pointer;
+    position: absolute;
+    top: -11px;
+    right: 5px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(150, 150, 150) -1px 1px 1px;
+}
+
+.tikicon.icon-circle-close {
+    background-image: url(../images/sprite.png?v=100000000);
+    background-position: -304px -29px;
+    width: 24px;
+    height: 24px;
+}
+
+.logoTipee {
+    width: 90px;
+    position: relative;
+}
+
 @media (min-width: 576px) {
     #LoginModal .modal-dialog,
     #RegisterModal .modal-dialog {
