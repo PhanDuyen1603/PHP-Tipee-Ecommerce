@@ -31,7 +31,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group row">
                                     <label for="full_name" class="col-3 col-form-label">Họ tên</label>
-                                    <input type="text" class="form-control col-9 login-input" id="full_name"
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="full_name"
                                         name="full_name" placeholder="Nhập họ tên">
                                             @if($errors->has('full_name'))
                         <div class="error"><?php echo $errors->first('full_name');
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="phone_number" class="col-3 col-form-label">SĐT</label>
-                                    <input type="text" class="form-control col-9 login-input" id="phone_number"
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="phone_number"
                                         name="phone_number" placeholder="Nhập số điện thoại">
                                          @if($errors->has('phone_number'))
                         <div class="error"><?php echo $errors->first('phone_number');
@@ -50,7 +50,7 @@
                                 
                                 <div class="form-group row">
                                     <label for="email" class="col-3 col-form-label">Email</label>
-                                    <input type="text" class="form-control col-9 login-input" id="email" name="email"
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="email" name="email"
                                         placeholder="Nhập email">
                                        @if($errors->has('email'))
                         <div class="error"><?php echo $errors->first('email');
@@ -59,25 +59,24 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="password" class="col-3 col-form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control col-9 login-input" id="password"
+                                    <input type="password" class="form-control col-9 login-input" value="{{old('full_name')}}" id="password"
                                         name="password" placeholder="Mật khẩu từ 6 đến 32 ký tự">
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        @if($errors->has('password'))
+                        <div class="error"><?php echo $errors->first('password');
+                         ?></div>
+                    @endif
                                 </div>
                                 <!-- gender -->
                                 <div class="form-group row">
                                     <label for="gender" class="col-3 col-form-label">Giới tính</label>
                                     <div class="form-group row" style="margin-left: 10px;">
                                         <div class="form-check-inline gender-check">
-                                            <input class="form-check-input" type="radio" name="gender" value="male"
+                                            <input class="form-check-input" @php echo 'male'==old('gender') ? 'checked': '' @endphp type="radio" name="gender" value="male"
                                                 checked>
                                             <label class="form-check-label" for="gender">Nam</label>
                                         </div>
                                         <div class="form-check-inline gender-check">
-                                            <input class="form-check-input" type="radio" name="gender" value="female">
+                                            <input class="form-check-input" @php echo 'female'==old('gender') ? 'checked': '' @endphp type="radio" name="gender" value="female">
                                             <label class="form-check-label" for="gender">Nữ</label>
                                         </div>
                                     </div>
@@ -89,7 +88,7 @@
                                          <select name="day"  class="form-control form-control-sm">
                                          @for($i=1;$i<=31;$i++)
                                          @php $number = $i<10 ? '0'.$i : $i; @endphp 
-                                           <option>{{$number}}</option>
+                                           <option @php echo $i==old('day') ? 'selected': '' @endphp >{{$number}}</option>
                                            @endfor
                                          </select>
                                     </div>
@@ -97,14 +96,14 @@
                                         <select name="month"  class="form-control form-control-sm">
                                          @for($i=1;$i<=12;$i++)
                                           @php $number = $i<10 ? '0'.$i : $i; @endphp 
-                                           <option>{{$number}}</option>
+                                           <option @php echo $i==old('day') ? 'selected': '' @endphp>{{$number}}</option>
                                            @endfor
                                          </select>
                                     </div>
                                     <div class="dropdown col-3">
                                         <select name="year" class="form-control form-control-sm">
-                                         @for($i=1900;$i<=date('Y');$i++)
-                                           <option>{{$i}}</option>
+                                         @for($i=1960;$i<=date('Y');$i++)
+                                           <option @php echo $i==old('day') ? 'selected': '' @endphp>{{$i}}</option>
                                            @endfor
                                          </select>
                                     </div>

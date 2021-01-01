@@ -1,9 +1,12 @@
 <div class="header-list-iteam list-iteam">
    <div class=" header-list-item-nav">
       <div class="middle-feft">
-         <div class="logo-tipee"><a data-view-id="header_main_logo" href="#">
-            <i class="tikicon icon-tiki_short" src="./images/tipee-logo.png"></i></a><a href="#" aria-label=""
-               data-view-id="header_campaign_logo"></a>
+         <div class="logo-tipee"><a data-view-id="header_main_logo" href="#"><img src="http://127.0.0.1:8000/images/tipee-logo.png" alt="" style="
+    width: 90px;
+    position: relative;
+    right: 0px;
+">
+            <i class="tikicon icon-tiki_short" src="./images/tipee-logo.png"></i></a><a href="#" aria-label="" data-view-id="header_campaign_logo"></a>
          </div>
          <div class="search-form">
             <div class="search-form-left"><input type="text" data-view-id="main_search_form_input" value=""

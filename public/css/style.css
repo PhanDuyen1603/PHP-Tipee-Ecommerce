@@ -4,6 +4,15 @@
     box-sizing: border-box
 }
 
+.error {
+    color: red;
+    margin-top: 10px;
+    font-style: italic;
+    font-weight: 400;
+    padding-left: 14px;
+    font-size: 13px;
+}
+
 @media (min-width: 576px) {
     #LoginModal .modal-dialog,
     #RegisterModal .modal-dialog {
