@@ -1,19 +1,26 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use DB;
+use Session;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use App\Model\Theme;
+use App\WebService\WebService;
 
-class HomeController extends Controller {
 
-    /**
-     * Show the profile for the given user.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function index()
-    {
-        return view('home.index');
+session_start();
+
+
+
+class HomeController extends Controller
+{
+    public function index(){
+        $allProducts = Theme::all();
+       
+        return view('home.index')->with('allProducts',$allProducts);
     }
 
 }
