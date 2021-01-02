@@ -211,7 +211,7 @@ $seo = WebService::getSEO($data_seo);
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="countdown" class="title_txt">Countdown</label>
                                 <input id="countdown" type="checkbox" value="1" name="countdown" <?php if($countdown == 1): ?> checked <?php endif; ?> data-toggle="toggle">
                             </div>
@@ -542,7 +542,7 @@ $seo = WebService::getSEO($data_seo);
             }
         });
 
-        $('#post_description_en').summernote({
+        $('#post_description_en,#post_content   ').summernote({
             placeholder: 'Enter your description',
             tabsize: 2,
             focus: true,
@@ -551,6 +551,7 @@ $seo = WebService::getSEO($data_seo);
                 theme: 'monokai'
             }
         });
+        
 
         $('#thumbnail_file').change(function(evt) {
             $("#thumbnail_file_link").val($(this).val());

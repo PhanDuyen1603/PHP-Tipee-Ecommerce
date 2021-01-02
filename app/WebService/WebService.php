@@ -13,129 +13,51 @@ use Harimayco\Menu\Facades\Menu;
 
 class WebService {
     // SEO
-    /*
-    chuc nang
-    lay danh sach san pham theo category
-    step 1: lay danh sach san pham theo category
-    step 2: lay 2 hinh anh : neu co gallery hinh
-    step 3: tinh toan so luong giam gia
-    step 4: lay gia san pham va gia giam
-    */
-    public function get_home_by_category($category_id){
-        $rows=DB::table('category_theme')
-            ->join('join_category_theme','category_theme.categoryID','=','join_category_theme.id_category_theme')
-            ->join('theme','join_category_theme.id_theme','=','theme.id')
-            ->where('theme.status','=',0)
-            ->where('category_theme.categoryID',$category_id)
-            ->orderBy('theme.updated','DESC')
-            ->groupBy('theme.slug')
-            ->select('theme.id','theme.title','theme.slug','theme.description','theme.thubnail','theme.thubnail_alt','theme.price_origin',
-                'theme.price_promotion',
-                'theme.start_event',
-                'theme.end_event',
-                'theme.countdown',
-                'theme.theme_code',
-                'theme.updated',
-                'theme.id_brand',
-                'theme.gallery_images',
-                'theme.in_stock','theme.item_new','category_theme.categoryName','category_theme.categorySlug','category_theme.categoryDescription','category_theme.categoryID','category_theme.categoryContent','category_theme.categoryContent_en','category_theme.categoryDescription_en')
-            ->paginate(4);
-            $html='';
-            $url_img="images/product";
-            if(count($rows)>0){
-                foreach ($rows as $key => $item) {
-                    if(!empty($item->thubnail) && $item->thubnail !=""):
-                        $thumbnail= Helpers::getThumbnail($url_img,$item->thubnail, 282, 282, "resize");
-                        if(strpos($thumbnail, 'placehold') !== false):
-                            $thumbnail=$url_img.$thumbnail;
-                        endif;
-                    else:
-                        $thumbnail="https://dummyimage.com/282x282/000/fff";
+    
+    public static function getProductHome($rows){
+        $html = '';
+        if(count($rows)>0){
+            foreach($rows as $item){
+                if(!empty($item['price_origin']) &&  $item['price_origin'] >0):
+                    $price_origin=number_format($item['price_origin'])." đ ";
+                else:
+                    $price_origin="";
+                endif;
+                if(!empty($item['price_promotion']) &&  $item['price_promotion'] >0):
+                    $price_promotion=number_format($item['price_promotion'])." đ ";
+                else:
+                    $price_promotion="Liên hệ";
+                endif;
+                if(intval($item['price_promotion'])<=intval($item['price_origin']) && $item['price_promotion'] !='' && $item['price_origin'] !=''):
+                    $val_td=intval($item['price_origin'])-intval($item['price_promotion']);
+                    $percent=($val_td/intval($item['price_origin']))*100;
+                    $note_percent = '<span class="label sale">SALE</span>';
+                    $circle_sale= '<span class="percent deal">-'.intval($percent).'%</span>';
+                    $price_promotion = number_format($item['price_promotion'])." đ ";
+                   $original =  '<span class="original deal">'.number_format($item['price_origin'])." đ ".'</span>';
+                else:
+                    $val_td=0;
+                    $percent=0;
+                    $note_percent="";
+                    $circle_sale='';
+                    $original = '';
+                    $price_promotion = number_format($item['price_origin'])." đ ";
+                endif;
+                $url_img="images/product";
+                if(!empty($item['thubnail']) && $item['thubnail'] !=""):
+                    $thumbnail= Helpers::getThumbnail($url_img,$item['thubnail'], 280, 280, "resize");
+                    if(strpos($thumbnail, 'placehold') !== false):
+                        $thumbnail=$url_img.$thumbnail;
                     endif;
-                    $store_gallery = (isset($item->gallery_images) || $item->gallery_images != "") ? unserialize($item->gallery_images) : '';
-                    if(count($store_gallery)>1 && $store_gallery!=''){
-                        $thumbnail_src = $url_img.'/'.$store_gallery[0];
-                         $thumbnail_hover = $url_img.'/'.$store_gallery[1];
-                    }else{
-                        $thumbnail_src = $thumbnail_hover = $thumbnail;
-                    }
-                    $ss = "'";
-                    if(intval($item->price_promotion)<=intval($item->price_origin) && $item->price_promotion !='' && $item->price_origin !=''):
-                            $val_td=intval($item->price_origin)-intval($item->price_promotion);
-                            $percent=($val_td/intval($item->price_origin))*100;
-                            // $note_percent="<span class='note_percent'>".intval($percent). "%</span>";
-                            $note_percent = '<span class="label sale">SALE</span>';
-                          
-                            $circle_sale = ' <span class="text-block image-text" style="font-size:13px;color:#ffffff;top:42%;left:52%;transform: translate(-52%, -42%);">Giảm <span style="color:yellow">'.intval($percent).'%</span></span>';
-                            $price_product = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="55915" data-price-box="product-id-55915">
-                            <span class="normal-price">
-                             <span class="price-container price-final_price tax weee">
-                             <span class="price-label">Thấp nhất như</span>
-                             <span id="product-price-55915" data-price-amount="895000" data-price-type="finalPrice" class="price-wrapper "><span class="price">'.number_format($item->price_promotion).'&nbsp;₫</span></span>
-                             </span>
-                             </span>
-                             <span class="old-price sly-old-price">
-                             <span class="price-container price-final_price tax weee">
-                             <span class="price-label">Giá thông thường</span>
-                             <span id="old-price-55915" data-price-amount="1790000" data-price-type="oldPrice" class="price-wrapper "><span class="price">'.number_format($item->price_origin).'&nbsp;₫</span></span>
-                             </span>
-                             </span>
-                          </div>';
-                          $sticker_preview = '<span class="product-label label-product-detail top-left primary-label configurable" style="height:auto;width:20%;">
-                                   <span  class="sticker-preview-top-left">
-                                      <div class="sticker-preview-container custom-class">
-                                         <span class="sticker-shape"></span>
-                                         <span class="sticker-image">
-                                         <img loading="lazy" lazy="" src="https://hoang-phuc.com/media/productlabel/sticker/label_sale_black.png" data-original="https://hoang-phuc.com/media/productlabel/sticker/label_sale_black.png" alt="Dynamic Price Sale">
-                                         </span>
-                                        '.$circle_sale.'
-                                      </div>
-                                   </span>
-                                </span>';
-                        else:
-                            $val_td=0;
-                            $percent=0;
-                            $note_percent="";
-                            $circle_sale='';
-                            $price_product = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="55915" data-price-box="product-id-55915">
-                            <span class="normal-price">
-                             <span class="price-container price-final_price tax weee">
-                             <span class="price-label">Thấp nhất như</span>
-                             <span id="product-price-55915" data-price-amount="895000" data-price-type="finalPrice" class="price-wrapper "><span class="price">'.number_format($item->price_origin).'&nbsp;₫</span></span>
-                             </span>
-                             </span>
-                          </div>';
-                          $sticker_preview = '';
-                        endif;
-                    
-                    $img = '<img loading="lazy" lazy="" src="'.$thumbnail_src.'" data-original="'.$thumbnail_src.'" data-hover="'.$thumbnail_hover.'" onmouseover="this.setAttribute('.$ss.'data-tmp'.$ss.', this.src);this.src= this.getAttribute('.$ss.'data-hover'.$ss.');" onmouseout="this.src=this.getAttribute('.$ss.'data-tmp'.$ss.')" onmousemove="if(this.getAttribute('.$ss.'data-hover'.$ss.') !== this.src) this.setAttribute('.$ss.'data-tmp'.$ss.', this.src)" max-width="282" max-height="282" alt="Kappa áo nỉ nam K0952WT03 706" data-tmp="'.$thumbnail_src.'" class="product-image-photo">';
-                    $slug_cat=$item->categorySlug;
-        $link_url_check="";
-        $link_url_check=route('tintuc.details',array($slug_cat,$item->slug));
-                    $html.='<li class="product-item">
-                    <div class="product-item-info">
-                       <a href="'.$link_url_check.'" class="product-item-photo">
-                          <span class="product-image-container" style="width:282px;">
-                             <span class="product-image-wrapper" style="padding-bottom: 100%;">
-                                      '.$img.'                                                                                                      
-                                '.$sticker_preview.'
-                             </span>
-                          </span>
-                       </a>
-                       <div class="product-item-details">
-                          <strong class="product-item-name">
-                          <a title="'.$item->title.'" href="'.$link_url_check.'" class="product-item-link">'.$item->title.'</a>
-                          </strong>
-                          
-                          '.$price_product.'
-
-                       </div>
-                    </div>
-                 </li>';
-                }
+                else:
+                    $thumbnail="https://dummyimage.com/280x280/000/fff";
+                endif;
+                $html.='<a class="home_flashdeal_item" title="'.$item['title'].'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item['title'].'" class="image-product"></div><div class="title">'.$item['title'].'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
             }
-            return $html;
+        }
+        return $html;
     }
+       
     public function getSEO($data = array()){
         $seo = array();
         $seo['title'] = isset($data['title'])?$data['title']:'';
