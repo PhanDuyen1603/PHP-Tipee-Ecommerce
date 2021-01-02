@@ -1,7 +1,7 @@
 </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2021 <a href="{{route('index')}}">Diên Diên</a></strong></a>
+    <strong>Copyright &copy; 2021 <a href="{{route('index')}}">Tipee</a></strong></a>
   </footer>
   <!-- Modal Export Customer -->
   <div class="modal fade" id="modal-export-customer" tabindex="-1" role="dialog" aria-labelledby="modal-export-customer-label" aria-hidden="true">

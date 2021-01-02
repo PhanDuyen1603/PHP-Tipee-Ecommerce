@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Auth::routes();
 
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS

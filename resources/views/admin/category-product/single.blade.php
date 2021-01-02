@@ -93,14 +93,6 @@ $seo = WebService::getSEO($data_seo);
     		          	<div class="card-body">
                             <!-- show error form -->
                             <div class="errorTxt"></div>
-                            <ul class="nav nav-tabs" id="tabLang" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="vi-tab" data-toggle="tab" href="#vi" role="tab" aria-controls="vi" aria-selected="true">Tiếng việt</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="en-tab" data-toggle="tab" href="#en" role="tab" aria-controls="en" aria-selected="false">Tiếng Anh</a>
-                                </li>
-                            </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="vi" role="tabpanel" aria-labelledby="vi-tab">
                                     <div class="form-group">
@@ -116,16 +108,7 @@ $seo = WebService::getSEO($data_seo);
                                         <textarea id="post_description" name="post_description">{!!$post_description!!}</textarea>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="en" role="tabpanel" aria-labelledby="en-tab">
-                                    <div class="form-group">
-                                        <label for="post_title_en">Title category</label>
-                                        <input type="text" class="form-control" id="post_title_en" name="post_title_en" placeholder="Title" value="{{$post_title_en}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_description_en">Description category</label>
-                                        <textarea id="post_description_en" name="post_description_en">{!!$post_description_en!!}</textarea>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="template_checkID" class="title_txt">Chọn thể loại Cha</label>
@@ -147,12 +130,12 @@ $seo = WebService::getSEO($data_seo);
                                 <label for="theme_category_icon">Icon(Use Icon boottrap, font-asome... Ex: <?php echo htmlspecialchars("<i class='fa fa-use'></i>"); ?>)</label>
                                 <input id="theme_category_icon" class="form-control" type="text" name="theme_category_icon" value="{!! htmlspecialchars_decode($theme_category_icon) !!}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="categoryIndex" style="color: #FF0000;">Hiển thị lên Menu</label>
                                 <input id="categoryIndex" type="checkbox" name="categoryIndex" value="1" @if($categoryIndex == 1) checked @endif>
                             </div>
-                            <div class="form-group">
-                                <label for="check_showhome" style="color: #bd3bff;">Hiện thị lên Trang chủ</label>
+                            <div class="form-group hidden">
+                                <label for="check_showhome" style="color: #bd3bff;">Hiển thị lên Trang chủ</label>
                                 <input id="check_showhome" type="checkbox" name="check_showhome" value="1" @if($check_showhome == 1) checked @endif>
                             </div>
                             @include('admin.form-seo.seo')
