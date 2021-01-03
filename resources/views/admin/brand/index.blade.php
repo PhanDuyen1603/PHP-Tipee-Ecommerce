@@ -27,7 +27,7 @@ $seo = WebService::getSEO($data_seo);
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-          <li class="breadcrumb-item active">List Brand</li>
+          <li class="breadcrumb-item active">Danh sách các thương hiệu</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -62,55 +62,51 @@ $seo = WebService::getSEO($data_seo);
                                     data: data2,
                                     columns: [
                                       {title: '<input type="checkbox" id="selectall" onclick="select_all()">', data: 'brandID'},
-                                      {title: 'Title', data: 'brandName'},
-                                      {title: 'Thumbnail', data: 'brandThumb'},
-                                      {title: 'Created', data: 'created'},
+                                      {title: 'Thương hiệu', data: 'brandName'},
+                                      {title: 'Nguồn gốc', data: 'brandOrigin'},
+                                      {title: 'Ngày được thêm', data: 'created'},
                                     ],
                                     order: [[ 3, "desc" ]],
                                     columnDefs: [
-                                    {//ID
-                                        visible: true,
-                                        targets: 0,
-                                        className: 'text-center',
-                                        orderable: false,
-                                        render: function (data, type, full, meta) {
-                                            return '<input type="checkbox" id="'+data+'" name="seq_list[]" value="'+data+'">';
-                                        }
-                                    },
-                                    {//Title
-                                        visible: true,
-                                        targets: 1,
-                                        className: 'text-center',
-                                        render: function (data, type, full, meta) {
-                                            return '<a href="{{route("admin.dashboard")}}/brand/' + full.brandID + '"><b>'+data+'</b><br/><b style="color:#c76805;">'+ full.brandSlug +'</b></a>';
-                                        }
-                                    },
-                                    {//Thumbnail
-                                        visible: true,
-                                        targets: 2,
-                                        className: 'text-center',
-                                        render: function (data, type, full, meta) {
-                                            if(data != ''){
-                                                return '<img src="{{route("index")}}/images/brand/'+data+'" style="height: 100px;">';
-                                            } else{
-                                                return '<img src="{{asset("img/default-150x150.png")}}" style="height: 100px;">';
+                                        {//ID
+                                            visible: true,
+                                            targets: 0,
+                                            className: 'text-center',
+                                            orderable: false,
+                                            render: function (data, type, full, meta) {
+                                                return '<input type="checkbox" id="'+data+'" name="seq_list[]" value="'+data+'">';
+                                            }
+                                        },
+                                        {//Title
+                                            visible: true,
+                                            targets: 1,
+                                            className: 'text-center',
+                                            render: function (data, type, full, meta) {
+                                                return '<a href="{{route("admin.dashboard")}}/brand/' + full.brandID + '"><b>'+data+'</b></a>';
+                                            }
+                                        },
+                                        {//Origin
+                                            visible: true,
+                                            targets: 2,
+                                            className: 'text-center',
+                                            render: function (data, type, full, meta) {                                            
+                                                return data;
+                                            }
+                                        },
+                                        {//Created
+                                            visible: true,
+                                            targets: 3,
+                                            className: 'text-center',
+                                            render: function (data, type, full, meta) {
+                                                if(full.brandStatus == 0){
+                                                    var st = 'Hiện';
+                                                }else{
+                                                    var st = 'Ẩn';
+                                                }
+                                                return data+'<br/>'+st;
                                             }
                                         }
-                                    },
-                                    {//Created
-                                        visible: true,
-                                        targets: 3,
-                                        className: 'text-center',
-                                        render: function (data, type, full, meta) {
-                                            if(full.brandStatus == 0){
-                                                var st = 'Public';
-                                            }else{
-                                                var st = 'Draft';
-                                            }
-                                            return data+'<br/>'+st;
-                                        }
-                                    }
-                                ],
+                                    ],
                                 });
                             });
                         </script>

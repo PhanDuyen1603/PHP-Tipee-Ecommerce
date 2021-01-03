@@ -18,6 +18,7 @@ class WebService {
         $html = '';
         if(count($rows)>0){
             foreach($rows as $item){
+                
                 if(!empty($item['price_origin']) &&  $item['price_origin'] >0):
                     $price_origin=number_format($item['price_origin'])." đ ";
                 else:
@@ -52,7 +53,7 @@ class WebService {
                 else:
                     $thumbnail="https://dummyimage.com/280x280/000/fff";
                 endif;
-                $html.='<a class="home_flashdeal_item" title="'.$item['title'].'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item['title'].'" class="image-product"></div><div class="title">'.$item['title'].'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
+                $html.='<a href="cdafd" class="home_flashdeal_item" title="'.$item['title'].'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item['title'].'" class="image-product"></div><div class="title">'.$item['title'].'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
             }
         }
         return $html;

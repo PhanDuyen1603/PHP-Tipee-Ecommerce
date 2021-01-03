@@ -33,7 +33,7 @@ Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@re
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
-Route::get('/product-detail/{category_id}','App\Http\Controllers\Product@product_detail');
+Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail');
 
 
 //backend

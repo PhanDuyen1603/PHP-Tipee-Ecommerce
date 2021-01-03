@@ -96,9 +96,7 @@
                     <div class="body">
                         <div id="home_flashdeal_container" class="List__Wrapper-sc-1ap7nsk-0 SutiD">
                           <?php echo  WebService::getProductHome($allProducts);?>
-
-                          
-
+                  
                         </div>
                     </div>
                     <div class="footer more"><a data-view-id="home_deal_view_more" href="/deal-hot?tab=now&amp;page=1"
