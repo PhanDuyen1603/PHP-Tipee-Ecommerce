@@ -60,7 +60,26 @@ body {
 .wishlist a svg {
     margin-right: 10px;
     position: relative;
-    top: 2px;
+    top: 5px;
+}
+
+.login-admin {
+    background-color: #364150!important;
+}
+
+.login .content {
+    background-color: #fff;
+    border-radius: 7px;
+    width: 400px;
+    margin: 40px auto 10px;
+    padding: 10px 30px 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ct-cart:hover {
+    color: white;
+    text-decoration: none;
 }
 
 a {

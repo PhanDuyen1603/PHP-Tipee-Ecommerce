@@ -172,7 +172,16 @@ img {
 .wishlist a svg {
     margin-right: 10px;
     position: relative;
-    top: 2px;
+    top: 5px;
+}
+
+.ct-cart:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.login-admin {
+    background-color: #364150!important;
 }
 
 .wishlist a:hover {
