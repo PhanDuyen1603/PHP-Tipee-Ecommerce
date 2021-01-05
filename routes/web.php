@@ -13,21 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Auth::routes();
 
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 
 //frontend
-Route::get('/','App\Http\Controllers\HomeController@index'); // DẤU / LÀ THƯ MỤC GỐC
-Route::get('/trang-chu','App\Http\Controllers\HomeController@index');
+Route::get('/{slug1}.html', array(
+    'as' => 'category.list',
+    'uses' => 'MinhnnController@category')
+)->where('any', '(.*)\/$');
+Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
+Route::get('/{slug1}/{slug2}.html', array(
+    'as' => 'tintuc.details',
+    'uses' => 'HomeController@singleDetails'));
+Route::get('/','App\Http\Controllers\HomeController@index')->name('index'); // DẤU / LÀ THƯ MỤC GỐC
+Route::get('/trang-chu','App\Http\Controllers\HomeController@index')->name('index'); 
+Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@registerAccount')->name('register-account');
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
-Route::get('/product-detail/{category_id}','App\Http\Controllers\Product@product_detail');
+Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail');
 
 
 //backend
-Route::get('/admin','App\Http\Controllers\AdminController@index');
 Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
 Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 // Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
@@ -49,7 +58,6 @@ Route::get('/add-brand','App\Http\Controllers\Brand@add_brand');
 Route::get('/edit-brand/{brand_id}','App\Http\Controllers\Brand@edit_brand');
 Route::get('/delete-brand/{brand_id}','App\Http\Controllers\Brand@delete_brand');
 Route::get('/all-brand','App\Http\Controllers\Brand@all_brand');
- 
 Route::get('/unactive-brand/{brand_id}','App\Http\Controllers\Brand@unactive_brand');
 Route::get('/active-brand/{brand_id}','App\Http\Controllers\Brand@active_brand');
 

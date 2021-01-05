@@ -12,14 +12,13 @@
                     <img src="images/graphic-map-tipee.png" alt="">
                 </div>
                 <div class="col-7 log-right">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
-                            aria-hidden="true">&times;</span>
-                    </button>
+                <div class="icon-close" >
+                    <span type="button" class="tikicon icon-circle-close" data-dismiss="modal" aria-label="Close"> </div>
                     <div class="test">
                         <div class="log-right-header">
                             <ul class="list-inline">
                                 <li class="list-inline-item "><a class="social-icon text-xs-center" href="">Đăng
-                                        nhập</a>
+                                        nhập</a>    
                                 </li>
                                 <li class="list-inline-item log-active"><a class="social-icon text-xs-center"
                                         href="">Tạo tài khoản</a>
@@ -28,39 +27,56 @@
                         </div>
                         <div class="login-form">
                             <!-- form dang ky -->
-                            <form>
+                            <form id="sign_in" method="POST" action="{{ route('register-account') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group row">
                                     <label for="full_name" class="col-3 col-form-label">Họ tên</label>
-                                    <input type="text" class="form-control col-9 login-input" id="full_name"
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="full_name"
                                         name="full_name" placeholder="Nhập họ tên">
+                                            @if($errors->has('full_name'))
+                        <div class="error"><?php echo $errors->first('full_name');
+                         ?></div>
+                    @endif
                                 </div>
                                 <div class="form-group row">
-                                    <label for="phone_number" class="col-3 col-form-label">SĐT</label>
-                                    <input type="text" class="form-control col-9 login-input" id="phone_number"
-                                        name="phone_number" placeholder="Nhập số điện thoại">
+                                    <label for="phone" class="col-3 col-form-label">SĐT</label>
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="phone"
+                                        name="phone" placeholder="Nhập số điện thoại">
+                                         @if($errors->has('phone'))
+                        <div class="error"><?php echo $errors->first('phone');
+                         ?></div>
+                    @endif
                                 </div>
                                 
                                 <div class="form-group row">
                                     <label for="email" class="col-3 col-form-label">Email</label>
-                                    <input type="text" class="form-control col-9 login-input" id="email" name="email"
+                                    <input type="text" class="form-control col-9 login-input" value="{{old('full_name')}}" id="email" name="email"
                                         placeholder="Nhập email">
+                                       @if($errors->has('email'))
+                        <div class="error"><?php echo $errors->first('email');
+                         ?></div>
+                    @endif
                                 </div>
                                 <div class="form-group row">
                                     <label for="password" class="col-3 col-form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control col-9 login-input" id="password"
+                                    <input type="password" class="form-control col-9 login-input" value="{{old('full_name')}}" id="password"
                                         name="password" placeholder="Mật khẩu từ 6 đến 32 ký tự">
+                                        @if($errors->has('password'))
+                        <div class="error"><?php echo $errors->first('password');
+                         ?></div>
+                    @endif
                                 </div>
                                 <!-- gender -->
                                 <div class="form-group row">
                                     <label for="gender" class="col-3 col-form-label">Giới tính</label>
                                     <div class="form-group row" style="margin-left: 10px;">
                                         <div class="form-check-inline gender-check">
-                                            <input class="form-check-input" type="radio" name="gender" value="male"
+                                            <input class="form-check-input" @php echo 'male'==old('gender') ? 'checked': '' @endphp type="radio" name="gender" value="male"
                                                 checked>
                                             <label class="form-check-label" for="gender">Nam</label>
                                         </div>
                                         <div class="form-check-inline gender-check">
-                                            <input class="form-check-input" type="radio" name="gender" value="female">
+                                            <input class="form-check-input" @php echo 'female'==old('gender') ? 'checked': '' @endphp type="radio" name="gender" value="female">
                                             <label class="form-check-label" for="gender">Nữ</label>
                                         </div>
                                     </div>
@@ -69,34 +85,27 @@
                                 <div class="form-group row">
                                     <label for="birthday" class="col-3 col-form-label">Ngày sinh</label>
                                     <div class="dropdown col-3">
-                                        <button class="btn dropdown-toggle log-date-btn" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">Tháng</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="">1</a>
-                                            <a class="dropdown-item" href="">2</a>
-                                            <a class="dropdown-item" href="">3</a>
-                                        </div>
+                                         <select name="day"  class="form-control form-control-sm">
+                                         @for($i=1;$i<=31;$i++)
+                                         @php $number = $i<10 ? '0'.$i : $i; @endphp 
+                                           <option @php echo $i==old('day') ? 'selected': '' @endphp >{{$number}}</option>
+                                           @endfor
+                                         </select>
                                     </div>
                                     <div class="dropdown col-3">
-                                        <button class="btn dropdown-toggle log-date-btn" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">Năm</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="">1</a>
-                                            <a class="dropdown-item" href="">2</a>
-                                            <a class="dropdown-item" href="">3</a>
-                                        </div>
+                                        <select name="month"  class="form-control form-control-sm">
+                                         @for($i=1;$i<=12;$i++)
+                                          @php $number = $i<10 ? '0'.$i : $i; @endphp 
+                                           <option @php echo $i==old('day') ? 'selected': '' @endphp>{{$number}}</option>
+                                           @endfor
+                                         </select>
                                     </div>
                                     <div class="dropdown col-3">
-                                        <button class="btn dropdown-toggle log-date-btn" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">Ngay</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="">1</a>
-                                            <a class="dropdown-item" href="">2</a>
-                                            <a class="dropdown-item" href="">3</a>
-                                        </div>
+                                        <select name="year" class="form-control form-control-sm">
+                                         @for($i=1960;$i<=date('Y');$i++)
+                                           <option @php echo $i==old('day') ? 'selected': '' @endphp>{{$i}}</option>
+                                           @endfor
+                                         </select>
                                     </div>
                                 </div>
                                 <!-- -->
@@ -130,6 +139,7 @@
         </div>
     </div>
 </div>
+{{-- {{\App\myHelper::getLogin()}} --}}
 <!-- Modal -->
 <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalTitle"
     aria-hidden="true">
@@ -145,9 +155,8 @@
                     <img src="images/graphic-map-tipee.png" alt="">
                 </div>
                 <div class="col-7 log-right">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
-                            aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="icon-close" >
+                    <span type="button" class="tikicon icon-circle-close" data-dismiss="modal" aria-label="Close"> </div>
                     <div class="test">
                         <div class="log-right-header">
                             <ul class="list-inline">
@@ -298,8 +307,14 @@
             adaptiveHeight: true
         });
     });
+    @if ($errors->any())
+    $('#RegisterModal').modal('show')
+
+    @endif
     </script>
 </footer>
+
+<div class="message"><a href="https://www.facebook.com/messages/t/100025635753016" target="_blank" class="bt-fbmessage"><i><img src="/images/ico-message.png" alt=""></i></a></div>
 
 
 </body>
