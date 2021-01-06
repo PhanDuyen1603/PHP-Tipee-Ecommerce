@@ -147,7 +147,7 @@ $seo = WebService::getSEO($data_seo);
                                         <input type="text" class="form-control title_slugify" id="post_title" name="post_title" placeholder="Tiêu đề" value="{{$post_title}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="post_slug">Slug sản phẩm(Hệ thống tự tạo hoặc Admin phải làm chuẩn)</label>
+                                        <label for="post_slug">Slug sản phẩm</label>
                                         <input type="text" class="form-control slug_slugify" id="post_slug" name="post_slug" placeholder="Slug" value="{{$post_slug}}">
                                         <?php if($sid>0): ?>
                                             <b style="color: #0000cc;">Demo Link:</b> <u><i><a  style="color: #F00;" href="<?php echo  $link_url_check; ?>" target="_blank"><?php echo  $link_url_check; ?></a></i></u>
