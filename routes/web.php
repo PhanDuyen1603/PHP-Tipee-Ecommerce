@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 Route::get('customer/logout', ['as'  => 'CustomerLogout', 'uses' =>'App\Http\Controllers\Customer\CustomerLoginController@logout']);
-// Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'App\Http\Controllers\Customer\CustomerLoginController@postLoginCustomer'));
+ Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'App\Http\Controllers\Customer\CustomerLoginController@postLoginCustomer'));
 Route::post('/customer/login','App\Http\Controllers\HomeController@postLoginCustomer')->name('loginCustomerAction');
 
 //frontend

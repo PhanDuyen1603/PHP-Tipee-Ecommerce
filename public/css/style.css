@@ -180,6 +180,10 @@ img {
     text-decoration: none;
 }
 
+li.category_menu_list {
+    margin-bottom: 6px;
+}
+
 .login-admin {
     background-color: #364150!important;
 }

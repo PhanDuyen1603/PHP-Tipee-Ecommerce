@@ -3,11 +3,11 @@
 // Route xử lý cho admin
 
 
-       Route::get('/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm');
+      Route::get('/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm');
    	Route::post('/login', 'App\Http\Controllers\Admin\LoginController@login')->name('admin.login');
    	Route::get('/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('admin.logout');
    	Route::group(['middleware' => ['auth:admin']], function () {
-   		Route::get('/', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
+   	Route::get('/', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
 
          //export excel
          Route::get('/export_customer', array('as' => 'admin.exportCustomer', 'App\Http\Controllers\Admin\uses' => 'AdminController@exportCustomer'));

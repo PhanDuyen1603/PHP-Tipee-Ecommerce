@@ -77,6 +77,10 @@ body {
     position: relative;
 }
 
+li.category_menu_list {
+    margin-bottom: 6px;
+}
+
 .ct-cart:hover {
     color: white;
     text-decoration: none;
