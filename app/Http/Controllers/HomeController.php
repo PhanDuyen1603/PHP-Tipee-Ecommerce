@@ -9,7 +9,10 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use App\Model\Theme;
 use App\WebService\WebService;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth,Cart;
+// echo $path = base_path().'\cart\vendor\autoload.php';
+// require_once  $path;
+// include_once base_path('cart/vendor/autoload.php');
 
 session_start();
 
@@ -18,6 +21,7 @@ session_start();
 class HomeController extends Controller
 {
     public function index(){
+        \Cart::content()->count();
         $allProducts = Theme::all();
        
         return view('home.index')->with('allProducts',$allProducts);

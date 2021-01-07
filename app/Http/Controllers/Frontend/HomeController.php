@@ -11,7 +11,8 @@ use Redirect;
 use App\Libraries\Helpers;
 use App\Facades\WebService;
 use App\Models\User;
-
+require __DIR__.'/../vendor/autoload.php';
+echo __DIR__;
 class HomeController extends Controller
 {
     /**
