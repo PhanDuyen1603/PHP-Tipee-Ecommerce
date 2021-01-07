@@ -5,11 +5,13 @@
             <i class="tikicon icon-tiki_short" src="./images/tipee-logo.png"></i></a><a href="#" aria-label="" data-view-id="header_campaign_logo"></a>
          </div>
          <div class="search-form">
-            <div class="search-form-left"><input type="text" data-view-id="main_search_form_input" value=""
+         <form class="form minisearch" id="search_mini_form" action="/search/" method="get">
+            <div class="search-form-left"><input type="text" name="query_string" data-view-id="main_search_form_input" value=""
                placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..." class="eUnWAD"><button
                data-view-id="main_search_form_button" class="ieXBRV"><i class="tikicon icon-search"></i>Tìm
                kiếm</button>
             </div>
+            </form>
          </div>
       </div>
       <div data-view-id="header_user_shortcut" class="order">

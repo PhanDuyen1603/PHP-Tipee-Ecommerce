@@ -33,10 +33,20 @@ Route::get('/{slug1}/{slug2}.html', array(
 Route::get('/','App\Http\Controllers\HomeController@index')->name('index'); // DẤU / LÀ THƯ MỤC GỐC
 Route::get('/trang-chu','App\Http\Controllers\HomeController@index')->name('index'); 
 Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@registerAccount')->name('register-account');
+<<<<<<< Updated upstream
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
 Route::get('/product-detail/{category_id}','App\Http\Controllers\Product@product_detail');
+=======
+// search
+Route::get('/search', array(
+    'as' => 'theme.search',
+    'uses' => 'App\Http\Controllers\Frontend\SearchController@search'));
+// //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
+// Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
+// Route::get('/product-detail/{category_id}','App\Http\Controllers\Product@product_detail');
+>>>>>>> Stashed changes
 
 
 //backend

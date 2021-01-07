@@ -11,7 +11,10 @@ use Redirect;
 use App\Libraries\Helpers;
 use App\Facades\WebService;
 use App\Models\User;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 class HomeController extends Controller
 {
     /**
