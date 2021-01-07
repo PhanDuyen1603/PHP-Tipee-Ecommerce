@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Model\Theme;
 use App\WebService\WebService;
 use Illuminate\Support\Facades\Auth,Cart;
-// echo $path = base_path().'\cart\vendor\autoload.php';
-// require_once  $path;
-// include_once base_path('cart/vendor/autoload.php');
+
 
 session_start();
 
@@ -21,10 +19,6 @@ session_start();
 class HomeController extends Controller
 {
     public function index(){
-        $allProducts = Theme::all();
-       
-        return view('home.index')->with('allProducts',$allProducts);
-=======
         $productNews = Theme::orderBy('id','desc')->limit(10)->get();
         $productSales = Theme::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
         $productFavourite = Theme::skip(20)->take(10)->orderBy('id','desc')->limit(10)->get();
@@ -56,7 +50,6 @@ class HomeController extends Controller
         } else{
             return view('errors.404');
         }
->>>>>>> Stashed changes
     }
     public function postLoginCustomer(Request $request)
     {
