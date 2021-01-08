@@ -170,15 +170,16 @@
                         </div>
                         <!-- form dang nhap -->
                         <div class="login-form">
-                            <form>
+                           <form method="POST" action="{{route('loginCustomerAction')}}">
+               {{ csrf_field() }}
                                 <div class="form-group row">
                                     <label for="email" class="col-3 col-form-label">Email / SĐT</label>
-                                    <input type="text" class="form-control col-9 login-input" id="email"
+                                    <input type="text" class="form-control col-9 login-input" name="email" id="email"
                                         placeholder="Nhập Email hoặc Số điện thoại">
                                 </div>
                                 <div class="form-group row">
                                     <label for="password" class="col-3 col-form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control col-9 login-input" id="password"
+                                    <input type="password" class="form-control col-9 login-input" name="password" id="password"
                                         placeholder="Mật khẩu từ 6 đến 32 ký tự">
                                 </div>
                                 <!-- -->
