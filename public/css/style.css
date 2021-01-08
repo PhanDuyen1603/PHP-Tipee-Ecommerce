@@ -172,7 +172,20 @@ img {
 .wishlist a svg {
     margin-right: 10px;
     position: relative;
-    top: 2px;
+    top: 5px;
+}
+
+.ct-cart:hover {
+    color: white;
+    text-decoration: none;
+}
+
+li.category_menu_list {
+    margin-bottom: 6px;
+}
+
+.login-admin {
+    background-color: #364150!important;
 }
 
 .wishlist a:hover {
@@ -1771,6 +1784,10 @@ hr {
     overflow: visible
 }
 
+main {
+    background: #f4f4f4;
+}
+
 pre {
     font-family: monospace, monospace;
     font-size: 1em
@@ -1952,14 +1969,25 @@ template {
     left: 10px
 }
 
-#home_flashdeal_container {
+svg.w-5.h-5 {
+    width: 30px;
+    position: relative;
+    top: 9px;
+}
+
+.header-title .title {
+    padding-left: 10px;
+    padding: 20px 0;
+}
+
+.home_flashdeal_container {
     display: flex;
     display: -webkit-flex;
     flex-wrap: wrap;
     webkit-flex-wrap: wrap;
 }
 
-#home_flashdeal_container .home_flashdeal_item:hover {
+.home_flashdeal_container .home_flashdeal_item:hover {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
     z-index: 1;
 }
@@ -2025,7 +2053,7 @@ button.slick-next.slick-arrow {
     right: 10px;
 }
 
-#home_flashdeal_container .home_flashdeal_item .title {
+.home_flashdeal_container .home_flashdeal_item .title {
     position: relative;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -2050,20 +2078,20 @@ button.slick-next.slick-arrow {
     margin-left: 8px;
 }
 
-#home_flashdeal_container .home_flashdeal_item .image-product img {
+.home_flashdeal_container .home_flashdeal_item .image-product img {
     width: 100%;
     opacity: 1;
     transition: opacity 0.3s ease 0s;
 }
 
-#home_flashdeal_container .home_flashdeal_item .image-product {
+.home_flashdeal_container .home_flashdeal_item .image-product {
     width: 200px;
     height: 200px;
     text-align: center;
     margin-bottom: 12px;
 }
 
-#home_flashdeal_container .home_flashdeal_item {
+.home_flashdeal_container .home_flashdeal_item {
     width: 20% !important;
     position: relative;
     display: flex;
@@ -2075,7 +2103,7 @@ button.slick-next.slick-arrow {
     background-color: rgb(255, 255, 255);
 }
 
-#home_flashdeal_container .slider-wrapper .slick-arrow.slick-next {
+.home_flashdeal_container .slider-wrapper .slick-arrow.slick-next {
     right: 23px
 }
 

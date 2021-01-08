@@ -2,6 +2,10 @@
                                  </div>
                                  <!--nav-main-->                 
                               </div>
+                               @if(Auth::check())
+                               {{Auth::user()}}
+                               @endif
+                               <a href="{{route('CustomerLogout')}}">logout</a>
 <div class="header-bottom">
     <div style="position:relative;display:flex;align-items:center;justify-content:space-between;height:40px"
         class="header-list-iteam list-iteam">
@@ -15,7 +19,7 @@
                 class="ct-cart"><i class="tikicon icon-arrow-down"></i><span>Sản phẩm bạn đã xem</span></a>
                 </div>
                    <div class="header_bottom_icons_recently_view"><a
-                class="ct-cart"><i class="tikicon icon-arrow-down"></i><span>Kênh người bán</span></a>
+                class="ct-cart" href="/admin/login"><i class="tikicon icon-arrow-down"></i><span>Kênh người bán</span></a>
                 </div>
 
             <div class="cart-notification">

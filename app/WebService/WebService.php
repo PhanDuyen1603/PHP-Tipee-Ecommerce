@@ -17,6 +17,7 @@ class WebService {
     public static function getProductHome($rows){
         $html = '';
         if(count($rows)>0){
+           
             foreach($rows as $item){
                 
                 if(!empty($item['price_origin']) &&  $item['price_origin'] >0):
@@ -58,7 +59,51 @@ class WebService {
         }
         return $html;
     }
-       
+    
+    public static function getProductSearch($rows){
+        $html = '';
+        if(count($rows)>0){
+           
+            foreach($rows as $item){
+                if(!empty($item->price_origin) &&  $item->price_origin >0):
+                    $price_origin=number_format($item->price_origin)." đ ";
+                else:
+                    $price_origin="";
+                endif;
+                if(!empty($item->price_promotion) &&  $item->price_promotion >0):
+                    $price_promotion=number_format($item->price_promotion)." đ ";
+                else:
+                    $price_promotion="Liên hệ";
+                endif;
+                if(intval($item->price_promotion)<=intval($item->price_origin) && $item->price_promotion !='' && $item->price_origin !=''):
+                    $val_td=intval($item->price_origin)-intval($item->price_promotion);
+                    $percent=($val_td/intval($item->price_origin))*100;
+                    $note_percent = '<span class="label sale">SALE</span>';
+                    $circle_sale= '<span class="percent deal">-'.intval($percent).'%</span>';
+                    $price_promotion = number_format($item->price_promotion)." đ ";
+                   $original =  '<span class="original deal">'.number_format($item->price_origin)." đ ".'</span>';
+                else:
+                    $val_td=0;
+                    $percent=0;
+                    $note_percent="";
+                    $circle_sale='';
+                    $original = '';
+                    $price_promotion = number_format($item->price_origin)." đ ";
+                endif;
+                $url_img="images/product";
+                if(!empty($item->thubnail) && $item->thubnail !=""):
+                    $thumbnail= Helpers::getThumbnail($url_img,$item->thubnail, 280, 280, "resize");
+                    if(strpos($thumbnail, 'placehold') !== false):
+                        $thumbnail=$url_img.$thumbnail;
+                    endif;
+                else:
+                    $thumbnail="https://dummyimage.com/280x280/000/fff";
+                endif;
+                $html.='<a class="home_flashdeal_item" title="'.$item->title.'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item->title.'" class="image-product"></div><div class="title">'.$item->title.'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
+            }
+        }
+        return $html;
+    }
     public function getSEO($data = array()){
         $seo = array();
         $seo['title'] = isset($data['title'])?$data['title']:'';

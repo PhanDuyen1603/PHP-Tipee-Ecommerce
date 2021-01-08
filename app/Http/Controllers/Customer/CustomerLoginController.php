@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use App\Models\User;
 use App\Model\Discount_code;
 use Validator;
 use Mail;
@@ -31,7 +31,7 @@ class CustomerLoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/customer';
+    protected $redirectTo = '/';
     /**
      * Create a new controller instance.
      *
@@ -42,8 +42,28 @@ class CustomerLoginController extends Controller
         $this->middleware('auth')->except('logout');
     }
     public function logout(){
-        Auth::user()->logout();
+        // Auth::user()->logout();
+        Auth::logout();
+
         return redirect()->route('index');
+    }
+    public function postLoginCustomer(Request $request)
+    {
+        $login = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        if($request->remember_me == 1){
+            $remember_me = true;
+        } else{
+        	$remember_me = false;
+        }
+        
+        if (Auth::attempt($login, $remember_me)) {
+            return redirect()->route('index');
+        } else {
+            return redirect()->back()->with('status', 'Email hoặc Password không chính xác');
+        }
     }
     public function registerCustomer(){
         return view('customer.auth.register');

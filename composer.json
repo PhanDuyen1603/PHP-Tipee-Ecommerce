@@ -15,7 +15,10 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^2.3"
+        "laravel/ui": "^2.3",
+        "illuminate/events": "^8.21",
+        "illuminate/session": "^7.25",
+        "illuminate/support": "^7.25"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

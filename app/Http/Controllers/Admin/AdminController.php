@@ -32,7 +32,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
+    public function dashboard(){
+        
+    }
     public function changePassword(){
         return view('admin.change-password');   
     }

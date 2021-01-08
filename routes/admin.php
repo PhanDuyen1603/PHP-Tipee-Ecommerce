@@ -7,7 +7,7 @@
    	Route::post('/login', 'App\Http\Controllers\Admin\LoginController@login')->name('admin.login');
    	Route::get('/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('admin.logout');
    	Route::group(['middleware' => ['auth:admin']], function () {
-   		Route::get('/', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
+         Route::get('/', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
 
          //export excel
          Route::get('/export_customer', array('as' => 'admin.exportCustomer', 'App\Http\Controllers\Admin\uses' => 'AdminController@exportCustomer'));
@@ -118,4 +118,5 @@
          Route::get('/video/create', 'App\Http\Controllers\Admin\VideoController@createVideo')->name('admin.createVideo');
          Route::get('/video/{id}', 'App\Http\Controllers\Admin\VideoController@videoDetail')->name('admin.videoDetail');
          Route::post('/video/post', 'App\Http\Controllers\Admin\VideoController@postVideoDetail')->name('admin.postVideoDetail');
-   	});
+      });
+      
