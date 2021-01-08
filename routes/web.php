@@ -15,15 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 // Auth::routes();
 
-// GỌI CONTROLLERS
-// CONTROLLERS ĐIỀU KHIỂN VIEWS
-
 //frontend
 Route::get('/{slug1}.html', array(
     'as' => 'category.list',
     'uses' => 'MinhnnController@category')
 )->where('any', '(.*)\/$');
-Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
+// Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
 Route::get('/{slug1}/{slug2}.html', array(
     'as' => 'tintuc.details',
     'uses' => 'HomeController@singleDetails'));
@@ -33,8 +30,18 @@ Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@re
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
-Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail');
 
+
+//PRODUCT DETAILS HIỂN THỊ CHO KHÁCH HÀNG
+Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail')->name('product.detail');
+
+//tu
+Route::post('/add-rating','App\Http\Controllers\Customer\ProductController@postAddRating')->name('customer.postAddRating');
+
+//CART
+Route::post('/save-cart','App\Http\Controllers\Customer\CartController@save_cart');
+//Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
+Route::get('/cart/{userId}','App\Http\Controllers\Customer\CartController@show_cart');
 
 //backend
 Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
@@ -76,10 +83,7 @@ Route::get('/active-product/{product_id}','App\Http\Controllers\Product@active_p
 Route::post('/save-product','App\Http\Controllers\Product@save_product');
 Route::post('/update-product/{product_id}','App\Http\Controllers\Product@update_product');
 
-//CART
-Route::post('/save-cart','App\Http\Controllers\CartController@save_cart');
-Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
-Route::get('/show-cart','App\Http\Controllers\CartController@show_cart');
+
 
 
 

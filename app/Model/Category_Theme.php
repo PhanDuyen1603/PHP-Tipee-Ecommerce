@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category_Theme extends Model
 {
-    public $timestamps = false;
+    public $timestamps = false; 
     protected $table = 'category_theme';
     protected $fillable =[
         'categoryID',
