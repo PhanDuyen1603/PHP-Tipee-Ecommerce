@@ -88,15 +88,25 @@
                             <div id="home_new" class="home_flashdeal_container">
                                 <?php echo WebService::getProductHome($productNews); ?>
                             </div>
-                            <div id="home_sale">
+                            
+                            
+                        </div>
+
+                        
+                            
+                       
+                    </div>
+
+                    <div id="home_sale">
                                 <div class="header-title">
                                     <h3 class="title">SẢN PHẨM BÁN CHẠY</h3>
                                 </div>
                                 <div class="home_flashdeal_container">
                                     <?php echo WebService::getProductHome($productSales); ?>
                                 </div>
-                            </div>
-                            <div id="home_favourite">
+                        </div>
+
+                    <div id="home_favourite">
                                 <div class="header-title">
                                     <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
                                 </div>
@@ -104,9 +114,6 @@
                                     <?php echo WebService::getProductHome($productFavourite); ?>
                                 </div>
                             </div>
-                        </div>
-                       
-                    </div>
                 </div>
             </main>
             <span></span>
