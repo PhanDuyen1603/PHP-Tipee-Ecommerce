@@ -1,0 +1,13 @@
+
+.extra_logo span{
+    font-style:italic;font-size:12px;
+}
+
+.commit_icon{
+    font-size:16px; 
+    color:#CA2425;
+}
+
+#extra_commit span{
+    font-size:12px;
+}
