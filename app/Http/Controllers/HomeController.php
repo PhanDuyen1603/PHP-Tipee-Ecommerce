@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function index(){
         $allProducts = Theme::all();
        
-        return view('home.index')->with('allProducts',$allProducts);
+        return view('home.index', compact('allProducts'));
     }
 
 }

@@ -53,16 +53,9 @@ class ProductController extends Controller
         // theme.id = join_category_theme.id_theme,
         //category_theme.categoryID = join_category_theme.id_category_theme
 
-        $data_product = Theme::join('join_category_theme', 'join_category_theme.id_theme', '=', 'theme.id')
-        ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_theme')
-        ->join('brand','brand.brandID','=','theme.id_brand')
-        ->where('theme.id',$product_id)->get();
-
-        $category_theme = "";
-        foreach($data_product as $key => $value)
-        {
-            $category_theme = $value->categoryID;
-        } 
+        $data_product = Theme::where('theme.id',$product_id)->get();
+        $category_theme = "16";
+        
 
         // LẤY CÁC SẢN PHẨM LIÊN QUAN THÔNG QUA join_category_theme
         $related_product = Theme::join('join_category_theme', 'join_category_theme.id_theme', '=', 'theme.id')

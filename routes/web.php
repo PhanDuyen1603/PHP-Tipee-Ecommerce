@@ -33,7 +33,7 @@ Route::get('/category/{category_id}','App\Http\Controllers\Category@show_categor
 
 
 //PRODUCT DETAILS HIỂN THỊ CHO KHÁCH HÀNG
-Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail')->name('product.detail');
+Route::get('/product-detail/{slug}','App\Http\Controllers\Customer\ProductController@productDetail')->name('product.detail');
 
 //tu
 Route::post('/add-rating','App\Http\Controllers\Customer\ProductController@postAddRating')->name('customer.postAddRating');
