@@ -22,7 +22,7 @@
                             <div width="100%" data-view-id="home_top_banner_bottom_container"
                                 class=" banner-bottom-container">
                                 <div width="50%" height="181px" class=" 
-                            banner-item">
+                                banner-item">
                                     <a data-view-id="home_top_banner_bottom_item" data-view-index="0" href=""
                                         aria-label=""><img width="292" height="181" src="./images/tiki-banner-8.png"
                                             srcSet="./images/tiki-banner-8.png" alt="" /></a>
@@ -82,7 +82,7 @@
                                     alt="flash deal"><img
                                     src="https://frontend.tikicdn.com/_desktop-next/static/img/homnay.svg" alt="flash deal">
                             </div>
-                            
+
                         </div>
                         <div class="body">
                             <div id="home_new" class="home_flashdeal_container">
@@ -90,29 +90,31 @@
                                     @include('partials.product_item')
                                 @endforeach
                             </div>
-                            <div id="home_favourite">
-                                <div class="header-title">
-                                    <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
-                                </div>
-                                <div class="home_flashdeal_container">
-                                    @foreach ($productFavourite as $product)
-                                        @include('partials.product_item')
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div id="home_favourite">
-                                <div class="header-title">
-                                    <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
-                                </div>
-                                <div class="home_flashdeal_container">
-                                    @foreach ($productFavourite as $product)
-                                        @include('partials.product_item')
-                                    @endforeach
-                                </div>
-                            </div>
-                            
                         </div>
-                </div>
+                    </div>
+
+                    <div id="home_favourite">
+                        <div class="header-title">
+                            <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
+                        </div>
+                        <div class="home_flashdeal_container">
+                            @foreach ($productFavourite as $product)
+                                @include('partials.product_item')
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div id="home_favourite">
+                        <div class="header-title">
+                            <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
+                        </div>
+                        <div class="home_flashdeal_container">
+                            @foreach ($productFavourite as $product)
+                                @include('partials.product_item')
+                            @endforeach
+                        </div>
+                    </div>
+
             </main>
             <span></span>
         </div>
