@@ -26,12 +26,14 @@ class ProductController extends Controller
     public function add_wishList(Request $request){
         $data = $request->all();
         $wishList_user = WishList::Where('userId',$data['userId'])->Where('productId',$data['productId'])->get();
+        
         if($wishList_user->isEmpty()){
             $wishList = new WishList();
             $wishList['userId'] = $data['userId'];
             $wishList['productId'] = $data['productId'];
             $wishList->save();
         }else{
+            var_dump($wishList);
             $wishList_user->delete();
         }
        
