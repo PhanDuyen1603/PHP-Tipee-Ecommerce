@@ -36,7 +36,7 @@ Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@re
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/search', 'App\Http\Controllers\Frontend\SearchController@search')->name('admin.searchPost');
 
-Route::get('/product-detail/{slug}','App\Http\Controllers\Customer\ProductController@productDetail')->name('product.detail');
+Route::get('/san-pham/{slug}','App\Http\Controllers\Frontend\ProductController@productDetail')->name('product.detail');
 
 // //CATEGORY ADMIN QUẢN LÝ
 // Route::get('/add-category','App\Http\Controllers\Category@add_category');

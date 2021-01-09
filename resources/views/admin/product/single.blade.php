@@ -46,7 +46,7 @@ if(isset($product_detail)){
     if($data_cats):
         $slug_cat=$data_cats->categorySlug;
         $link_url_check="";
-        $link_url_check=route('tintuc.details',array($slug_cat,$product_detail->slug));
+        $link_url_check=route('product.detail',$product_detail->slug);
     endif;
 } else{
     $title = 'Sản phẩm mới';
