@@ -2,9 +2,7 @@
                                  </div>
                                  <!--nav-main-->                 
                               </div>
-                               @if(Auth::check())
-                               {{Auth::user()}}
-                               @endif
+                               
                                <a href="{{route('CustomerLogout')}}">logout</a>
 <div class="header-bottom">
     <div style="position:relative;display:flex;align-items:center;justify-content:space-between;height:40px"

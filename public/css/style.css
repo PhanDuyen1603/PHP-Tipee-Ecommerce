@@ -58,6 +58,11 @@
     background: white;
 }
 
+.acc-login img.profile-icon,
+.acc-login img.arrowIcon {
+    height: 25px;
+}
+
 .dafovQ {
     position: absolute;
     right: 24px;
