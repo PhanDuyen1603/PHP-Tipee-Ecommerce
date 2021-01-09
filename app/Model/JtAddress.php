@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
-class Jt_address extends Model
+class JtAddress extends Model
 {
     protected $table = 'jt_address';
     protected $fillable =[

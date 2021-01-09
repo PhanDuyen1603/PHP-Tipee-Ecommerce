@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Setting_Color extends Model
+class SettingColor extends Model
 {
     public $timestamps = false;
     protected $table = 'setting_color';

@@ -2,7 +2,7 @@
 namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer_forget_pass_otp extends Model{
+class CustomerForgetPassOtp extends Model{
     protected $table = 'customer_forget_pass_otp';
     public $timestamps = true;
     protected $fillable =[

@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Check_product_limit_event extends Model
+class CheckProductLimitEvent extends Model
 {
     protected $table = 'check_product_limit_event';
     protected $fillable =[

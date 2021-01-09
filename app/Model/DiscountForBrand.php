@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Discount_for_brand extends Model
+class DiscountForBrand extends Model
 {
     protected $table = 'discount_for_brand';
     protected $fillable =[

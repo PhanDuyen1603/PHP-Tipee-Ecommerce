@@ -4,14 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Theme extends Model
+class Product extends Model
 {
     public $timestamps = false;
-    protected $table = 'theme';
+    protected $table = 'products';
     protected $fillable =[
         'id',
         'title',
-        'theme_code',
+        'product_code',
         'subtitle',
         'slug',
         'description',

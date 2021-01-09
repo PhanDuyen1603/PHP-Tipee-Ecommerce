@@ -4,16 +4,16 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Theme_variable_sku_value extends Model
+class ProductVariableSkuValue extends Model
 {
     public $timestamps = false;
-    protected $table = 'theme_variable_sku_value';
+    protected $table = 'product_variable_sku_value';
     protected $fillable =[
         'id',
-        'id_theme',
-        'variable_themeID',
+        'id_product',
+        'variable_productID',
         'variable_parentID',
-        'theme_variable_sku_id',
+        'product_variable_sku_id',
         'status',
         'created',
         'updated'

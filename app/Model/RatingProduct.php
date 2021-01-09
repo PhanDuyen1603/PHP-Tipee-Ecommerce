@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
-class Rating_Product extends Model
+class RatingProduct extends Model
 {
     // protected $table = 'rating_product';
     // protected $fillable =[

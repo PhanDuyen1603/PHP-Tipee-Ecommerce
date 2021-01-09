@@ -4,10 +4,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category_Theme extends Model
+class CategoryProduct extends Model
 {
     public $timestamps = false; 
-    protected $table = 'category_theme';
+    protected $table = 'category_product';
     protected $fillable =[
         'categoryID',
         'categoryName',
@@ -25,7 +25,7 @@ class Category_Theme extends Model
         'categoryShort',
         'categoryIndex',
 		'showhome',
-        'theme_category_icon',
+        'product_category_icon',
         'seo_title',
         'seo_keyword',
         'seo_description',

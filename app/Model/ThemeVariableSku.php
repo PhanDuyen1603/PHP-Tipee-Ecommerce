@@ -4,13 +4,13 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Theme_variable_sku extends Model
+class ProductVariableSku extends Model
 {
     public $timestamps = false;
-    protected $table = 'theme_variable_sku';
+    protected $table = 'product_variable_sku';
     protected $fillable =[
         'id',
-        'id_theme',
+        'id_product',
         'sku',
         'price',
         'description',

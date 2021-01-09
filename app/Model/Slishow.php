@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Slishow extends Model
 {
     public $timestamps = false;
-    protected $table = 'slishow';
+    protected $table = 'slishows';
     protected $fillable =[
         'id',
         'name',

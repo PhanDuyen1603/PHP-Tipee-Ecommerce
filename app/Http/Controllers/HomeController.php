@@ -7,7 +7,7 @@ use DB;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-use App\Model\Theme;
+use App\Model\Product;
 use App\WebService\WebService;
 use Illuminate\Support\Facades\Auth,Cart;
 
@@ -19,9 +19,9 @@ session_start();
 class HomeController extends Controller
 {
     public function index(){
-        $productNews = Theme::orderBy('id','desc')->limit(10)->get();
-        $productSales = Theme::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
-        $productFavourite = Theme::skip(20)->take(10)->orderBy('id','desc')->limit(10)->get();
+        $productNews = Product::orderBy('id','desc')->limit(10)->get();
+        $productSales = Product::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
+        $productFavourite = Product::skip(20)->take(10)->orderBy('id','desc')->limit(10)->get();
         return view('home.index', compact('productNews','productSales','productFavourite'));
        
     }
