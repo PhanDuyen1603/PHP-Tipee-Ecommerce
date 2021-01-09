@@ -181,7 +181,7 @@ class ProductController extends Controller
         //xử lý thumbnail
         $thumbnail_alt=addslashes($rq->post_thumb_alt);
         $name_thumb_img1 = "";
-        $image = new Image();
+        // $image = new Image();
         $name_field = "thumbnail_file";
         
         if($rq->thumbnail_file):
@@ -189,7 +189,7 @@ class ProductController extends Controller
             $timestamp = $datetime_convert;
             $name = "product-".$timestamp. '-' .$file->getClientOriginalName();
             $name_thumb_img1 = $name;
-            $image->filePath = $name;
+            // $image->filePath = $name;
             $url_foder_upload = "/images/product/";
             $file->move(base_path().$url_foder_upload,$name);
         else:
@@ -260,7 +260,7 @@ class ProductController extends Controller
                     $timestamp = $datetime_convert;
                     $thumbnail_name_arr = "product_".$timestamp. '_theme_gallery_' .$file[$m]->getClientOriginalName();
                     $link_use_thumnail_gallery = $thumbnail_name_arr;
-                    $image->filePath = $thumbnail_name_arr;
+                    // $image->filePath = $thumbnail_name_arr;
                     $file[$m]->move(base_path().'/images/product/',$thumbnail_name_arr);
                 else:
                     if($rq->input('upload_gallery'.$k) != ""):

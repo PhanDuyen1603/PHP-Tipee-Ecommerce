@@ -1,11 +1,11 @@
-@extends('layout')
-@section('content')
+@extends('layouts.app')
+@section('content') 
 
 <section id="cart_items">
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-              <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
+              <li><a href="">Trang chủ</a></li>
               <li class="active">Giỏ hàng của bạn</li>
             </ol>
         </div>
@@ -26,33 +26,32 @@
                     </tr>
                 </thead>
                 <tbody>
+                @php
+                    $total = 0;
+                @endphp
+                @foreach($cartOfUser as $key => $cart)
                     @php
-                        $total = 0;
-                    @endphp
-                @foreach(Session::get('cart') as $key => $cart)
-                    @php
-                        $subtotal = $cart['product_price'] * $cart['product_qty'];
-                        $total += $subtotal;
+                        $total += $cart['cart_totalPrice'];
                     @endphp
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img width="100" height="100" src="{{URL::to('public/uploads/product/'.$cart['product_image'])}}" alt=""></a>
+                            <a href=""><img width="100" height="100" src="{{asset('images/product/'.$cart['thubnail'])}}" alt=""></a>
                         </td>
                         <td class="cart_description">
-                            <h4><a href="">{{$cart['product_name']}}</a></h4>
+                            <h4><a href="">{{$cart['title']}}</a></h4>
                         </td>
                         <td class="cart_price">
-                            <p>{{number_format($cart['product_price'],0,',','.').' đ'}}</p>
+                            <p>{{number_format($cart['product_promotion'],0,',','.').' đ'}}</p>
                         </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
                                 <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" min="1" type="number" name="cart_qty" value="{{$cart['product_qty']}}" autocomplete="off" size="2">
+                                <input class="cart_quantity_input" min="1" type="number" name="cart_qty" value="{{$cart['cart_quantity']}}" autocomplete="off" size="2">
                                 <a class="cart_quantity_down" href=""> - </a>
                             </div>
                         </td>
                         <td class="cart_total">
-                            <p class="cart_total_price">{{number_format($subtotal,0,',','.').' đ'}}</p>
+                            <p class="cart_total_price">{{number_format($cart['cart_totalPrice'],0,',','.').' đ'}}</p>
                         </td>
                         <td class="cart_delete">
                             <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>

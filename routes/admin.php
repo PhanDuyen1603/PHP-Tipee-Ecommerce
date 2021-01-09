@@ -1,7 +1,7 @@
 <?php 
 
-// Route xử lý cho admin
 
+// Route xử lý cho admin
 
       Route::get('/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm');
    	Route::post('/login', 'App\Http\Controllers\Admin\LoginController@login')->name('admin.login');

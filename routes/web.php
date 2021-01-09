@@ -17,18 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
-Route::get('/admin', ['as'  => 'admin', 'uses' =>'App\Http\Controllers\Admin\AdminController@dashboard']);
-
-Route::get('customer/logout', ['as'  => 'CustomerLogout', 'uses' =>'App\Http\Controllers\Customer\CustomerLoginController@logout']);
- Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'App\Http\Controllers\Customer\CustomerLoginController@postLoginCustomer'));
-Route::post('/customer/login','App\Http\Controllers\HomeController@postLoginCustomer')->name('loginCustomerAction');
 
 //frontend
 Route::get('/{slug1}.html', array(
     'as' => 'category.list',
     'uses' => 'App\Http\Controllers\Frontend\CategoryController@category')
 )->where('any', '(.*)\/$');
-Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
+// Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
 Route::get('/{slug1}/{slug2}.html', array(
     'as' => 'tintuc.details',
     'uses' => 'App\Http\Controllers\Frontend\HomeController@singleDetails'));
@@ -38,14 +33,10 @@ Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@re
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
-Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail');
 
 Route::get('/search', 'App\Http\Controllers\Frontend\SearchController@search')->name('admin.searchPost');
 
-// //backend
-// Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
-// Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
-// // Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
+Route::get('/product-detail/{slug}','App\Http\Controllers\Customer\ProductController@productDetail')->name('product.detail');
 
 // //CATEGORY ADMIN QUẢN LÝ
 // Route::get('/add-category','App\Http\Controllers\Category@add_category');
@@ -82,10 +73,11 @@ Route::get('/search', 'App\Http\Controllers\Frontend\SearchController@search')->
 // Route::post('/save-product','App\Http\Controllers\Product@save_product');
 // Route::post('/update-product/{product_id}','App\Http\Controllers\Product@update_product');
 
-// //CART
-// Route::post('/save-cart','App\Http\Controllers\CartController@save_cart');
-// Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
-// Route::get('/show-cart','App\Http\Controllers\CartController@show_cart');
+//CART
+Route::post('/save-cart','App\Http\Controllers\CartController@save_cart');
+Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
+Route::get('/show-cart','App\Http\Controllers\CartController@show_cart');
+
 
 
 

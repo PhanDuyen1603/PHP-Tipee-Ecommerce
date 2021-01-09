@@ -22,7 +22,7 @@ class HomeController extends Controller
         $productNews = Theme::orderBy('id','desc')->limit(10)->get();
         $productSales = Theme::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
         $productFavourite = Theme::skip(20)->take(10)->orderBy('id','desc')->limit(10)->get();
-
+        return view('home.index', compact('allProducts'));
         return view('home.index')->with('productNews',$productNews)->with('productSales',$productSales)->with('productFavourite',$productFavourite);
     }
     // search

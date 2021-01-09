@@ -36,7 +36,7 @@ class AdminController extends Controller
         
     }
     public function changePassword(){
-        return view('admin.change-password');
+        return view('admin.change-password');   
     }
 
     public function postChangePassword(Request $rq){

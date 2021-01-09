@@ -96,14 +96,9 @@
                             
                        
                     </div>
-
-                    <div id="home_sale">
-                                <div class="header-title">
-                                    <h3 class="title">SẢN PHẨM BÁN CHẠY</h3>
-                                </div>
-                                <div class="home_flashdeal_container">
-                                    <?php echo WebService::getProductHome($productSales); ?>
-                                </div>
+                            @foreach ($allProducts as $product)
+                                @include('partials.product_item')
+                            @endforeach
                         </div>
 
                     <div id="home_favourite">
