@@ -90,25 +90,28 @@
                                     @include('partials.product_item')
                                 @endforeach
                             </div>
-                            
-                            
-                        </div>
-
-                        
-                            
-                       
-                    </div>
-                           
-                        </div>
-
-                    <div id="home_favourite">
+                            <div id="home_favourite">
                                 <div class="header-title">
                                     <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
                                 </div>
                                 <div class="home_flashdeal_container">
-                                    <?php echo WebService::getProductHome($productFavourite); ?>
+                                    @foreach ($productFavourite as $product)
+                                        @include('partials.product_item')
+                                    @endforeach
                                 </div>
                             </div>
+                            <div id="home_favourite">
+                                <div class="header-title">
+                                    <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
+                                </div>
+                                <div class="home_flashdeal_container">
+                                    @foreach ($productFavourite as $product)
+                                        @include('partials.product_item')
+                                    @endforeach
+                                </div>
+                            </div>
+                            
+                        </div>
                 </div>
             </main>
             <span></span>
