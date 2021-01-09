@@ -86,7 +86,9 @@
                         </div>
                         <div class="body">
                             <div id="home_new" class="home_flashdeal_container">
-                                <?php echo WebService::getProductHome($productNews); ?>
+                                @foreach ($productNews as $product)
+                                    @include('partials.product_item')
+                                @endforeach
                             </div>
                             
                             
@@ -96,9 +98,7 @@
                             
                        
                     </div>
-                            @foreach ($allProducts as $product)
-                                @include('partials.product_item')
-                            @endforeach
+                           
                         </div>
 
                     <div id="home_favourite">

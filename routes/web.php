@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
+Route::get('/admin', ['as'  => 'admin', 'uses' =>'App\Http\Controllers\Admin\AdminController@dashboard']);
 
+Route::get('customer/logout', ['as'  => 'CustomerLogout', 'uses' =>'App\Http\Controllers\Customer\CustomerLoginController@logout']);
+ Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'App\Http\Controllers\Customer\CustomerLoginController@postLoginCustomer'));
+Route::post('/customer/login','App\Http\Controllers\HomeController@postLoginCustomer')->name('loginCustomerAction');
 //frontend
 Route::get('/{slug1}.html', array(
     'as' => 'category.list',
