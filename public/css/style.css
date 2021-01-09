@@ -13,6 +13,33 @@
     font-size: 13px;
 }
 
+.header-title {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid rgb(244, 244, 244);
+    background: white;
+}
+
+.header-title .title {
+    padding-left: 10px;
+    padding: 0px !important;
+    color: #ff781c;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.body-container.border-group.clear {
+    margin-bottom: 30px;
+}
+
+.group-section-wrap.clear.row {
+    background: white;
+}
+
 .icon-close a:hover {
     opacity: 0.95;
 }
@@ -32,6 +59,15 @@
     background-position: -304px -29px;
     width: 24px;
     height: 24px;
+}
+
+div#home_favourite {
+    margin-bottom: 20px;
+}
+
+.home-page {
+    padding-bottom: 50px;
+    background: #f4f4f4;
 }
 
 .logoTipee {
@@ -73,10 +109,55 @@ h4 {
     text-decoration: none;
 }
 
+.pagination-search .flex.justify-between>span,
+.pagination-search .flex.justify-between>a.relative {
+    display: none
+}
+
+.pagination-search>nav>.sm:items-center>div {
+    display: none;
+    text-align: center;
+}
+
+.pagination-search {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.info {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.opps {
+    color: red;
+}
+
+.col-xs-12.col-sm-7.col-lg-7 {
+    margin: 0 auto;
+}
+
+.pagination-search p.text-sm.text-gray-700.leading-5 {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+span.relative.z-0.inline-flex.shadow-sm.rounded-md a:hover {
+    text-decoration: none;
+}
+
+body {
+    background-color: #f4f4f4 !important;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 .footer-item {
     background: #f7f7f7;
     height: 100px;
-    margin-top: 20px;
 }
 
 body .banner-right-container {

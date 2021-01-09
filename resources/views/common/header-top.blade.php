@@ -1,8 +1,8 @@
 <div class="header-list-iteam list-iteam">
    <div class=" header-list-item-nav">
       <div class="middle-feft">
-         <div class="logo-tipee"><a data-view-id="header_main_logo" href="#"><img class="logoTipee" src="./images/tipee-logo.png" alt="">
-            <i class="tikicon icon-tiki_short" src="./images/tipee-logo.png"></i></a><a href="#" aria-label="" data-view-id="header_campaign_logo"></a>
+         <div class="logo-tipee"><a data-view-id="header_main_logo" href="/"><img class="logoTipee" src="{{URL::to('/images/tipee-logo.png')}}" alt="">
+            <i class="tikicon icon-tiki_short" src="{{URL::to('/images/tipee-logo.png')}}"></i></a><a href="#" aria-label="" data-view-id="header_campaign_logo"></a>
          </div>
          <div class="search-form">
          <form class="form minisearch" id="search_mini_form" action="/search/" method="get">

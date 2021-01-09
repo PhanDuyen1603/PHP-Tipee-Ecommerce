@@ -104,9 +104,9 @@
                         </div>
                     </div>
 
-                    <div id="home_favourite">
+                    <div id="home_sale">
                         <div class="header-title">
-                            <h3 class="title">SẢN PHẨM ĐƯỢC YÊU THÍCH</h3>
+                            <h3 class="title">SẢN PHẨM BÁN CHẠY</h3>
                         </div>
                         <div class="home_flashdeal_container">
                             @foreach ($productFavourite as $product)

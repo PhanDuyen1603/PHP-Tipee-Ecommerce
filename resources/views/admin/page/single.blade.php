@@ -86,14 +86,7 @@ $seo = WebService::getSEO($data_seo);
     		          	<div class="card-body">
                             <!-- show error form -->
                             <div class="errorTxt"></div>
-                            <ul class="nav nav-tabs" id="tabLang" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="vi-tab" data-toggle="tab" href="#vi" role="tab" aria-controls="vi" aria-selected="true">Tiếng việt</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="en-tab" data-toggle="tab" href="#en" role="tab" aria-controls="en" aria-selected="false">Tiếng Anh</a>
-                                </li>
-                            </ul>
+                            
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="vi" role="tabpanel" aria-labelledby="vi-tab">
                                     <div class="form-group">
@@ -114,20 +107,6 @@ $seo = WebService::getSEO($data_seo);
                                     <div class="form-group">
                                         <label for="post_content">Nội dung</label>
                                         <textarea id="post_content" name="post_content">{!!$post_content!!}</textarea>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="en" role="tabpanel" aria-labelledby="en-tab">
-                                    <div class="form-group">
-                                        <label for="post_title_en">Title</label>
-                                        <input type="text" class="form-control" id="post_title_en" name="post_title_en" placeholder="Title" value="{{$post_title_en}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_description_en">Description</label>
-                                        <textarea id="post_description_en" name="post_description_en">{!!$post_description_en!!}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_content_en">Content</label>
-                                        <textarea id="post_content_en" name="post_content_en">{!!$post_content_en!!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +201,7 @@ $seo = WebService::getSEO($data_seo);
             }
         });
 
-        $('#post_description_en').summernote({
+        $('#post_content').summernote({
             placeholder: 'Enter your description',
             tabsize: 2,
             focus: true,
@@ -256,22 +235,6 @@ $seo = WebService::getSEO($data_seo);
     });
 </script>
 <script type="text/javascript">
-	CKEDITOR.replace('post_content',{
-		width: '100%',
-		resize_maxWidth: '100%',
-		resize_minWidth: '100%',
-		height:'300',
-		filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-	});
-	CKEDITOR.instances['post_content'];
 
-    CKEDITOR.replace('post_content_en',{
-        width: '100%',
-        resize_maxWidth: '100%',
-        resize_minWidth: '100%',
-        height:'300',
-        filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-    });
-    CKEDITOR.instances['post_content_en'];
 </script>
 @endsection

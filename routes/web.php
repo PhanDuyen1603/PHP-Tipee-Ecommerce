@@ -23,21 +23,17 @@ Route::get('customer/logout', ['as'  => 'CustomerLogout', 'uses' =>'App\Http\Con
  Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'App\Http\Controllers\Customer\CustomerLoginController@postLoginCustomer'));
 Route::post('/customer/login','App\Http\Controllers\HomeController@postLoginCustomer')->name('loginCustomerAction');
 //frontend
-Route::get('/{slug1}.html', array(
+Route::get('category/{slug1}.html', array(
     'as' => 'category.list',
     'uses' => 'App\Http\Controllers\Frontend\CategoryController@category')
 )->where('any', '(.*)\/$');
-// Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
-Route::get('/{slug1}/{slug2}.html', array(
-    'as' => 'tintuc.details',
-    'uses' => 'App\Http\Controllers\Frontend\HomeController@singleDetails'));
+Route::get('admin/login', 'App\Http\Controllers\Admin\LoginController@showLoginForm')->name('login');
+
 Route::get('/','App\Http\Controllers\HomeController@index')->name('index'); // DẤU / LÀ THƯ MỤC GỐC
 Route::get('/trang-chu','App\Http\Controllers\HomeController@index')->name('index'); 
 Route::post('/register-account','App\Http\Controllers\Frontend\HomeController@registerAccount')->name('register-account');
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG
-Route::get('/category/{category_id}','App\Http\Controllers\Category@show_category_home');
-
 Route::get('/search', 'App\Http\Controllers\Frontend\SearchController@search')->name('admin.searchPost');
 
 Route::get('/product-detail/{slug}','App\Http\Controllers\Customer\ProductController@productDetail')->name('product.detail');

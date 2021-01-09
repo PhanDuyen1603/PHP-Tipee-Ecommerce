@@ -110,7 +110,7 @@
                   <p>Gói Combo</p>
                 </a>
               </li>
-              <li class="nav-item hidden">
+              <li class="nav-item ">
                 <a href="{{route('admin.listCategoryProduct')}}" class="nav-link <?php if(in_array($segment_check, array('list-category-product', 'category-product'))){ echo 'active'; } ?>">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>Thể loại sản phẩm</p>

@@ -10,12 +10,23 @@ use Mail;
 use Redirect;
 use App\Libraries\Helpers;
 use App\Facades\WebService;
-use App\Models\User;
+use App\Models\User,DB;
+use App\Model\CategoryProduct;
 
 class CategoryController extends Controller
 {
-    public function category(){
-        
+    public function category($slug){
+        $category = CategoryProduct::where('categorySlug',$slug)->first();
+        $products=DB::table('category_products')
+        ->join('join_category_product','category_products.categoryID','=','join_category_product.id_category_product')
+        ->join('products','join_category_product.id_product','=','products.id')
+        ->where('category_products.categorySlug','=',$slug)
+        ->where('products.status','=',0)
+        ->orderBy('products.updated', 'DESC')
+        ->groupBy('products.slug')
+        ->select('products.*','category_products.categoryName','category_products.categorySlug','category_products.categoryDescription','category_products.categoryID','category_products.categoryContent')
+        ->paginate(10);
+        return view('product.category', compact('products','category'));
     }
     
 }
