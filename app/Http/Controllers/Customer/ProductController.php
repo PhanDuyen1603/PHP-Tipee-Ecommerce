@@ -12,6 +12,7 @@ use App\Model\Theme;
 use App\Model\Join_Category_Theme;
 use App\Model\Rating;
 use App\Model\Cart;
+use App\Model\WishList;
 
 use Validator;
 use Mail;
@@ -22,6 +23,21 @@ use App\Facades\WebService;
 
 class ProductController extends Controller
 {
+    public function add_wishList(Request $request){
+        $data = $request->all();
+        $wishList_user = WishList::Where('userId',$data['userId'])->Where('productId',$data['productId'])->get();
+        if($wishList_user->isEmpty()){
+            $wishList = new WishList();
+            $wishList['userId'] = $data['userId'];
+            $wishList['productId'] = $data['productId'];
+            $wishList->save();
+        }else{
+            $wishList_user->delete();
+        }
+       
+        return redirect('http://127.0.0.1:8000/product-detail/'.$data['productId']);
+    }
+
     public function postAddRating(Request $request){
         $data = $request->all();
         $rating = new Rating();
@@ -47,6 +63,7 @@ class ProductController extends Controller
     }
 
 
+    
 
     public function product_detail($product_id){
         // 3 table: theme, category_theme, join_category_theme
@@ -78,9 +95,9 @@ class ProductController extends Controller
         //tạm thờI gán user bằng một cái đã, chưa làm user
         $userId = 1;
         $count_product = Cart::Where('cart_user',$userId)->sum('cart_quantity');
-
+        // 
         return view('pages.product.show_detail')->with('data_product',$data_product)->with('related_product',$related_product)
-        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_product',$count_product);;//->with('productDetails',$productDetails);
+        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_product',$count_product);//->with('productDetails',$productDetails);
     }
 
    

@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 // Auth::routes();
 
-<<<<<<< HEAD
-=======
+
+
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 Route::get('/admin', ['as'  => 'admin', 'uses' =>'App\Http\Controllers\Admin\AdminController@dashboard']);
@@ -25,7 +25,6 @@ Route::get('customer/logout', ['as'  => 'CustomerLogout', 'uses' =>'App\Http\Con
  Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'App\Http\Controllers\Customer\CustomerLoginController@postLoginCustomer'));
 Route::post('/customer/login','App\Http\Controllers\HomeController@postLoginCustomer')->name('loginCustomerAction');
 
->>>>>>> duyen.dev
 //frontend
 Route::get('/{slug1}.html', array(
     'as' => 'category.list',
@@ -44,28 +43,33 @@ Route::get('/category/{category_id}','App\Http\Controllers\Category@show_categor
 
 Route::get('/search', 'App\Http\Controllers\Frontend\SearchController@search')->name('admin.searchPost');
 
-<<<<<<< HEAD
+
 //PRODUCT DETAILS HIỂN THỊ CHO KHÁCH HÀNG
 Route::get('/product-detail/{category_id}','App\Http\Controllers\Customer\ProductController@product_detail')->name('product.detail');
+Route::post('/add-wishList','App\Http\Controllers\Customer\ProductController@add_wishList');
 
 //tu
 Route::post('/add-rating','App\Http\Controllers\Customer\ProductController@postAddRating')->name('customer.postAddRating');
 
 //CART
 Route::post('/save-cart','App\Http\Controllers\Customer\CartController@save_cart');
+Route::post('/delete-cart','App\Http\Controllers\Customer\CartController@delete_cart');
+
 //Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
 Route::get('/cart/{userId}','App\Http\Controllers\Customer\CartController@show_cart');
+Route::get('/pay-cart/{userId}','App\Http\Controllers\Customer\CartController@pay_cart');
+
 
 //backend
 Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
 Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 // Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
-=======
+
 // //backend
 // Route::get('/admin-logout','App\Http\Controllers\AdminController@logout');
 // Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 // // Route::post('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
->>>>>>> duyen.dev
+
 
 // //CATEGORY ADMIN QUẢN LÝ
 // Route::get('/add-category','App\Http\Controllers\Category@add_category');
@@ -102,14 +106,14 @@ Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 // Route::post('/save-product','App\Http\Controllers\Product@save_product');
 // Route::post('/update-product/{product_id}','App\Http\Controllers\Product@update_product');
 
-<<<<<<< HEAD
 
-=======
+
+
 // //CART
 // Route::post('/save-cart','App\Http\Controllers\CartController@save_cart');
 // Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
 // Route::get('/show-cart','App\Http\Controllers\CartController@show_cart');
->>>>>>> duyen.dev
+
 
 
 

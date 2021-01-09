@@ -56,7 +56,10 @@
      {{--BOOTSTRAP  --}}
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-</head>
+
+    
+
+    </head>
 
 <body>
   <div class="container">
@@ -113,9 +116,20 @@
                           </div>        
                       </div>
                         {{-- Yeu thich va chia se --}}
+
                         <div id="wish_share_icon" class="col-md-3">
-                            <i  class="fa fa-heart"></i>
-                            <i class="fa fa-code-branch"></i>
+                          <form action="http://127.0.0.1:8000/add-wishList" method="POST">
+                              @csrf 
+                              {{-- tam thoi gan bang 1 --}}
+                              <input type="hidden" name="userId" class="userId" value="1">
+                              <input type="hidden" name="productId" class="productId" value="{{$dataPro->id}}">
+
+                              <button type="submit" style="border-radius:50%" >
+                                  <i class="fa fa-heart"></i>     
+                              </button>
+
+                        </form>             
+                            <a href="http://127.0.0.1:8000/share-facebook"><i class="fa fa-code-branch"></i></a>
                         </div>
                   </div>                         
             </div>   
@@ -139,17 +153,29 @@
                   </div>
                   <div class="add_to_cart">
                     <form action="http://127.0.0.1:8000/save-cart" method="POST">
-                      {{-- <form> --}}
-                      @csrf
-                        <input name="qty" class="qty" type="number" min="1" value="1" />
-                        <input name="cart_product" class="cart_product" type="hidden" value="{{$dataPro->id}}" />
-                        <input id="productQuantity" type="hidden" value="{{$count_product}}">
-                        <br> <br> 
-
-                        <button type="submit"   class="btn btn-primary add-to-cart" data-id="{{$dataPro->id}}" name="add-to-cart">Thêm giỏ hàng</button>
-
-
-                      
+                        {{-- <form method="POST"> --}}
+                        @csrf
+                          <input name="cart_product" class="cart_product" type="hidden" value="{{$dataPro->id}}" />
+                          <input id="productQuantity" type="hidden" value="{{$count_product}}">
+                          <br> <br> 
+                    
+                          {{-- NUT TANG GIAM --}}
+                          <div style="display:flex;" >
+        
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                                <span>-</span>
+                            </button>
+                
+                            <input style="max-width: 50px;" type="text" id="quantity" name="cart_quantity" class="form-control input-number cart_quantity" value="1" min="1" max="100">
+                  
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                <span class="glyphicon glyphicon-plus">+</span>
+                            </button>    
+                                  
+                          </div>
+                  
+                          <button type="submit" class="btn btn-primary add-to-cart" data-id="{{$dataPro->id}}" name="add-to-cart">Thêm giỏ hàng</button>
+                        
                       </form>
                   </div>
               </div>
@@ -492,6 +518,35 @@
     <script src="{{asset('js/setup_details.js')}}"></script>
     <script src="{{asset('js/rating.js')}}"></script>
 
+    
+
+    {{-- NÚT TĂNG GIẢM --}}
+<script>
+  $(document).ready(function(){
+        var quantitiy=0;
+        $('.quantity-right-plus').click(function(e){
+              
+              // Stop acting like a button
+              e.preventDefault();
+              var quantity = parseInt($('#quantity').val());
+              $('#quantity').val(quantity + 1);    
+              // alert(quantity + 1);         
+          });
+
+          $('.quantity-left-minus').click(function(e){
+              e.preventDefault();
+              var quantity = parseInt($('#quantity').val());
+
+              if(quantity > 1){
+                $('#quantity').val(quantity - 1);
+                // alert($('#quantity').val(quantity - 1).val());
+              }
+              
+          });
+  
+  });
+</script>
+
     <script>
       $(document).ready(function(){
         $(".wish-icon i").click(function(){        
@@ -555,12 +610,13 @@
 
     <script script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-      $(document).ready(function(){
-        var msg = $('#productQuantity').val();
-        swal("Mua sắm thoả thích", "Bạn đã có " + msg +  " sản phẩm trong giỏ hàng", "success");
-      });
+    //   $(document).ready(function(){
+    //     var msg = $('#productQuantity').val();
 
-    </script>
+    //     swal("Mua sắm thoả thích", "Bạn đã có " + msg +  " sản phẩm trong giỏ hàng", "success");
+    //   });
+
+    // </script>
 
       <div id="fb-root"></div>
 

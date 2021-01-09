@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Http\Requests;
+
 use Illuminate\Support\Facades\Redirect;
 use App\Model\Theme;
 use App\WebService\WebService;
@@ -18,6 +19,7 @@ session_start();
 
 class HomeController extends Controller
 {
+   
     public function index(){
         $productNews = Theme::orderBy('id','desc')->limit(10)->get();
         $productSales = Theme::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
