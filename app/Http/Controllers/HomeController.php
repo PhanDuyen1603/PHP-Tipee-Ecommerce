@@ -24,7 +24,6 @@ class HomeController extends Controller
         $productSales = Product::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
         $productFavourite = Product::skip(20)->take(10)->orderBy('id','desc')->limit(10)->get();
         return view('home.index', compact('productNews','productSales','productFavourite'));
-       
     }
     // search
     public function themeSearch(Request $request){

@@ -10,41 +10,11 @@ use Mail;
 use Redirect;
 use App\Libraries\Helpers;
 use App\Facades\WebService;
-use App\Models\User;
+use App\User,DB;
+use App\Model\CategoryProduct;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application’s login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    protected $guard = 'web';
-    protected function guard(){
-        return Auth::guard('web');
-    }
-    
-    use AuthenticatesUsers;
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/customer';
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth')->except('logout');
-    }
-    public function logout(){
-        Auth::user()->logout();
-        return redirect()->route('index');
-    }
-    
     public function registerAccount(Request $rq){
         $validation_rules = array(
             'full_name' => 'required|max:255',
@@ -81,4 +51,5 @@ class HomeController extends Controller
         Auth::login($new_cus);
         return redirect()->route('index');
     }
+    
 }

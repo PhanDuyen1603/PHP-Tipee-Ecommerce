@@ -87,8 +87,6 @@ $seo = WebService::getSEO($data_seo);
                                         <th scope="col" class="text-center">Title</th>
                                         <th scope="col" class="text-center">Thumbnail</th>
                                         <th scope="col" class="text-center">Price</th>
-                                        <th scope="col" class="text-center">Date Event</th>
-                                        <th scope="col" class="text-center">Action</th>
                                         <th scope="col" class="text-center">Update</th>
                                         <th scope="col" class="text-center">Store Status</th>
                                         <th scope="col" class="text-center">Date</th>
@@ -136,38 +134,8 @@ $seo = WebService::getSEO($data_seo);
                                                 <input id="promotion-price-{{$data->id}}" class="colunm_price form-control" placeholder="Giá khuyến mãi" type="text" value="{{$data->price_promotion}}" name="price_promotion">
                                             </div>
                                         </td>
-                                        <td class="text-center">
-                                            <div class="clear price_colum_item form-group">
-                                                <label for="start-event-{{$data->id}}">Bắt đầu</label>
-                                                <input id="start-event-{{$data->id}}" class="colunm_price form-control" placeholder="YYYY-mm-dd H:i:s" type="text" value="{{$data->start_event}}" name="start_event">
-                                            </div>
-                                            <div class="clear price_colum_item form-group">
-                                                <label for="end-event-{{$data->id}}">Kết thúc</label>
-                                                <input id="end-event-{{$data->id}}" class="colunm_price form-control" placeholder="YYYY-mm-dd H:i:s" type="text" value="{{$data->end_event}}" name="end_event">
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="clear action_group_box_touth">
-                                                <label style="color: #2d8112;" class="title_action_lb">New</label>
-                                                <input id="toggle-new-item-{{$data->id}}" class="toggle_new_item" onchange="new_item_click({{$data->id}})" postid="{{$data->id}}" type="checkbox" value="1" name="new_item" <?php if($data->item_new == 1): ?> checked <?php endif; ?> data-toggle="toggle">
-                                                <div id="console_new_item_{{$data->id}}"></div>
-                                            </div>
-                                            <div class="clear action_group_box_touth">
-                                                <label style="color: #FF0000;" class="title_action_lb">Flash Sale</label>
-                                                <input id="toggle-flash-sale-{{$data->id}}" class="toggle_flash_sale" onchange="flash_sale_click({{$data->id}})" postid="{{$data->id}}" type="checkbox" value="1" name="flash_sale" <?php if($data->flash_sale == 1): ?> checked <?php endif; ?> data-toggle="toggle">
-                                                <div id="console_flash_sale_{{$data->id}}"></div>
-                                            </div>
-                                            <div class="clear action_group_box_touth">
-                                                <label style="color: #0a90eb;" class="title_action_lb">Top Sale Week</label>
-                                                <input id="toggle-sale-top-week-{{$data->id}}" class="toggle_sale_top_week" onchange="sale_top_week_click({{$data->id}})" postid="{{$data->id}}" type="checkbox" value="1" name="sale_top_week" <?php if($data->sale_top_week == 1): ?> checked <?php endif; ?> data-toggle="toggle">
-                                                <div id="console_sale_top_week_{{$data->id}}"></div>
-                                            </div>
-                                            <div class="clear action_group_box_touth">
-                                                <label style="color: #FF7E00;" class="title_action_lb">Suggest</label>
-                                                <input id="toggle-propose-{{$data->id}}" onchange="propose_click({{$data->id}})" class="toggle_propose" postid="{{$data->id}}" type="checkbox" value="1" name="propose" <?php if($data->propose == 1): ?> checked <?php endif; ?> data-toggle="toggle">
-                                                <div id="console_propose_{{$data->id}}"></div>
-                                            </div>
-                                        </td>
+                                       
+                                      
                                         <td class="text-center">
                                             <button type="submit" class="btn btn-warning update_theme_fast" onclick="update_theme_fast({{$data->id}})" theme-id="{{$data->id}}" name="update_colunm">Update</button>
                                             <p id="alert_{{$data->id}}" class="text-center color_show_alert" style="display: none;"></p>

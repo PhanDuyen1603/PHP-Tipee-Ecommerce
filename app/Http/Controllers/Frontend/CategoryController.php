@@ -10,7 +10,7 @@ use Mail;
 use Redirect;
 use App\Libraries\Helpers;
 use App\Facades\WebService;
-use App\Models\User,DB;
+use App\User,DB;
 use App\Model\CategoryProduct;
 
 class CategoryController extends Controller

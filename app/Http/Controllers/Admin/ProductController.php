@@ -38,7 +38,6 @@ class ProductController extends Controller
 
     public function searchProduct(Request $rq){
         $query = '';
-        
         if(isset($rq->search_title) && $rq->search_title != ''){
             $search_title = $rq->search_title;
         } else{
@@ -52,45 +51,45 @@ class ProductController extends Controller
         }
 
         if($category != '' && $search_title == ''){
-            $data_product = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
-                ->where('theme.group_combo', '=', '')
-                ->where('category_theme.categoryID', '=', $category)
-                ->select('theme.id', 'theme.title', 'theme.slug', 'theme.thubnail', 'theme.price_origin', 'theme.price_promotion', 'theme.start_event', 'theme.end_event', 'theme.item_new', 'theme.flash_sale', 'theme.sale_top_week', 'theme.propose', 'theme.store_status', 'theme.status', 'theme.created')
-                ->groupBy('theme.id')
-                ->orderBy('theme.created', 'DESC')
+            $data_product = Product::join('join_category_product', 'join_category_product.id_product', '=', 'products.id')
+                ->join('category_products', 'category_products.categoryID', '=', 'join_category_product.id_category_product')
+                ->where('products.group_combo', '=', '')
+                ->where('category_products.categoryID', '=', $category)
+                ->select('products.id', 'products.title', 'products.slug', 'products.thubnail', 'products.price_origin', 'products.price_promotion', 'products.start_event', 'products.end_event', 'products.item_new', 'products.flash_sale', 'products.sale_top_week', 'products.propose', 'products.store_status', 'products.status', 'products.created')
+                ->groupBy('products.id')
+                ->orderBy('products.created', 'DESC')
                 ->paginate(20);
-            $count_item = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
-                ->where('theme.group_combo', '=', '')
-                ->where('category_theme.categoryID', '=', $category)
+            $count_item = Product::join('join_category_product', 'join_category_product.id_product', '=', 'products.id')
+                ->join('category_products', 'category_products.categoryID', '=', 'join_category_product.id_category_product')
+                ->where('products.group_combo', '=', '')
+                ->where('category_products.categoryID', '=', $category)
                 ->count();
         }
         if($search_title != '' && $category == ''){
-            $data_product = Theme::where('theme.group_combo', '=', '')
-                ->where('theme.title', 'LIKE', '%'.$search_title.'%')
-                ->select('theme.id', 'theme.title', 'theme.slug', 'theme.thubnail', 'theme.price_origin', 'theme.price_promotion', 'theme.start_event', 'theme.end_event', 'theme.item_new', 'theme.flash_sale', 'theme.sale_top_week', 'theme.propose', 'theme.store_status', 'theme.status', 'theme.created')
-                ->orderBy('theme.created', 'DESC')
+            $data_product = Product::where('products.group_combo', '=', '')
+                ->where('products.title', 'LIKE', '%'.$search_title.'%')
+                ->select('products.id', 'products.title', 'products.slug', 'products.thubnail', 'products.price_origin', 'products.price_promotion', 'products.start_event', 'products.end_event', 'products.item_new', 'products.flash_sale', 'products.sale_top_week', 'products.propose', 'products.store_status', 'products.status', 'products.created')
+                ->orderBy('products.created', 'DESC')
                 ->paginate(20);
-            $count_item = Theme::where('theme.group_combo', '=', '')
-                ->where('theme.title', 'LIKE', '%'.$search_title.'%')
+            $count_item = Product::where('products.group_combo', '=', '')
+                ->where('products.title', 'LIKE', '%'.$search_title.'%')
                 ->count();
         }
         if($search_title != '' && $category != ''){
-            $data_product = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
-                ->where('theme.group_combo', '=', '')
-                ->where('category_theme.categoryID', '=', $category)
-                ->where('theme.title', 'LIKE', '%'.$search_title.'%')
-                ->select('theme.id', 'theme.title', 'theme.slug', 'theme.thubnail', 'theme.price_origin', 'theme.price_promotion', 'theme.start_event', 'theme.end_event', 'theme.item_new', 'theme.flash_sale', 'theme.sale_top_week', 'theme.propose', 'theme.store_status', 'theme.status', 'theme.created')
-                ->groupBy('theme.id')
-                ->orderBy('theme.created', 'DESC')
+            $data_product = Product::join('join_category_product', 'join_category_product.id_product', '=', 'products.id')
+                ->join('category_products', 'category_products.categoryID', '=', 'join_category_product.id_category_product')
+                ->where('products.group_combo', '=', '')
+                ->where('category_products.categoryID', '=', $category)
+                ->where('products.title', 'LIKE', '%'.$search_title.'%')
+                ->select('products.id', 'products.title', 'products.slug', 'products.thubnail', 'products.price_origin', 'products.price_promotion', 'products.start_event', 'products.end_event', 'products.item_new', 'products.flash_sale', 'products.sale_top_week', 'products.propose', 'products.store_status', 'products.status', 'products.created')
+                ->groupBy('products.id')
+                ->orderBy('products.created', 'DESC')
                 ->paginate(20);
-            $count_item = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
-                ->where('theme.group_combo', '=', '')
-                ->where('category_theme.categoryID', '=', $category)
-                ->where('theme.title', 'LIKE', '%'.$search_title.'%')
+            $count_item = Product::join('join_category_product', 'join_category_product.id_product', '=', 'products.id')
+                ->join('category_products', 'category_products.categoryID', '=', 'join_category_product.id_category_product')
+                ->where('products.group_combo', '=', '')
+                ->where('category_products.categoryID', '=', $category)
+                ->where('products.title', 'LIKE', '%'.$search_title.'%')
                 ->count();
         }
         

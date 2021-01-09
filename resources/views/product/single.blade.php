@@ -71,7 +71,7 @@
 
 
                               <div class="row">
-                                 <div id="singleProductImg" class="col-lg-7 col-md-7 col-sm-12 no-padding-xs">
+                                 <div id="singleProductImg" class="col-lg-5 col-md-7 col-sm-12 no-padding-xs">
                                     <div class="img_singleProduct clear">
                                        <div class="large-5 column clear">
                                           <?php
@@ -140,6 +140,8 @@
                                     <script type="text/javascript" src="{{asset('js/foundation.min.js')}}"></script>
                                     <script type="text/javascript" src="{{asset('js/setup.js')}}"></script>
                                  </div>
+
+                                 <div class="line-straight"></div>
                                  <div id="fixed_content_detail_parent" class="col-lg-5 col-md-5 col-sm-12">
                                     <!--#fixed_content_detail_parent-->
                                     <?php
