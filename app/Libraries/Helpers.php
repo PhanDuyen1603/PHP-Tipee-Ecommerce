@@ -292,6 +292,30 @@ class Helpers
         $respons =Post::where ("slug","=",$slug)->update($fields_post);
         return true;
     }
+    public static function get_option_duyen($variable){
+        if (Cache::has('theme_option')) {
+            $List = Cache::get('theme_option');
+        } else{
+            $List = Setting::orderBy('updated', 'desc')->first();
+            Cache::forever('theme_option', $List);
+        }
+        if($List):
+            $array_option_autos=unserialize($List['value_setting']);
+            $str="";
+            if( !empty($array_option_autos)):
+                $count= count( $array_option_autos);
+                for( $i = 0; $i < $count; $i++ ):
+                    $label_text =($array_option_autos[$i]['group_tdr']['tdr_name'] != '' ) ? $array_option_autos[$i]['group_tdr']['tdr_name'] : '';
+                    $option_value=($array_option_autos[$i]['group_tdr']['tdr_value'] != '' ) ? $array_option_autos[$i]['group_tdr']['tdr_value'] : '';
+                    if($label_text==$variable):
+                        $str=stripslashes(stripslashes(base64_decode($option_value)));
+                    endif;
+                endfor;
+            endif;
+            return $str;
+            //echo $array_option_autos[$variable];
+        endif;
+    }
     public static function get_option_minhnn($variable){
         if (Cache::has('theme_option')) {
             $List = Cache::get('theme_option');
@@ -316,7 +340,6 @@ class Helpers
             //echo $array_option_autos[$variable];
         endif;
     }
-
     public static function loadPostGallery(){
         $slishows=Post::where('post.status','=',0)
             ->join('join_category_post','post.id','=','join_category_post.id_post')

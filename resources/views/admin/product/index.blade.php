@@ -56,9 +56,9 @@ $seo = WebService::getSEO($data_seo);
                             <div class="fr">
                                 <form method="GET" action="{{route('admin.searchProduct')}}" id="frm-filter-post" class="form-inline">
                                     <?php 
-                                        $list_cate = App\Model\Category_Theme::orderBy('category_theme.categoryName', 'ASC')->select('category_theme.categoryID', 'category_theme.categoryName')->get();
+                                        $list_cate = App\Model\CategoryProduct::orderBy('category_products.categoryName', 'ASC')->select('category_products.categoryID', 'category_products.categoryName')->get();
                                     ?>
-                                    <select class="custom-select mr-2" name="category_theme">
+                                    <select class="custom-select mr-2" name="category_products">
                                         <option value="">Thể loại sản phẩm</option>
                                         @foreach($list_cate as $cate)
                                             <option value="{{$cate->categoryID}}">{{$cate->categoryName}}</option>
@@ -104,11 +104,11 @@ $seo = WebService::getSEO($data_seo);
                                                 <br>
                                                 <b style="color:#c76805;">{{$data->slug}}</b>  
                                                 <?php
-                                                $categories = \App\Model\Theme::where('theme.id', '=', $data->id)
-                                                    ->join('join_category_theme','theme.id','=','join_category_theme.id_theme')
-                                                    ->join('category_theme','join_category_theme.id_category_theme','=','category_theme.categoryID')
-                                                    ->select('category_theme.categoryID','category_theme.categoryName','category_theme.categorySlug')
-                                                    ->orderBy('category_theme.categoryParent','ASC')
+                                                $categories = \App\Model\Product::where('products.id', '=', $data->id)
+                                                    ->join('join_category_product','products.id','=','join_category_product.id_product')
+                                                    ->join('category_products','join_category_product.id_category_product','=','category_products.categoryID')
+                                                    ->select('category_products.categoryID','category_products.categoryName','category_products.categorySlug')
+                                                    ->orderBy('category_products.categoryParent','ASC')
                                                     ->get(); 
                                                 if($categories): ?>
                                                 <div class="list_cat_post_content_link">  

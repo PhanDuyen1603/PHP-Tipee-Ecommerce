@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Theme, App\Model\Category_Theme, App\Model\Join_Category_Theme, App\Model\Theme_variable_sku, App\Model\Theme_variable_sku_value;
+use App\Model\Product, App\Model\CategoryProduct, App\Model\JoinCategoryProduct, App\Model\ProductVariableSku, App\Model\ProductVariableSkuValue;
 use Illuminate\Support\Facades\Hash;
 use App\Libraries\Helpers;
 use Illuminate\Support\Str;
@@ -28,12 +28,10 @@ class ProductController extends Controller
      */
 
     public function listProduct(){
-        $data_product = Theme::select('theme.*')
-            ->where('theme.group_combo', '=', '')
-            ->orderBy('theme.created', 'DESC')
+        $data_product = Product::select('*')
+            ->orderBy('created', 'DESC')
             ->paginate(20);
-        $count_item = Theme::select('theme.*')
-            ->where('theme.group_combo', '=', '')
+        $count_item = Product::select('*')
             ->count();
         return view('admin.product.index')->with(['data_product' => $data_product, 'total_item' => $count_item]);
     }
@@ -54,16 +52,16 @@ class ProductController extends Controller
         }
 
         if($category != '' && $search_title == ''){
-            $data_product = Theme::join('join_category_theme', 'join_category_theme.id_theme', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_theme')
+            $data_product = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
+                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
                 ->where('theme.group_combo', '=', '')
                 ->where('category_theme.categoryID', '=', $category)
                 ->select('theme.id', 'theme.title', 'theme.slug', 'theme.thubnail', 'theme.price_origin', 'theme.price_promotion', 'theme.start_event', 'theme.end_event', 'theme.item_new', 'theme.flash_sale', 'theme.sale_top_week', 'theme.propose', 'theme.store_status', 'theme.status', 'theme.created')
                 ->groupBy('theme.id')
                 ->orderBy('theme.created', 'DESC')
                 ->paginate(20);
-            $count_item = Theme::join('join_category_theme', 'join_category_theme.id_theme', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_theme')
+            $count_item = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
+                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
                 ->where('theme.group_combo', '=', '')
                 ->where('category_theme.categoryID', '=', $category)
                 ->count();
@@ -79,8 +77,8 @@ class ProductController extends Controller
                 ->count();
         }
         if($search_title != '' && $category != ''){
-            $data_product = Theme::join('join_category_theme', 'join_category_theme.id_theme', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_theme')
+            $data_product = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
+                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
                 ->where('theme.group_combo', '=', '')
                 ->where('category_theme.categoryID', '=', $category)
                 ->where('theme.title', 'LIKE', '%'.$search_title.'%')
@@ -88,8 +86,8 @@ class ProductController extends Controller
                 ->groupBy('theme.id')
                 ->orderBy('theme.created', 'DESC')
                 ->paginate(20);
-            $count_item = Theme::join('join_category_theme', 'join_category_theme.id_theme', '=', 'theme.id')
-                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_theme')
+            $count_item = Theme::join('join_category_theme', 'join_category_theme.id_product', '=', 'theme.id')
+                ->join('category_theme', 'category_theme.categoryID', '=', 'join_category_theme.id_category_product')
                 ->where('theme.group_combo', '=', '')
                 ->where('category_theme.categoryID', '=', $category)
                 ->where('theme.title', 'LIKE', '%'.$search_title.'%')
@@ -104,7 +102,7 @@ class ProductController extends Controller
     }
 
     public function productDetail($id){
-        $product_detail = Theme::where('theme.id', '=', $id)->first();
+        $product_detail = Product::where('products.id', '=', $id)->first();
         if($product_detail){
             return view('admin.product.single')->with(['product_detail' => $product_detail]);
         } else{
@@ -118,7 +116,6 @@ class ProductController extends Controller
         //id post
         $sid = $rq->sid;
         $title_new=htmlspecialchars($rq->post_title);
-        $title_en=htmlspecialchars($rq->post_title_en);
 
         $title_slug=addslashes($rq->post_slug);
         if(empty($title_slug) || $title_slug==''):
@@ -149,35 +146,8 @@ class ProductController extends Controller
             }
             $description = $dom->saveHTML();
         }
-
-        $description_en = $rq->post_description_en;
-        if($description_en != ''){
-            $dom = new \DomDocument();
-            libxml_use_internal_errors(true);
-            $dom->loadHtml('<?xml encoding="utf-8" ?>'.$description_en, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getElementsByTagName('img');
-            foreach($images as $k => $img){
-                $data = $img->getAttribute('src');
-                $check_img_is_upload = str_replace( 'data:image', '', $data);
-                if ($check_img_is_upload != $data){
-                    list($type, $data) = explode(';', $data);
-                    list(, $data)      = explode(',', $data);
-                    $data = base64_decode($data);
-                    $timestamp = $datetime_convert;
-                    $image_name= "/images/upload/product_".$timestamp.'_upload_des'.$k.'.png';
-                    $path = $_SERVER['DOCUMENT_ROOT'].$image_name;
-                    file_put_contents($path, $data);
-                    $img->removeAttribute('src');
-                    $img->setAttribute('src', $image_name);
-                }
-            }
-            $description_en = $dom->saveHTML();
-        }
-
         //xử lý content
         $content=htmlspecialchars($rq->post_content);
-        $content_en=htmlspecialchars($rq->post_content_en);
-
         //xử lý thumbnail
         $thumbnail_alt=addslashes($rq->post_thumb_alt);
         $name_thumb_img1 = "";
@@ -199,21 +169,17 @@ class ProductController extends Controller
                $name_thumb_img1 = "";
            endif;
         endif;
-
         $product_detail_weight = htmlspecialchars($rq->product_detail_weight);
         $product_detail_size = htmlspecialchars($rq->product_detail_size);
         $product_detail_ingredients = htmlspecialchars($rq->product_detail_ingredients);
         $product_detail_source = htmlspecialchars($rq->product_detail_source);
         $product_expiry_date = htmlspecialchars($rq->product_expiry_date);
-        $theme_code=addslashes($rq->theme_code);
-
+        $product_code=addslashes($rq->product_code);
         //time start - end event
         $start_event_get=addslashes($rq->start_event);
         $start_event = date("Y-m-d H:i:s", strtotime($start_event_get));
-
         $end_event_get=addslashes($rq->end_event);
         $end_event = date("Y-m-d H:i:s", strtotime($end_event_get));
-
         if(isset($rq->store_status)):
             $store_status=(int)$rq->store_status;
         else:
@@ -292,8 +258,7 @@ class ProductController extends Controller
             //update
             $data = array(
                 'title' => $title_new,
-                'title_en' => $title_en,
-                'theme_code' => $theme_code,
+                'product_code' => $product_code,
                 'slug' => $title_slug,
                 'price_origin' => $price_origin,
                 'price_promotion' => $price_promotion,
@@ -301,9 +266,7 @@ class ProductController extends Controller
                 'end_event' => $end_event,
                 'countdown' => $countdown,
                 'description' => $description,
-                'description_en' => $description_en,
                 'content' => $content,
-                'content_en' => $content_en,
                 'group_combo' => '',
                 'id_brand' => $id_brand,
                 'thubnail' => $name_thumb_img1,
@@ -324,7 +287,7 @@ class ProductController extends Controller
                 'product_expiry_date' => $product_expiry_date
             );
 
-            $loadDelete = Join_Category_Theme::where('id_theme','=',$sid)->delete();
+            $loadDelete = JoinCategoryProduct::where('id_product','=',$sid)->delete();
 
             $category_items = [];
             $category_items = isset($rq->category_item) ? $rq->category_item : $category_items ;
@@ -333,15 +296,15 @@ class ProductController extends Controller
                 if($category_items[$u] > 0):
                     $datas_box = array
                     (
-                        "id_category_theme" => $category_items[$u],
-                        "id_theme" => $sid
+                        "id_category_product" => $category_items[$u],
+                        "id_product" => $sid
                     );
-                    $res_incheckbox = Join_Category_Theme::create($datas_box);
+                    $res_incheckbox = JoinCategoryProduct::create($datas_box);
                 endif;
             }
 
            
-            $respons = Theme::where ("id","=",$sid)->update($data);
+            $respons = Product::where ("id","=",$sid)->update($data);
             $msg = "Product has been Updated";
             $url= route('admin.productDetail', array($sid));
             Helpers::msg_move_page($msg,$url);
@@ -349,8 +312,7 @@ class ProductController extends Controller
             // insert
             $data = array(
                 'title' => $title_new,
-                'title_en' => $title_en,
-                'theme_code' => $theme_code,
+                'product_code' => $product_code,
                 'slug' => $title_slug,
                 'price_origin' => $price_origin,
                 'price_promotion' => $price_promotion,
@@ -358,9 +320,7 @@ class ProductController extends Controller
                 'end_event' => $end_event,
                 'countdown' => $countdown,
                 'description' => $description,
-                'description_en' => $description_en,
                 'content' => $content,
-                'content_en' => $content_en,
                 'group_combo' => '',
                 'id_brand' => $id_brand,
                 'thubnail' => $name_thumb_img1,
@@ -381,7 +341,7 @@ class ProductController extends Controller
                 'product_detail_source'=> $product_detail_source,
                 'product_expiry_date' => $product_expiry_date
             );
-            $respons = Theme::create($data);
+            $respons = Product::create($data);
             $id_insert = $respons->id;
 
             if($id_insert>0):
@@ -391,10 +351,10 @@ class ProductController extends Controller
                 {
                     if($category_items[$u]>0):
                         $datas_box=array(
-                            "id_category_theme" => $category_items[$u],
-                            "id_theme" => $id_insert
+                            "id_category_product" => $category_items[$u],
+                            "id_product" => $id_insert
                         );
-                        $res_incheckbox = Join_Category_Theme::create($datas_box);
+                        $res_incheckbox = JoinCategoryProduct::create($datas_box);
                     endif;
                 }
                  $msg = "Product has been registered";

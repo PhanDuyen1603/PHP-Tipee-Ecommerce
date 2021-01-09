@@ -13,7 +13,7 @@ if(isset($product_detail)){
     $post_content_en = $product_detail->content_en;
     $post_order = $product_detail->order_short;
     $gallery_checked = $product_detail->gallery_checked;
-    $theme_code = $product_detail->theme_code;
+    $product_code = $product_detail->product_code;
     $price_origin = $product_detail->price_origin;
     $price_promotion = $product_detail->price_promotion;
     $start_event = $product_detail->start_event;
@@ -37,10 +37,10 @@ if(isset($product_detail)){
     $seo_description = $product_detail->seo_description;
     $sid = $product_detail->id;
 
-    $data_cats = \Illuminate\Support\Facades\DB::table('category_theme')
-        ->join('join_category_theme','category_theme.categoryID','=','join_category_theme.id_category_theme')
-        ->where('join_category_theme.id_theme', $sid)
-        ->select('category_theme.categoryName','category_theme.categorySlug','category_theme.categoryID')
+    $data_cats = \Illuminate\Support\Facades\DB::table('category_products')
+        ->join('join_category_product','category_products.categoryID','=','join_category_product.id_category_product')
+        ->where('join_category_product.id_product', $sid)
+        ->select('category_products.categoryName','category_products.categorySlug','category_products.categoryID')
         ->first();
     $link_url_check="";
     if($data_cats):
@@ -62,7 +62,7 @@ if(isset($product_detail)){
     $color_system = "";
     $countdown = 0;
     $store_gallery = "";
-    $theme_code = "";
+    $product_code = "";
     $price_origin = 0;
     $price_promotion = 0;
     $start_event = "";
@@ -88,11 +88,11 @@ if(isset($product_detail)){
 @section('seo')
 <?php
 $data_seo = array(
-    'title' => $title.' | '.Helpers::get_option_minhnn('seo-title-add'),
-    'keywords' => Helpers::get_option_minhnn('seo-keywords-add'),
-    'description' => Helpers::get_option_minhnn('seo-description-add'),
-    'og_title' => $title.' | '.Helpers::get_option_minhnn('seo-title-add'),
-    'og_description' => Helpers::get_option_minhnn('seo-description-add'),
+    'title' => $title.' | '.Helpers::get_option_duyen('seo-title-add'),
+    'keywords' => Helpers::get_option_duyen('seo-keywords-add'),
+    'description' => Helpers::get_option_duyen('seo-description-add'),
+    'og_title' => $title.' | '.Helpers::get_option_duyen('seo-title-add'),
+    'og_description' => Helpers::get_option_duyen('seo-description-add'),
     'og_url' => Request::url(),
     'og_img' => asset('images/logo_seo.png'),
     'current_url' =>Request::url(),
@@ -162,24 +162,10 @@ $seo = WebService::getSEO($data_seo);
                                         <textarea id="post_content" name="post_content">{!!$post_content!!}</textarea>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="en" role="tabpanel" aria-labelledby="en-tab">
-                                    <div class="form-group">
-                                        <label for="post_title_en">Title Product</label>
-                                        <input type="text" class="form-control" id="post_title_en" name="post_title_en" placeholder="Title" value="{{$post_title_en}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_description_en">Description</label>
-                                        <textarea id="post_description_en" name="post_description_en">{!!$post_description_en!!}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_content_en">Description Product</label>
-                                        <textarea id="post_content_en" name="post_content_en">{!!$post_content_en!!}</textarea>
-                                    </div>
-                                </div>
                             </div>
                             <div class="form-group hidden">
-                                <label for="theme_code" class="title_txt">Mã số sản phẩm</label>
-                                <input type="text" name="theme_code" id="theme_code" value="{{$theme_code}}" class="form-control">
+                                <label for="product_code" class="title_txt">Mã số sản phẩm</label>
+                                <input type="text" name="product_code" id="product_code" value="{{$product_code}}" class="form-control">
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -404,14 +390,14 @@ $seo = WebService::getSEO($data_seo);
                             <div class="inside clear">
                                 <div class="clear">
                                     <?php
-                                    $data_checks=App\Model\Join_Category_Theme::where('id_theme', $sid)->get();
+                                    $data_checks=App\Model\JoinCategoryProduct::where('id_product', $sid)->get();
                                     $array_checked=array();
                                     if($data_checks):
                                         foreach($data_checks as $data_check):
-                                            array_push($array_checked,$data_check->id_category_theme);
+                                            array_push($array_checked,$data_check->id_category_product);
                                         endforeach;
                                     endif;
-                                    $categories=App\Model\Category_Theme::where('category_theme.categorySlug', '<>', 'combo')->orderBy('categoryShort','DESC')->get();
+                                    $categories=App\Model\CategoryProduct::where('category_products.categorySlug', '<>', 'combo')->orderBy('categoryShort','DESC')->get();
                                     echo \App\WebService\WebService::showMutiCategory($categories,$array_checked,0);
                                     ?>
                                 </div>
@@ -450,7 +436,7 @@ $seo = WebService::getSEO($data_seo);
                         </div> <!-- /.card-body -->
                     </div><!-- /.card -->
 
-                    <div class="card widget-category hidden">
+                    <div class="card widget-category ">
                         <div class="card-header">
                             <h3 class="card-title">Thương hiệu</h3>
                         </div> <!-- /.card-header -->
@@ -467,7 +453,7 @@ $seo = WebService::getSEO($data_seo);
                                         <label for="radio_cmc_<?php echo $seq; ?>">
                                             <input type="radio" class="category_item_input" name="brand_item" value="<?php echo $brands->brandID; ?>" id="radio_cmc_<?php echo $seq; ?>"  <?php
                                                 if($id_brand > 0):
-                                                    $data_checks = App\Model\Theme::where('id_brand', $id_brand)->get();
+                                                    $data_checks = App\Model\Product::where('id_brand', $id_brand)->get();
                                                     foreach($data_checks as $data_check):
                                                         $seq_check = $data_check->id_brand;
                                                         if($seq_check == $brands->brandID):

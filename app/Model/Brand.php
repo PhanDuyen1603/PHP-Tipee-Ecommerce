@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     public $timestamps = false;
-    protected $table = 'brand';
+    protected $table = 'brands';
     protected $fillable =[
         'brandID',
         'brandName',
