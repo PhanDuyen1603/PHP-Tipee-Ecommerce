@@ -238,15 +238,15 @@
                                            ?>
                                        <ul class="price_single clear">
                                           <span class="newPrice_content">
-                                          <input type="hidden" id="price_current_view" value="{{$price_promotion}}"/>
+                                          <input type="hidden" id="price_current_view" value="{{$price_origin}}"/>
                                           <span id="price_12" class="price2 price_primary_container product-price">
                                           <span id="price_11 " class="price1 product-price__current-price">
-                                          {{$price_origin}}
-                                          @if($price_origin !='')
+                                          {{$price_promotion}}
+                                          @if($price_promotion !='')
                                           <span>{!!Helpers::get_option_minhnn('currency')!!}</span>
                                           @endif 
                                           </span>
-                                          {{$price_promotion}}
+                                          {{$price_origin}}
                                           <span>{!!Helpers::get_option_minhnn('currency')!!}</span>
                                           </span>
                                           <span>@if($html_percent != '')

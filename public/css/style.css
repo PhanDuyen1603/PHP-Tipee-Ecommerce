@@ -1760,6 +1760,7 @@ footer.footer {
 .acc-login #dropdownMenuButton {
     background: transparent;
     border: none;
+    margin: 0;
 }
 
 button#dropdownMenuButton:active {
@@ -1783,6 +1784,117 @@ button#dropdownMenuButton:active {
     position: relative;
     right: -9px;
     top: -1px;
+}
+
+.form-forget-pw {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 60px 0px;
+    padding: 24px 30px;
+    background-color: rgb(248, 248, 248);
+    border-radius: 4px;
+}
+
+.d-flex.justify-content-center.h-100 {
+    position: relative;
+    inset: 0px;
+    border: none;
+    background: rgb(255, 255, 255);
+    overflow: unset;
+    border-radius: 4px;
+    outline: none;
+    padding: 0px;
+    width: 430px;
+    margin: 0px auto;
+    margin-top: 40px;
+}
+
+.card-body .form-group.btn:hover {
+    opacity: 0.8;
+}
+
+.card-body .form-group.btn {
+    color: rgb(74, 74, 74);
+    background-color: rgb(253, 216, 53);
+}
+
+.card-body .form-group.btn {
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+}
+
+.input-group.form-group input {
+    width: 100%;
+    height: 40px;
+    font-size: 13px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    transition: box-shadow 0.15s ease-in-out 0s;
+}
+
+.title-forget-pw .title {
+    width: 100%;
+    /* margin: 15px 0px 0px 0px; */
+    color: rgb(36, 36, 36);
+    font-size: 26px;
+    font-weight: 400;
+    margin-left: 17px;
+    margin-bottom: 0px;
+}
+
+.login-box {
+    width: 360px;
+    margin: 50px auto 80px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    height: 239px;
+}
+
+.login-form {
+    display: block;
+}
+
+input.btn.float-right.login_btn {
+    color: rgb(74, 74, 74);
+    background-color: rgb(253, 216, 53);
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+}
+
+input.btn.float-right.login_btn:hover {
+    opacity: 0.8;
+}
+
+.card.form-forget-pw {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.description {
+    margin: 0px 0px 20px;
+    color: rgb(36, 36, 36);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.title-forget-pw {
+    width: 100%;
+    margin: 15px 0px;
+    color: rgb(36, 36, 36);
+    font-size: 26px;
+    font-weight: 300;
 }
 
 button#dropdownMenuButton {

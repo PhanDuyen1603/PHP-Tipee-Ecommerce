@@ -29,7 +29,7 @@ class SearchController extends Controller
                 ->where('products.status','=',0)
                 ->groupBy('products.slug')
                 ->orderByRaw('products.order_short DESC')
-                ->select('products.*','category_products.categoryName','category_products.categorySlug','category_products.categoryDescription','category_products.categoryID','category_products.categoryContent','category_products.categoryContent_en','category_products.categoryDescription_en')
+                ->select('products.*','category_products.categoryName','category_products.categorySlug','category_products.categoryDescription','category_products.categoryID','category_products.categoryContent',)
                 ->paginate(10);
                 $data_customers->appends(['query_string' => $name_product]);
 
