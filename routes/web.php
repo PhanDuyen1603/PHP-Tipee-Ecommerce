@@ -81,5 +81,6 @@ Route::post('/save-cart','App\Http\Controllers\CartController@save_cart');
 Route::post('/add-cart','App\Http\Controllers\CartController@add_cart'); //add-cart-ajax
 Route::get('/show-cart','App\Http\Controllers\CartController@show_cart');
 
-
-
+//
+Route::get('/user','App\Http\Controllers\CustomerController@Usertest');
+Route::post('/user','App\Http\Controllers\CustomerController@capnhatdulieu');
