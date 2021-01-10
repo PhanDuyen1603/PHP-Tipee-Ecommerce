@@ -12,6 +12,7 @@ use App\Libraries\Helpers;
 use App\Facades\WebService;
 use App\User,DB;
 use App\Model\CategoryProduct;
+use Carbon\Carbon,URL;
 
 class HomeController extends Controller
 {
@@ -38,18 +39,58 @@ class HomeController extends Controller
         if($validator->fails()) {
             return  Redirect::back()->withErrors($validator);
         }
-        $new_cus = new User();
+        $token_mail = Helpers::generateRandomString(36);
 
+        $new_cus = new User();
+        $email = $rq->email;
         $new_cus->name = $rq->full_name;
         $new_cus->email = $rq->email;
         $new_cus->birthday = $rq->year.'-'.$rq->month.'-'.$rq->day;
-
+        $new_cus->token_mail = $token_mail;
         $new_cus->phone = $rq->phone;
         $new_cus->gender = $rq->gender;
         $new_cus->password = bcrypt($rq->password);
         $new_cus->save();
-        Auth::login($new_cus);
-        return redirect()->route('index');
+        // Auth::login($new_cus);
+        $data = array(
+            'name'=> $rq->full_name,
+            'email_admin'=> 'bapcaicuatui@gmail.com',
+            'email'=> $email,
+            'link_check_login'=>URL::to('/login/token/'.$token_mail),
+        );
+        Mail::send('email.mail',
+            $data,
+            function($message) use ($data) {
+                $message->from($data['email_admin'],$data['name']);
+                $message->to($data['email'])
+                    // ->cc($data['cc_email'],$data['name_email_admin'])
+                    ->subject("Tippe xin chào: ".$data['name']);
+            }
+        );
+        return redirect()->route('users.mail.proceed')->with(['email'=>$email]);
     }
-    
+    public function loginMail($string){
+        $authUser = User::where('token_mail', $string)->first();
+        if ($authUser) {
+            $tomorrow = Carbon::now();
+            $updated_at = $authUser->updated_at;
+            // 1 month
+            $is_expired = $updated_at->addMinutes(60*12*30);
+            if($tomorrow < $is_expired){
+                        Auth::login($authUser);
+
+                // auth('customer')->login($authUser, true);
+                return Redirect::to('/');
+            }else{
+                return redirect()->route('index')->with(['proceed'=>'true']); 
+            }
+        }
+        else{
+            return Redirect::to('/');
+        }
+    }
+    public function successMail(){
+        return view('email.success');
+
+    }
 }

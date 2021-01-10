@@ -12,6 +12,7 @@ use App\WebService\WebService;
 use Illuminate\Support\Facades\Auth,Cart;
 //  $path = public_path('\cart\vendor\autoload.php');
 // require_once str_replace('public\cart', 'cart', $path);
+use Mail;
 
 session_start();
 

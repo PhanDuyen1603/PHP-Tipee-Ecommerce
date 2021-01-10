@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 // Route::get('/admin', ['as'  => 'admin', 'uses' =>'Admin\AdminController@dashboard']);
+Route::get('login/token/{token}', ['as'  => 'loginMail', 'uses' =>'Frontend\HomeController@loginMail']);
+Route::get('success-mail', ['as'  => 'users.mail.proceed', 'uses' =>'Frontend\HomeController@successMail']);
 
 Route::get('customer/logout', ['as'  => 'CustomerLogout', 'uses' =>'Customer\CustomerLoginController@logout']);
  Route::post('/customers/login', array('as' => 'loginCustomerAction', 'uses' => 'Customer\CustomerLoginController@postLoginCustomer'));

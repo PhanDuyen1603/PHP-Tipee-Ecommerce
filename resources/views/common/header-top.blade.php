@@ -27,7 +27,7 @@
             báo<br>của tôi</span>
          </div>
          @if(Auth::check())
-         <div data-view-id="header_header_account_container" class="acc-login iasHpw"><img class="profile-icon" src="https://salt.tikicdn.com/ts/upload/67/de/1e/90e54b0a7a59948dd910ba50954c702e.png"><span class="Userstyle__ItemText-sc-6e6am-2 bKCghQ"><span class="Userstyle__NoWrap-sc-6e6am-11 gtVgrD">Tài Khoản</span><span class="account-label"><span>Phan Duyên</span><img class="arrowIcon" src="https://salt.tikicdn.com/ts/upload/d7/d4/a8/34939af2da1ceeeae9f95b7485784233.png"></span></span></div>
+         <div data-view-id="header_header_account_container" class="acc-login iasHpw"><img class="profile-icon" src="https://salt.tikicdn.com/ts/upload/67/de/1e/90e54b0a7a59948dd910ba50954c702e.png"><span class="Userstyle__ItemText-sc-6e6am-2 bKCghQ"><span class="Userstyle__NoWrap-sc-6e6am-11 gtVgrD">Tài Khoản</span><span class="account-label"><span></span><img class="arrowIcon" src="https://salt.tikicdn.com/ts/upload/d7/d4/a8/34939af2da1ceeeae9f95b7485784233.png"></span></span></div>
          @else               
          <div data-view-id="header_user_shortcut_account" class=" check-order" type="button" data-toggle="modal"
             data-target="#loginform">
