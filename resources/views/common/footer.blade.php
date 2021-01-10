@@ -186,7 +186,7 @@
                                 <div class="form-group row">
                                     <div class="col-3"></div>
                                     <div class="col-9 log-right-item">
-                                        <p class="forgot-password">Quên mật khẩu? Nhấn vào <a>đây</a>
+                                        <p class="forgot-password">Quên mật khẩu? Nhấn vào <a href="{{route('forgetPassword')}}"> đây</a>
                                         </p>
                                         <button type="submit" class="btn-lg btn-block log-btn">Đăng
                                             nhập</button>
@@ -308,13 +308,14 @@
             adaptiveHeight: true
         });
     });
+   @if(URL::current()!=route('forgetPassword')):
     @if ($errors->any())
     $('#RegisterModal').modal('show')
 
     @endif
+    @endif
     </script>
 </footer>
-
 <div class="message"><a href="https://www.facebook.com/messages/t/100025635753016" target="_blank" class="bt-fbmessage"><i><img src="/images/ico-message.png" alt=""></i></a></div>
 
 

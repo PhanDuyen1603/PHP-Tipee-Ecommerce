@@ -23,11 +23,21 @@
          </a>
          <div data-view-id="header_user_shortcut_notification" class="check-order"><i
             class="tikicon icon-notification"></i><span
-            class="Userstyle__ItemCount-sc-6e6am-3 lnmTTi"></span><span class=" check-order-title">Thông
+            class="Userstyle__ItemCount-sc-6e6am-3 lnmTTi"></span><span class=" check-order-title" href="#">Thông
             báo<br>của tôi</span>
          </div>
+         
          @if(Auth::check())
-         <div data-view-id="header_header_account_container" class="acc-login iasHpw"><img class="profile-icon" src="https://salt.tikicdn.com/ts/upload/67/de/1e/90e54b0a7a59948dd910ba50954c702e.png"><span class="Userstyle__ItemText-sc-6e6am-2 bKCghQ"><span class="Userstyle__NoWrap-sc-6e6am-11 gtVgrD">Tài Khoản</span><span class="account-label"><span></span><img class="arrowIcon" src="https://salt.tikicdn.com/ts/upload/d7/d4/a8/34939af2da1ceeeae9f95b7485784233.png"></span></span></div>
+         <div data-view-id="header_header_account_container" class="acc-login iasHpw">
+            <div class="dropdown">
+               <img class="profile-icon" src="https://salt.tikicdn.com/ts/upload/67/de/1e/90e54b0a7a59948dd910ba50954c702e.png"> <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{Auth::user()->name}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{{route('CustomerLogout')}}">Đăng xuất</a>
+            </div>
+          </div>
+          </div>
          @else               
          <div data-view-id="header_user_shortcut_account" class=" check-order" type="button" data-toggle="modal"
             data-target="#loginform">

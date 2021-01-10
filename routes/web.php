@@ -18,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 // GỌI CONTROLLERS
 // CONTROLLERS ĐIỀU KHIỂN VIEWS
 // Route::get('/admin', ['as'  => 'admin', 'uses' =>'Admin\AdminController@dashboard']);
+
+Route::get('forget-password', 'Frontend\HomeController@forgetPassword')->name('forgetPassword');
+Route::post('forget-password', 'Frontend\HomeController@actionForgetPassword')->name('actionForgetPassword');
+
+Route::get('forget-password-step2/{token}', 'Frontend\HomeController@actionForgetPasswordStep2')->name('actionForgetPasswordStep2');
+Route::post('forget-password-step-2', 'Frontend\HomeController@actionForgetPasswordStep3')->name('actionForgetPasswordStep3');
+
 Route::get('login/token/{token}', ['as'  => 'loginMail', 'uses' =>'Frontend\HomeController@loginMail']);
 Route::get('success-mail', ['as'  => 'users.mail.proceed', 'uses' =>'Frontend\HomeController@successMail']);
 
@@ -32,7 +39,6 @@ Route::get('category/{slug1}.html', array(
 Route::get('admin/login', 'Admin\LoginController@showLoginForm')->name('login');
 
 Route::get('/','HomeController@index')->name('index'); // DẤU / LÀ THƯ MỤC GỐC
-Route::get('/trang-chu','HomeController@index')->name('index'); 
 Route::post('/register-account','Frontend\HomeController@registerAccount')->name('register-account');
 
 //CATEGORY HIỂN THỊ CHO KHÁCH HÀNG

@@ -11,10 +11,10 @@
                                 <div data-view-id="home_top_banner_container" class="slide-root">
                                     <div class="slider-wrapper">
                                         <div id="items-slick">
-                                            <div class="item"><img src="./images/banner-center.jpg"></div>
-                                            <div class="item"><img src="./images/banner-center-5.jpg"></div>
-                                            <div class="item"><img src="./images/banner-center-3.jpg"></div>
-                                            <div class="item"><img src="./images/banner-center-5.png"></div>
+                                            <div class="item" ><a href="./category/nha-cua-doi-song.html"> <img src="./images/banner-center.jpg"></a></div>
+                                            <div class="item"><a href="/category/do-choi-me--be.html"><img src="./images/banner-center-5.jpg"></a></div>
+                                            <div class="item"><a href="/category/lam-dep---suc-khoe.html"><img src="./images/banner-center-3.jpg"></a></div>
+                                            <div class="item"><a href="/category/sach-vpp--qua-tang.html"><img src="./images/banner-center-5.png"></a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -23,12 +23,12 @@
                                 class=" banner-bottom-container">
                                 <div width="50%" height="181px" class=" 
                                 banner-item">
-                                    <a data-view-id="home_top_banner_bottom_item" data-view-index="0" href=""
+                                    <a data-view-id="home_top_banner_bottom_item" data-view-index="0" href="/category/dien-thoai---may-tinh-bang.html"
                                         aria-label=""><img width="292" height="181" src="./images/tiki-banner-8.png"
                                             srcSet="./images/tiki-banner-8.png" alt="" /></a>
                                 </div>
                                 <div width="50%" height="181px" class="banner-right-item">
-                                    <a data-view-id="home_top_banner_bottom_item" data-view-index="1" href=""
+                                    <a data-view-id="home_top_banner_bottom_item" data-view-index="1" href="/category/hang-tieu-dung---thuc-pham.html"
                                         aria-label=""><img width="292" height="181" src="./images/tiki-banner-5.png"
                                             alt="" /></a>
                                 </div>
@@ -36,34 +36,34 @@
                         </div>
                         <div width="412px" data-view-id="home_top_banner_right_container" class=" banner-right-container">
                             <div width="50%" height="181px" class="banner-item">
-                                <a data-view-index="0" data-view-id="home_top_banner_right_container" href=""
+                                <a data-view-index="0" data-view-id="home_top_banner_right_container" href="/category/phu-kien---thiet-bi-so.html"
                                     aria-label=""><img width="206" height="181" src="./images/tiki-banner-1.png"
                                         alt="" /></a>
                             </div>
                             <div width="50%" height="181px" class="banner-right-item">
-                                <a data-view-index="1" data-view-id="home_top_banner_right_container" href=""
+                                <a data-view-index="1" data-view-id="home_top_banner_right_container" href="/category/laptop---thiet-bi-it.html"
                                     aria-label=""><img width="206" height="181" src="./images/banner-left-1.png"
                                         alt="" /></a>
                             </div>
                             <div width="50%" height="181px" class="banner-right-item">
-                                <a data-view-index="2" data-view-id="home_top_banner_right_container" href=""
+                                <a data-view-index="2" data-view-id="home_top_banner_right_container" href="./category/sach-vpp--qua-tang.html"
                                     aria-label=""><img width="206" height="181" src="./images/tiki-banner-3.png"
                                         srcSet="./images/tiki-banner-3.png" alt="" /></a>
                             </div>
                             <div width="50%" height="181px" class="banner-item">
-                                <a data-view-index="3" data-view-id="home_top_banner_right_container" href=""
+                                <a data-view-index="3" data-view-id="home_top_banner_right_container" href="/category/hang-tieu-dung---thuc-pham.html"
                                     aria-label=""><img width="206" height="181" src="./images/tiki-banner-4.png"
                                         alt="" /></a>
                             </div>
                             <div width="50%" height="181px" class="banner-item">
-                                <a data-view-index="4" data-view-id="home_top_banner_right_container" href=""
+                                <a data-view-index="4" data-view-id="home_top_banner_right_container" href="./category/hang-quoc-te.html"
                                     aria-label=""><img width="206" height="181" src="./images/tiki-banner-2.png"
                                         alt="" /></a>
                             </div>
                             <div width="50%" height="181px" class="banner-right-item">
-                                <a data-view-index="5" data-view-id="home_top_banner_right_container" href=""
+                                <a data-view-index="5" data-view-id="home_top_banner_right_container" href="./category/dien-tu---dien-lanh.html"
                                     aria-label=""><img width="206" height="181" src="../images/tiki-banner-1.png"
-                                        srcSet="./images/tiki-banner-1.png" alt="" /></a>
+                                        srcSet="./images/tiki-banner-11.png" alt="" /></a>
                             </div>
                         </div>
                     </div>

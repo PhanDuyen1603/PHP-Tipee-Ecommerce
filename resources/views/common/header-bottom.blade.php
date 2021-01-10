@@ -3,7 +3,7 @@
                                  <!--nav-main-->                 
                               </div>
                                
-                               <a href="{{route('CustomerLogout')}}">logout</a>
+                               {{-- <a href="{{route('CustomerLogout')}}">logout</a> --}}
 <div class="header-bottom">
     <div style="position:relative;display:flex;align-items:center;justify-content:space-between;height:40px"
         class="header-list-iteam list-iteam">

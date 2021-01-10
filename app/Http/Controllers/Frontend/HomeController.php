@@ -58,7 +58,7 @@ class HomeController extends Controller
             'email'=> $email,
             'link_check_login'=>URL::to('/login/token/'.$token_mail),
         );
-        Mail::send('email.mail',
+        Mail::send('email.templales.mail',
             $data,
             function($message) use ($data) {
                 $message->from($data['email_admin'],$data['name']);
@@ -92,5 +92,66 @@ class HomeController extends Controller
     public function successMail(){
         return view('email.success');
 
+    }
+    public function forgetPassword(){
+        return view('email.forgetPassword');
+
+    }
+    public function actionForgetPassword(Request $rq){
+        $user = User::where('email', '=', $rq->email)->first();
+        if($user){
+            session_start();
+            $forget_password = Helpers::generateRandomString(36);
+            $_SESSION["email_forget"] = $rq->email;
+            $user->update(['forget_password'=>$forget_password]);
+            $data = array(
+                'email_admin'=> 'bapcaicuatui@gmail.com',
+                'email'=>$user->email,
+                'name'=>$user->full_name,
+                'forget_password'=>$user->forget_password,
+                'link_check_login'=>URL::to('/forget-password-step2/'.$forget_password),
+            );
+            Mail::send('email.templales.forget-password',
+                $data,
+                function($message) use ($data) {
+                    $message->from($data['email_admin'],$data['name']);
+                    $message->to($data['email'])
+                        // ->cc($data['cc_email'],$data['name_email_admin'])
+                        ->subject("Quên mật khẩu");
+                });
+            return redirect()->route('forgetPassword')->with('notify', 'Vui lòng check mail.');
+        } else{
+            return redirect()->route('forgetPassword')->withErrors('Email not exist.');
+        }
+    }
+    public function actionForgetPasswordStep2(Request $rq,$token){
+        session_start();
+        $user = User::where('forget_password', $token)->first();
+        if($user){
+            return view('email.forgetPasswordStep2');
+        }else{
+            die("Bạn không phải user");
+        }
+
+    }
+    public function actionForgetPasswordStep3(Request $rq){
+        session_start();
+            $validator = Validator::make($rq->all(), [
+                'new_password'     => 'required|min:6|required_with:confirm_new_password|same:confirm_new_password',
+                'confirm_new_password'     => 'required|min:6',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator);
+            }
+            $customer = User::where('email', '=', $_SESSION["email_forget"])->first();
+            $customer->password = bcrypt($rq->new_password);
+            $customer->save();
+            session_unset();
+            session_destroy();
+            $msg = "Mật khẩu đã được thay đổi.";
+            $url=  route('index');
+            if($msg) echo "<script language='javascript'>alert('".$msg."');</script>";
+            echo "<script language='javascript'>document.location.replace('".$url."');</script>";
     }
 }

@@ -135,7 +135,7 @@
                                     <script type="text/javascript" src="{{asset('js/foundation.min.js')}}"></script>
                                     <script type="text/javascript" src="{{asset('js/setup.js')}}"></script>
                                  </div>
-                                 <div id="fixed_content_detail_parent" class="col-lg-7 col-md-5 col-sm-12">
+                                 <div id="fixed_content_detail_parent" class="col-lg-5 col-md-5 col-sm-12">
                                     <!--#fixed_content_detail_parent-->
                                     <?php
                                        $date_now = date("Y-m-d H:i:s");
@@ -258,9 +258,7 @@
                                        <div class="DeliveryZone__StyledDeliveryZoneEmpty-sc-1maxvle-0 lijGxt">
                                           <div class="inner">Bạn hãy <span>NHẬP ĐỊA CHỈ</span> nhận hàng để được dự báo thời gian &amp; chi phí giao hàng một cách chính xác nhất.</div>
                                        </div>
-                                       <div class="style__StyledAddOnService-sc-17q7i57-0 gCHrlw">
-                                          <div class="wrap"></div>
-                                       </div>
+                                       
                                        <div class="indexstyle__AddToCart-qd1z2k-7 fZaWsF add-to-cart">
                                           <div class="qty-and-message">
                                              <div class="QualityInput__Wrapper-sc-15mlmyf-0 iyaBQp">
