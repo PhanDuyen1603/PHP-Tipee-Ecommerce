@@ -17,7 +17,7 @@
                 class="ct-cart"><i class="tikicon icon-arrow-down"></i><span>Sản phẩm bạn đã xem</span></a>
                 </div>
                    <div class="header_bottom_icons_recently_view"><a
-                class="ct-cart" href="/admin/login"><i class="tikicon icon-arrow-down"></i><span>Kênh người bán</span></a>
+                class="ct-cart" href="/admin/login"><i class="tikicon icon-arrow-down"></i><span >Kênh người bán</span></a>
                 </div>
 
             <div class="cart-notification">

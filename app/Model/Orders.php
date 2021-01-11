@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Orders extends Model
 {
     protected $fillable = [
-        'order_customer',
-        'order_product',   
-        'order_quantity',       
+        'order_customer', 
+        'order_customer', 
+        'order_totalPrice',
         'order_address',
-        'order_price',
         'order_state',
         'updated_at',
-        'created_at'
+        'created_at',
+        'order_receivedDate'
         // 'last_name_kanji',
         // 'first_name_kanji',
         // 'last_name_kana',

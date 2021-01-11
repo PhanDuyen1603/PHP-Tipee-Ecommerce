@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Model\Carts;
 use App\Model\Product;
 use App\Model\Orders;
+use App\Model\Order_details;
 
 use Validator;
 use Mail;
@@ -19,35 +20,51 @@ use App\Facades\WebService;
 
 class CartController extends Controller
 {
-    public function show_order(){
-        $userId = Auth::user()->id;
-        $user_order = Orders::Where('order_customer',$userId)->join('Products','products.id','=','Orders.order_product')
-        ->get();
-        
-        return view('pages.cart.show_orderState')->with('user_order',$user_order);
-    }
-
+    private $order_new;
+    
     public function save_order(Request $request){
         $data = $request->all(); 
         $userId = Auth::user()->id;
         $carts = Carts::Where('cart_user',$userId)->get();
+
+        $newOrder = new Orders();
+        $totalPrice = Carts::Where('cart_user',$userId)->sum('cart_totalPrice');
+        $newOrder['order_totalPrice'] = (float)$totalPrice;
+
         foreach($carts as $key => $cart){
-            $newOrder = new Orders();
-            $newOrder['order_customer'] = $cart['cart_user'];
-            $newOrder['order_product'] = $cart['cart_product'];
-            $newOrder['order_quantity'] = $cart['cart_quantity'];
-            $newOrder['order_price'] = $cart['cart_totalPrice'];
-            $newOrder['order_address'] = $data['order_address'];
-            $newOrder['order_state'] = 'Đang giao';
+            $newOderDetails = new Order_details();
+            $newOderDetails['order_product'] = $cart['cart_product'];
+            $newOderDetails['order_quantity'] = $cart['cart_quantity'];
+            $newOderDetails['order_price'] = $cart['cart_totalPrice'];
+            
+            $newOrder['order_customer'] = $userId ;  
+            $newOrder['order_address'] = $data['order_address'];   
+
             $newOrder->save();
+            $this->order_new = $newOrder['order_id'];
+            $newOderDetails['order'] = $newOrder['order_id'];
+            $newOderDetails->save();
+
             $cart->delete();
         }
-        return $this->show_order();
-        // $user_ordered = Orders::Where('order_customer',$userId)->join('Products','products.id','=','Orders.order_product')
-        // ->get();
-        
-        // return view('pages.cart.show_orderState')->with('user_order',$user_order);
-        // return view('pages.cart.show_orderState');
+        return $this->show_order()->with('new_order',$newOderDetails['order_id']);
+    }
+
+    public function show_order(){
+        $userId = Auth::user()->id;
+        //LẤY ĐƠN HÀNG VỪA MỚI ORDER
+        $user_order = Orders::Where('order_customer',$userId)->Where('order_id',$this->order_new)->join('Order_details','order','=','order_id')
+        ->join('Products','products.id','=','order_product')->get();
+
+        return view('pages.cart.show_orderState')->with('user_order', $user_order);
+    }
+
+    public function show_all_order(){
+        $userId = Auth::user()->id;
+        $user_order = Orders::Where('order_customer',$userId)->join('Order_details','order','=','order_id')
+        ->join('Products','products.id','=','order_product')->get();
+
+        return view('pages.cart.show_all_order')->with('user_order', $user_order);
     }
 
     public function show_cart(){

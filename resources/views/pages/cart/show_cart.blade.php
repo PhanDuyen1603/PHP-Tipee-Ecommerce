@@ -106,7 +106,7 @@ $total = 0;
                     <li>Thành tiền: <span>{{number_format($total,0,',','.').' đ'}}</span></li>
                     <li>Phương thức thanh toán: <span></span>tiền mặt</li>
                     <li>Địa chỉ giao hàng:  <br>
-                        <input type="text" name="order_address" class="order_address" value=""></li>
+                        <input type="text" name="order_address" class="order_address" value="" required></li>
                 </ul>                          
                     <button type="submit" class="btn btn-success">Đặt mua</button>
                 </form>

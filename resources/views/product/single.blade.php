@@ -274,7 +274,11 @@
                                           </div>
                                           <div class="group-button">                                            
                                              <input type="hidden" name="cart_product" class="cart_product" value="{{$data_customers->id}}">
-                                             <input type="hidden" name="cart_user" class="cart_user" value="{{Auth::user()->id}}">                                            
+                                             <?php if(Auth::user()){?>
+                                                <input type="hidden" name="cart_user" class="cart_user" value="{{Auth::user()->id}}">     
+                                             <?php }else{?>
+                                                <input type="hidden" name="cart_user" class="cart_user" value="17"> 
+                                            <?php  }?>
                                              <?php
                                                 if(Auth::user()){ ?>              
                                                 <button type="submit" class="btn btn-add-to-cart" data-view-id="pdp_add_to_cart_button">Chọn mua</button>

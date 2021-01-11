@@ -50,12 +50,14 @@ Route::get('/san-pham/{slug}','Frontend\ProductController@productDetail')->name(
 Route::post('/add-rating','Frontend\ProductController@add_rating')->name('product.rating');
 
 
-//CART
+//CART AND ORDER
 Route::post('/save-cart','Frontend\CartController@save_cart')->name('cart.save');
 Route::post('/delete-cart','Frontend\CartController@delete_cart')->name('cart.delete');
 Route::get('/show-cart','Frontend\CartController@show_cart')->name('cart.show');
+
 Route::post('/save-order','Frontend\CartController@save_order')->name('order.save');
 Route::get('/show-order','Frontend\CartController@show_order')->name('order.show');
+Route::get('/all-order','Frontend\CartController@show_all_order')->name('order.all');
 
 
 

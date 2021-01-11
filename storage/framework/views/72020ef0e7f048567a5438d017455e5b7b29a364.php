@@ -17,14 +17,14 @@
       <div data-view-id="header_user_shortcut" class="order">
          <a title="Theo dõi đơn hàng"
             data-view-id="header_user_shortcut_order_tracking" href="">
-            <div class="check-order"><i class="tikicon icon-tracking"></i><span class="check-order-title">Theo
+            <div class="check-order"><i class="tikicon icon-tracking"></i><span style="text-decoration: none" class="check-order-title">Theo
                dõi<br>đơn hàng</span>
             </div>
          </a>
          <div data-view-id="header_user_shortcut_notification" class="check-order"><i
             class="tikicon icon-notification"></i><span
-            class="Userstyle__ItemCount-sc-6e6am-3 lnmTTi"></span><span class=" check-order-title" href="#">Thông
-            báo<br>của tôi</span>
+            class="Userstyle__ItemCount-sc-6e6am-3 lnmTTi"></span><a style="text-decoration: none" href="<?php echo e(route('order.all')); ?>"><span class=" check-order-title">Đơn
+            hàng<br>của tôi</span></a>
          </div>
          
          <?php if(Auth::check()): ?>
