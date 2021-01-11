@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Category_Theme;
+use App\Model\CategoryProduct;
 use App\Libraries\Helpers;
 use Illuminate\Support\Str;
 use DB, File, Image, Config;
@@ -26,20 +26,20 @@ class CategoryProductController extends Controller
      */
 
     public function listCategoryProduct(){
-        $data_category = Category_Theme::select('category_theme.*')
-            ->orderBy('category_theme.created', 'DESC')
+        $data_category = CategoryProduct::select('category_products.*')
+            ->orderBy('category_products.created', 'DESC')
             ->paginate(20);
         return view('admin.category-product.index')->with(['data_category' => $data_category]);
     }
     public function searchCategoryProduct(Request $rq){
         if($rq->search_title != ''){
-            $data_category = Category_Theme::select('category_theme.*')
-                ->where('category_theme.categoryName', 'LIKE', '%'.$rq->search_title.'%')
-                ->orderBy('category_theme.created', 'DESC')
+            $data_category = CategoryProduct::select('category_products.*')
+                ->where('category_products.categoryName', 'LIKE', '%'.$rq->search_title.'%')
+                ->orderBy('category_products.created', 'DESC')
                 ->paginate(20);
         } else{
-            $data_category = Category_Theme::select('category_theme.*')
-                ->orderBy('category_theme.created', 'DESC')
+            $data_category = CategoryProduct::select('category_products.*')
+                ->orderBy('category_products.created', 'DESC')
                 ->paginate(20);
         }
         return view('admin.category-product.search')->with(['data_category' => $data_category]);
@@ -49,7 +49,7 @@ class CategoryProductController extends Controller
     }
 
     public function categoryProductDetail($id){
-        $post_category = Category_Theme::where('category_theme.categoryID', '=', $id)->first();
+        $post_category = CategoryProduct::where('category_products.categoryID', '=', $id)->first();
         if($post_category){
             return view('admin.category-product.single')->with(['post_category' => $post_category]);
         } else{
@@ -61,7 +61,6 @@ class CategoryProductController extends Controller
         //id post
         $sid = $rq->sid;
         $title_new = $rq->post_title;
-        $title_en = $rq->post_title_en;
 
         $title_slug = addslashes($rq->post_slug);
         if(empty($title_slug) || $title_slug == ''):
@@ -94,29 +93,7 @@ class CategoryProductController extends Controller
             $description = $dom->saveHTML();
         }
 
-        $description_en = $rq->post_description_en;
-        if($description_en != ''){
-            $dom = new \DomDocument();
-            libxml_use_internal_errors(true);
-            $dom->loadHtml('<?xml encoding="utf-8" ?>'.$description_en, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getElementsByTagName('img');
-            foreach($images as $k => $img){
-                $data = $img->getAttribute('src');
-                $check_img_is_upload = str_replace( 'data:image', '', $data);
-                if ($check_img_is_upload != $data){
-                    list($type, $data) = explode(';', $data);
-                    list(, $data)      = explode(',', $data);
-                    $data = base64_decode($data);
-                    $timestamp = $datetime_convert;
-                    $image_name= "/images/upload/category_product_".$timestamp.'_upload_des'.$k.'.png';
-                    $path = $_SERVER['DOCUMENT_ROOT'].$image_name;
-                    file_put_contents($path, $data);
-                    $img->removeAttribute('src');
-                    $img->setAttribute('src', $image_name);
-                }
-            }
-            $description_en = $dom->saveHTML();
-        }
+        
 
         //xử lý thumbnail
         $thumbnail_alt = addslashes($rq->post_thumb_alt);
@@ -152,7 +129,7 @@ class CategoryProductController extends Controller
             $check_showhome=(int)$rq->check_showhome;
         endif;
 
-        $theme_category_icon = htmlspecialchars($rq->theme_category_icon);
+        $product_category_icon = ($rq->product_category_icon);
 
         $seo_title = $rq->seo_title;
         $seo_keyword = $rq->seo_keyword;
@@ -165,24 +142,22 @@ class CategoryProductController extends Controller
             //update
             $data = array(
                 'categoryName' => $title_new,
-                'categoryName_en' => $title_en,
                 'categorySlug' => $title_slug,
                 'categoryParent' => $category_parent,
                 'categoryDescription' => $description,
-                'categoryDescription_en' => $description_en,
                 'thubnail' => $name_thumb_img1,
                 'thubnail_alt' => $thumbnail_alt,
                 'categoryShort' => $categoryShort,
                 'categoryIndex' => $categoryIndex,
                 'showhome' => $check_showhome,
-                'theme_category_icon' => $theme_category_icon,
+                'product_category_icon' => $product_category_icon,
                 'seo_title' => $seo_title,
                 'seo_keyword' =>$seo_keyword,
                 'seo_description' =>$seo_description,
                 'updated' => date('Y-m-d h:i:s'),
                 'status_category' => $status
             );
-            $respons = Category_Theme::where ("categoryID", "=", $sid)->update($data);
+            $respons = CategoryProduct::where ("categoryID", "=", $sid)->update($data);
             $msg = "Category has been Updated";
             $url = route('admin.categoryProductDetail', array($sid));
             Helpers::msg_move_page($msg,$url);
@@ -190,17 +165,15 @@ class CategoryProductController extends Controller
             // insert
             $data = array(
                 'categoryName' => $title_new,
-                'categoryName_en' => $title_en,
                 'categorySlug' => $title_slug,
                 'categoryParent' => $category_parent,
                 'categoryDescription' => $description,
-                'categoryDescription_en' => $description_en,
                 'thubnail' => $name_thumb_img1,
                 'thubnail_alt' => $thumbnail_alt,
                 'categoryShort' => $categoryShort,
                 'categoryIndex' => $categoryIndex,
                 'showhome' => $check_showhome,
-                'theme_category_icon' => $theme_category_icon,
+                'product_category_icon' => $product_category_icon,
                 'seo_title' => $seo_title,
                 'seo_keyword' =>$seo_keyword,
                 'seo_description' =>$seo_description,
@@ -208,7 +181,7 @@ class CategoryProductController extends Controller
                 'updated' => $updated,
                 'status_category' => $status
             );
-            $respons = Category_Theme::create($data);
+            $respons = CategoryProduct::create($data);
             $id_insert= $respons->categoryID;
             if($id_insert>0):
                 $msg = "Category has been registered";

@@ -10,7 +10,7 @@ if(isset($post_category)){
     $post_short = $post_category->categoryShort;
     $categoryIndex = (isset($post_category->categoryIndex) || $post_category->categoryIndex != "") ? $post_category->categoryIndex : '0';
     $check_showhome = (isset($post_category->showhome) || $post_category->showhome != "") ? $post_category->showhome : '0';
-    $theme_category_icon = $post_category->theme_category_icon;
+    $product_category_icon = $post_category->product_category_icon;
     $parent_id = $post_category->categoryParent;
     $status = $post_category->status_category;
     $thumbnail = $post_category->thubnail;
@@ -28,7 +28,7 @@ if(isset($post_category)){
     $post_slug = '';
     $post_description = '';
     $post_description_en = '';
-    $theme_category_icon = '';
+    $product_category_icon = '';
     $categoryIndex = 0;
     $post_short = 0;
     $check_showhome = 0;
@@ -113,7 +113,7 @@ $seo = WebService::getSEO($data_seo);
                             <div class="form-group">
                                 <label for="template_checkID" class="title_txt">Chọn thể loại Cha</label>
                                 <?php 
-                                    $List_categories =App\Model\Category_Theme::where('status_category', 0)->get()->toArray();
+                                    $List_categories =App\Model\CategoryProduct::where('status_category', 0)->get()->toArray();
                                 ?>
                                 <select class="custom-select mr-2" name="category_parent">
                                     <option value="0" <?php if( $parent_id == 0): ?> selected <?php endif; ?> >== Không có ==</option>
@@ -127,8 +127,9 @@ $seo = WebService::getSEO($data_seo);
                                 <input type="text" class="form-control" id="post_short" name="post_short" value="{{$post_short}}">
                             </div>
                             <div class="form-group">
-                                <label for="theme_category_icon">Icon(Use Icon boottrap, font-asome... Ex: <?php echo htmlspecialchars("<i class='fa fa-use'></i>"); ?>)</label>
-                                <input id="theme_category_icon" class="form-control" type="text" name="theme_category_icon" value="{!! htmlspecialchars_decode($theme_category_icon) !!}">
+                                <label for="product_category_icon">Icon(Use Icon boottrap, font-asome... Ex: <?php echo htmlspecialchars("<i class='fa fa-use'></i>"); ?>)</label>
+                               
+                                <textarea name="product_category_icon" class="form-control" id="" cols="50" rows="10">{!! ($product_category_icon) !!}</textarea>
                             </div>
                             <div class="form-group hidden">
                                 <label for="categoryIndex" style="color: #FF0000;">Hiển thị lên Menu</label>

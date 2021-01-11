@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Addtocard extends Model
+class AddToCard extends Model
 {
     public $timestamps = false;
     protected $table = 'addtocard';

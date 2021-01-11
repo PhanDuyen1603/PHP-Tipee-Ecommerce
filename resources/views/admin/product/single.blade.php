@@ -13,7 +13,7 @@ if(isset($product_detail)){
     $post_content_en = $product_detail->content_en;
     $post_order = $product_detail->order_short;
     $gallery_checked = $product_detail->gallery_checked;
-    $theme_code = $product_detail->theme_code;
+    $product_code = $product_detail->product_code;
     $price_origin = $product_detail->price_origin;
     $price_promotion = $product_detail->price_promotion;
     $start_event = $product_detail->start_event;
@@ -37,16 +37,16 @@ if(isset($product_detail)){
     $seo_description = $product_detail->seo_description;
     $sid = $product_detail->id;
 
-    $data_cats = \Illuminate\Support\Facades\DB::table('category_theme')
-        ->join('join_category_theme','category_theme.categoryID','=','join_category_theme.id_category_theme')
-        ->where('join_category_theme.id_theme', $sid)
-        ->select('category_theme.categoryName','category_theme.categorySlug','category_theme.categoryID')
+    $data_cats = \Illuminate\Support\Facades\DB::table('category_products')
+        ->join('join_category_product','category_products.categoryID','=','join_category_product.id_category_product')
+        ->where('join_category_product.id_product', $sid)
+        ->select('category_products.categoryName','category_products.categorySlug','category_products.categoryID')
         ->first();
     $link_url_check="";
     if($data_cats):
         $slug_cat=$data_cats->categorySlug;
         $link_url_check="";
-        $link_url_check=route('tintuc.details',array($slug_cat,$product_detail->slug));
+        $link_url_check=route('product.detail',$product_detail->slug);
     endif;
 } else{
     $title = 'Sản phẩm mới';
@@ -62,7 +62,7 @@ if(isset($product_detail)){
     $color_system = "";
     $countdown = 0;
     $store_gallery = "";
-    $theme_code = "";
+    $product_code = "";
     $price_origin = 0;
     $price_promotion = 0;
     $start_event = "";
@@ -88,11 +88,11 @@ if(isset($product_detail)){
 @section('seo')
 <?php
 $data_seo = array(
-    'title' => $title.' | '.Helpers::get_option_minhnn('seo-title-add'),
-    'keywords' => Helpers::get_option_minhnn('seo-keywords-add'),
-    'description' => Helpers::get_option_minhnn('seo-description-add'),
-    'og_title' => $title.' | '.Helpers::get_option_minhnn('seo-title-add'),
-    'og_description' => Helpers::get_option_minhnn('seo-description-add'),
+    'title' => $title.' | '.Helpers::get_option_duyen('seo-title-add'),
+    'keywords' => Helpers::get_option_duyen('seo-keywords-add'),
+    'description' => Helpers::get_option_duyen('seo-description-add'),
+    'og_title' => $title.' | '.Helpers::get_option_duyen('seo-title-add'),
+    'og_description' => Helpers::get_option_duyen('seo-description-add'),
     'og_url' => Request::url(),
     'og_img' => asset('images/logo_seo.png'),
     'current_url' =>Request::url(),
@@ -147,13 +147,13 @@ $seo = WebService::getSEO($data_seo);
                                         <input type="text" class="form-control title_slugify" id="post_title" name="post_title" placeholder="Tiêu đề" value="{{$post_title}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="post_slug">Slug sản phẩm(Hệ thống tự tạo hoặc Admin phải làm chuẩn)</label>
+                                        <label for="post_slug">Slug sản phẩm</label>
                                         <input type="text" class="form-control slug_slugify" id="post_slug" name="post_slug" placeholder="Slug" value="{{$post_slug}}">
                                         <?php if($sid>0): ?>
                                             <b style="color: #0000cc;">Demo Link:</b> <u><i><a  style="color: #F00;" href="<?php echo  $link_url_check; ?>" target="_blank"><?php echo  $link_url_check; ?></a></i></u>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group hidden">
                                         <label for="post_description">Trích dẫn</label>
                                         <textarea id="post_description" name="post_description">{!!$post_description!!}</textarea>
                                     </div>
@@ -162,24 +162,10 @@ $seo = WebService::getSEO($data_seo);
                                         <textarea id="post_content" name="post_content">{!!$post_content!!}</textarea>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="en" role="tabpanel" aria-labelledby="en-tab">
-                                    <div class="form-group">
-                                        <label for="post_title_en">Title Product</label>
-                                        <input type="text" class="form-control" id="post_title_en" name="post_title_en" placeholder="Title" value="{{$post_title_en}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_description_en">Description</label>
-                                        <textarea id="post_description_en" name="post_description_en">{!!$post_description_en!!}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="post_content_en">Description Product</label>
-                                        <textarea id="post_content_en" name="post_content_en">{!!$post_content_en!!}</textarea>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="theme_code" class="title_txt">Mã số sản phẩm</label>
-                                <input type="text" name="theme_code" id="theme_code" value="{{$theme_code}}" class="form-control">
+                            <div class="form-group hidden">
+                                <label for="product_code" class="title_txt">Mã số sản phẩm</label>
+                                <input type="text" name="product_code" id="product_code" value="{{$product_code}}" class="form-control">
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -191,7 +177,7 @@ $seo = WebService::getSEO($data_seo);
                                     <input type="text" name="price_promotion" id="price_promotion" value="{{$price_promotion}}" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row hidden">
                                 <div class="form-group col-md-6">
                                     <label for="start_event" class="title_txt">Ngày bắt đầu</label>
                                     <div class="input-group date" id="start_event" data-target-input="nearest">
@@ -201,7 +187,7 @@ $seo = WebService::getSEO($data_seo);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 hidden">
                                     <label for="end_event" class="title_txt">Ngày kết thúc</label>
                                     <div class="input-group date" id="end_event" data-target-input="nearest">
                                         <input type="text" name="end_event" class="form-control datetimepicker-input" data-target="#end_event" value="{{$end_event}}">
@@ -211,42 +197,42 @@ $seo = WebService::getSEO($data_seo);
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group hidden">
+                            <div class="form-group hidden hidden">
                                 <label for="countdown" class="title_txt">Countdown</label>
                                 <input id="countdown" type="checkbox" value="1" name="countdown" <?php if($countdown == 1): ?> checked <?php endif; ?> data-toggle="toggle">
                             </div>
                             
                             <!--End Biến thể create -->
-                            <h3>Thông tin chi tiết</h3>
-                            <div class="form-group">
+                            <h3 class="hidden">Thông tin chi tiết</h3>
+                            <div class="form-group hidden">
                                 <label for="product_detail_weight" class="title_txt">Cân nặng</label>
                                 <input type="text" name="product_detail_weight" id="product_detail_weight" value="{{$product_detail_weight}}" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="product_detail_source" class="title_txt">Xuất xứ</label>
                                 <input type="text" name="product_detail_source" id="product_detail_source" value="{{$product_detail_source}}" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="product_detail_size" class="title_txt">Size</label>
                                 <input type="text" name="product_detail_size" id="product_detail_size" value="{{$product_detail_size}}" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="product_expiry_date" class="title_txt">Hạn sử dụng</label>
                                 <input type="text" name="product_expiry_date" id="product_expiry_date" value="{{$product_expiry_date}}" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="post_order" class="title_txt">Thành phần</label>
                                 <textarea name="product_detail_ingredients" id="product_detail_ingredients" rows="10" class="mceEditor form-control mce" placeholder="Thành phần sản phẩm">{!!$product_detail_ingredients!!}</textarea>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="post_order" class="title_txt">Sắp xếp (Số càng lớn thứ tự càng cao)</label>
                                 <input type="text" name="post_order" id="post_order" value="{{$post_order}}" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="store_status" class="title_txt">Tình trạng(Còn hàng/ hết hàng)</label>
                                 <input id="store_status" type="checkbox" value="1" name="store_status" <?php if($store_status == 1): ?> checked <?php endif; ?> data-toggle="toggle">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="gallery_checked" class="title_txt">Gallery Checked</label>
                                 <input id="gallery_checked" type="checkbox" value="1" name="gallery_checked" <?php if($gallery_checked == 1): ?> checked <?php endif; ?> data-toggle="toggle">
                             </div>
@@ -386,17 +372,46 @@ $seo = WebService::getSEO($data_seo);
                             <!--End Post Gallery-->
                             
                             <!--SEO-->
-                            @include('admin.form-seo.seo')
+                            {{-- @include('admin.form-seo.seo') --}}
     		        	</div> <!-- /.card-body -->
+
+
+
     	      		</div><!-- /.card -->
     	    	</div> <!-- /.col-9 -->
                 <div class="col-3">
-                    <div class="card">
+                   
+
+                    <div class="card widget-category">
+                        <div class="card-header">
+                            <h3 class="card-title">Thể loại sản phẩm</h3>
+                        </div> <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="inside clear">
+                                <div class="clear">
+                                    <?php
+                                    $data_checks=App\Model\JoinCategoryProduct::where('id_product', $sid)->get();
+                                    $array_checked=array();
+                                    if($data_checks):
+                                        foreach($data_checks as $data_check):
+                                            array_push($array_checked,$data_check->id_category_product);
+                                        endforeach;
+                                    endif;
+                                    $categories=App\Model\CategoryProduct::where('category_products.categorySlug', '<>', 'combo')->orderBy('categoryShort','DESC')->get();
+                                    echo \App\WebService\WebService::showMutiCategory($categories,$array_checked,0);
+                                    ?>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div> <!-- /.card-body -->
+                    </div><!-- /.card -->
+
+                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Publish</h3>
                         </div> <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="form-group clearfix">
+                            <div class="form-group clearfix hidden ">
                                 <div class="icheck-primary d-inline">
                                     <input type="radio" id="radioDraft" name="status" value="1" @if($status == 1) checked @endif>
                                     <label for="radioDraft">Draft</label>
@@ -421,31 +436,7 @@ $seo = WebService::getSEO($data_seo);
                         </div> <!-- /.card-body -->
                     </div><!-- /.card -->
 
-                    <div class="card widget-category">
-                        <div class="card-header">
-                            <h3 class="card-title">Thể loại sản phẩm</h3>
-                        </div> <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="inside clear">
-                                <div class="clear">
-                                    <?php
-                                    $data_checks=App\Model\Join_Category_Theme::where('id_theme', $sid)->get();
-                                    $array_checked=array();
-                                    if($data_checks):
-                                        foreach($data_checks as $data_check):
-                                            array_push($array_checked,$data_check->id_category_theme);
-                                        endforeach;
-                                    endif;
-                                    $categories=App\Model\Category_Theme::where('category_theme.categorySlug', '<>', 'combo')->orderBy('categoryShort','DESC')->get();
-                                    echo \App\WebService\WebService::showMutiCategory($categories,$array_checked,0);
-                                    ?>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div> <!-- /.card-body -->
-                    </div><!-- /.card -->
-
-                    <div class="card widget-category">
+                    <div class="card widget-category ">
                         <div class="card-header">
                             <h3 class="card-title">Thương hiệu</h3>
                         </div> <!-- /.card-header -->
@@ -462,7 +453,7 @@ $seo = WebService::getSEO($data_seo);
                                         <label for="radio_cmc_<?php echo $seq; ?>">
                                             <input type="radio" class="category_item_input" name="brand_item" value="<?php echo $brands->brandID; ?>" id="radio_cmc_<?php echo $seq; ?>"  <?php
                                                 if($id_brand > 0):
-                                                    $data_checks = App\Model\Theme::where('id_brand', $id_brand)->get();
+                                                    $data_checks = App\Model\Product::where('id_brand', $id_brand)->get();
                                                     foreach($data_checks as $data_check):
                                                         $seq_check = $data_check->id_brand;
                                                         if($seq_check == $brands->brandID):
@@ -487,7 +478,7 @@ $seo = WebService::getSEO($data_seo);
                             <h3 class="card-title">Image Thumbnail</h3>
                         </div> <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label for="post_title">Thumbnail Alt</label>
                                 <input type="text" class="form-control" id="post_thumb_alt" value="{{$thumbnail_alt}}" name="post_thumb_alt" placeholder="Thumbnail Alt">
                             </div>

@@ -2,27 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Facades\Datatables;
+// use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-
+    use Notifiable;
+    // use HasRoles;
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'gender',
-        'phone',
-        'birthday'
+        'name', 'email', 'password','token_mail','forget_password'
     ];
 
     /**
@@ -31,16 +28,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token', 'type'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+	public function existed($params)
+    {
+        return DB::table('users as s')
+            ->select('*')
+            ->where('email', '=', $params['email'])
+            ->get()->first();
+    }
+
+    public static function getAll()
+    {
+        return DB::table('users as s')
+            ->select('id', 'name')
+            ->get()->toArray();
+    }
+
+ 
 }

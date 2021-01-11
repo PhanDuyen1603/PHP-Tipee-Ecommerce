@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Discount_code;
+use App\Models\Discount_code;
 use App\Libraries\Helpers;
 use Illuminate\Support\Str;
 use DB, File, Image;

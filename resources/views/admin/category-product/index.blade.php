@@ -87,7 +87,7 @@ $seo = WebService::getSEO($data_seo);
                                             $title = $data->categoryName;
                                             $title_en = $data->categoryName_en;
                                             $parent_cat = $data->categoryParent;
-                                            $categories_views = \App\Model\Category_Theme::get()->toArray();
+                                            $categories_views = \App\Model\CategoryProduct::get()->toArray();
                                             $breacurm = "__None__";
                                             if($categories_views):
                                                 $breacurm = \App\WebService\WebService::getParentCategory($categories_views,$parent_cat);

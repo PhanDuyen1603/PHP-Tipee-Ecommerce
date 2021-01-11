@@ -36,7 +36,7 @@ class PageController extends Controller
     }
 
     public function pageDetail($id){
-        $page_detail = Page::where('page.id', '=', $id)->first();
+        $page_detail = Page::where('id', '=', $id)->first();
         if($page_detail){
             return view('admin.page.single')->with(['page_detail' => $page_detail]);
         } else{
@@ -50,8 +50,6 @@ class PageController extends Controller
 
         $title_new = $rq->post_title;
         $title_slug = addslashes($rq->post_slug);
-        $title_en = $rq->post_title_en;
-
         if(empty($title_slug) || $title_slug == ''):
            $title_slug = Str::slug($title_new);
         endif;
@@ -80,33 +78,9 @@ class PageController extends Controller
             $description = $dom->saveHTML();
         }
 
-        $description_en = $rq->post_description_en;
-        if($description_en != ''){
-            $dom = new \DomDocument();
-            libxml_use_internal_errors(true);
-            $dom->loadHtml('<?xml encoding="utf-8" ?>'.$description_en, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getElementsByTagName('img');
-            foreach($images as $k => $img){
-                $data = $img->getAttribute('src');
-                $check_img_is_upload = str_replace( 'data:image', '', $data);
-                if ($check_img_is_upload != $data){
-                    list($type, $data) = explode(';', $data);
-                    list(, $data)      = explode(',', $data);
-                    $data = base64_decode($data);
-                    $timestamp = $datetime_convert;
-                    $image_name= "/images/upload/page_".$timestamp.'_upload_des'.$k.'.png';
-                    $path = $_SERVER['DOCUMENT_ROOT'].$image_name;
-                    file_put_contents($path, $data);
-                    $img->removeAttribute('src');
-                    $img->setAttribute('src', $image_name);
-                }
-            }
-            $description_en = $dom->saveHTML();
-        }
-
+       
         //xử lý content
         $content=htmlspecialchars($rq->post_content);
-        $content_en=htmlspecialchars($rq->post_content_en);
 
         $thumbnail_alt=addslashes($rq->post_thumb_alt);
 
@@ -153,9 +127,6 @@ class PageController extends Controller
                 'slug' => $title_slug,
                 'description' => $description,
                 'content' => $content,
-                'title_en' => $title_en,
-                'description_en' => $description_en,
-                'content_en' => $content_en,
                 'template' => $template,
                 'show_footer' => $show_footer,
                 'thubnail' => $name_thumb_img1,
@@ -177,9 +148,6 @@ class PageController extends Controller
                 'slug' => $title_slug,
                 'description' => $description,
                 'content' => $content,
-                'title_en' => $title_en,
-                'description_en' => $description_en,
-                'content_en' => $content_en,
                 'template' => $template,
                 'show_footer' => $show_footer,
                 'thubnail' => $name_thumb_img1,

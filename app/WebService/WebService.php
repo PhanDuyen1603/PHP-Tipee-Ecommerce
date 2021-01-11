@@ -5,7 +5,7 @@ namespace App\WebService;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Libraries\Helpers;
-use App\Model\Theme, App\Model\Page, App\Model\Post, App\Model\Slishow, App\Model\Ads, App\Model\Category_Theme, App\Model\Variable_Theme, App\Model\Video_page, App\Model\Discount_for_brand, App\Model\Brand, App\Model\Category, App\Model\Province, App\Model\District, App\Model\Ward, App\Model\Join_Category_Post, App\Model\Theme_variable_sku, App\Model\Theme_variable_sku_value, App\Model\Wishlist;
+use App\Model\Product, App\Model\Page, App\Model\Post, App\Model\Slishow, App\Model\Ads, App\Model\CategoryProduct, App\Model\Variable_Theme, App\Model\Video_page, App\Model\Discount_for_brand, App\Model\Brand, App\Model\Category, App\Model\Province, App\Model\District, App\Model\Ward, App\Model\Join_Category_Post, App\Model\Theme_variable_sku, App\Model\Theme_variable_sku_value, App\Model\Wishlist;
 use Illuminate\Pagination\Paginator;
 use Route, HTML, Crypt, Config, DateTime, Image, Cache, Session, DB, Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -13,11 +13,24 @@ use Harimayco\Menu\Facades\Menu;
 
 class WebService {
     // SEO
-    
+    public static function getMenuCategoryProduct(){
+        $html = '';
+        $data = CategoryProduct::orderBy('categoryShort','asc')->get();
+        if(count($data)){
+            foreach($data as $category){
+                $html.='<li data-view-id="main_navigation_item" class=" menu-header-left"><a class="menu-link" rel="" href="'.route('category.list',$category->categorySlug).'"><span
+                class="icon-wrap">'.$category->product_category_icon.'</span><span
+                class="text">'.$category->categoryName.'</span></a></li>';
+            }
+        }
+        return $html;
+    }
     public static function getProductHome($rows){
         $html = '';
         if(count($rows)>0){
+           
             foreach($rows as $item){
+                
                 if(!empty($item['price_origin']) &&  $item['price_origin'] >0):
                     $price_origin=number_format($item['price_origin'])." đ ";
                 else:
@@ -52,12 +65,56 @@ class WebService {
                 else:
                     $thumbnail="https://dummyimage.com/280x280/000/fff";
                 endif;
-                $html.='<a class="home_flashdeal_item" title="'.$item['title'].'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item['title'].'" class="image-product"></div><div class="title">'.$item['title'].'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
+                $html.='<a href="cdafd" class="home_flashdeal_item" title="'.$item['title'].'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item['title'].'" class="image-product"></div><div class="title">'.$item['title'].'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
             }
         }
         return $html;
     }
-       
+    
+    public static function getProductSearch($rows){
+        $html = '';
+        if(count($rows)>0){
+           
+            foreach($rows as $item){
+                if(!empty($item->price_origin) &&  $item->price_origin >0):
+                    $price_origin=number_format($item->price_origin)." đ ";
+                else:
+                    $price_origin="";
+                endif;
+                if(!empty($item->price_promotion) &&  $item->price_promotion >0):
+                    $price_promotion=number_format($item->price_promotion)." đ ";
+                else:
+                    $price_promotion="Liên hệ";
+                endif;
+                if(intval($item->price_promotion)<=intval($item->price_origin) && $item->price_promotion !='' && $item->price_origin !=''):
+                    $val_td=intval($item->price_origin)-intval($item->price_promotion);
+                    $percent=($val_td/intval($item->price_origin))*100;
+                    $note_percent = '<span class="label sale">SALE</span>';
+                    $circle_sale= '<span class="percent deal">-'.intval($percent).'%</span>';
+                    $price_promotion = number_format($item->price_promotion)." đ ";
+                   $original =  '<span class="original deal">'.number_format($item->price_origin)." đ ".'</span>';
+                else:
+                    $val_td=0;
+                    $percent=0;
+                    $note_percent="";
+                    $circle_sale='';
+                    $original = '';
+                    $price_promotion = number_format($item->price_origin)." đ ";
+                endif;
+                $url_img="images/product";
+                if(!empty($item->thubnail) && $item->thubnail !=""):
+                    $thumbnail= Helpers::getThumbnail($url_img,$item->thubnail, 280, 280, "resize");
+                    if(strpos($thumbnail, 'placehold') !== false):
+                        $thumbnail=$url_img.$thumbnail;
+                    endif;
+                else:
+                    $thumbnail="https://dummyimage.com/280x280/000/fff";
+                endif;
+                $html.='<a class="home_flashdeal_item" title="'.$item->title.'" rel=""><div class="image-product"><img src="'.$thumbnail.'" alt="'.$item->title.'" class="image-product"></div><div class="title">'.$item->title.'</div><p class="price">'.$price_promotion.''.$circle_sale.''.$original.'</p></a>';
+            }
+        }
+        return $html;
+    }
     public function getSEO($data = array()){
         $seo = array();
         $seo['title'] = isset($data['title'])?$data['title']:'';
@@ -149,19 +206,6 @@ class WebService {
     }
     public function ListMenuCateRender(){
         return $this->ListMenuCate();
-    }
-    public function ListMenuCateMobile(){
-        $result ="";
-        $categories=Category_Theme::where('categoryIndex',1)
-            ->where('status_category',0)
-            ->select('categoryParent','categoryID','categorySlug','categoryName','theme_category_icon')
-            ->orderBy('categoryShort','DESC')
-            ->get()->toArray();
-        $result .= self::showMenuMobilehtml($categories,0,0);
-        return $result;
-    }
-    public function ListMenuCateMobileRender(){
-        return $this->ListMenuCateMobile();
     }
     public function setSessionProductView($products){
        // Session::forget('product_view');
@@ -357,28 +401,6 @@ class WebService {
                         endif;
                     }
                 }
-                
-                // $color=self::colorRender($row['id']);
-                // $txt_color='';
-                // $row_color =  DB::table('variable_theme')
-                // ->join('theme_join_variable_theme','variable_theme.variable_themeID','=','theme_join_variable_theme.variable_themeID')
-                // ->join('theme','theme_join_variable_theme.id_theme','=','theme.id')
-                // ->where('theme.id',$row['id'])
-                // ->where('theme.status','=',0)
-                // ->groupBy('variable_theme.variable_theme_slug')
-                // ->select('variable_theme.*','theme.id','theme.title','theme.title_en','theme.theme_code','theme_join_variable_theme.theme_join_variable_theme_img','theme_join_variable_theme.theme_join_variable_theme_icon')
-                // ->get();
-                // $count_color=0;
-                // foreach($row_color as $key):
-                //     $count_color++;
-                // endforeach;
-                // if($count_color==0){
-                //   $txt_color='';
-                // }elseif ($count_color<=5) {
-                //   $txt_color = WebService::colorRender($row['id']);
-                // }else{
-                //   $txt_color = WebService::colorRender($row['id'],'',5).'<span class="more-color"><a href="'.route('tintuc.details',array($row['categorySlug'],$row['slug'])).'">more</a></span>';
-                // }
                 $galleries=self::variableGalleryImageRender($row['id']);
                 if($galleries ==''):
                     $galleries=$thumbnail;
@@ -490,7 +512,6 @@ class WebService {
         return $this->ListBrand();
     }
     public function HotDeal(){
-        // Session::forget('product_view');
         $result = '';
         $hot_deal = DB::table('category_theme')
                 ->join('join_category_theme','category_theme.categoryID','=','join_category_theme.id_category_theme')

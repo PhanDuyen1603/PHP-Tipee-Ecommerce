@@ -60,7 +60,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview <?php if(in_array($segment_check, array('list-post', 'post', 'edit-post', 'list-category-post', 'category-post'))){ echo 'menu-open'; } ?>">
+          <li class="nav-item has-treeview hidden <?php if(in_array($segment_check, array('list-post', 'post', 'edit-post', 'list-category-post', 'category-post'))){ echo 'menu-open'; } ?>">
             <a href="javascript:void(0)" class="nav-link <?php if(in_array($segment_check, array('list-post', 'post', 'edit-post', 'list-category-post', 'category-post'))){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>
@@ -104,27 +104,17 @@
                   <p>Tất cả sản phẩm</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('admin.listCombo')}}" class="nav-link <?php if(in_array($segment_check, array('list-combo', 'combo'))){ echo 'active'; } ?>">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Gói Combo</p>
-                </a>
-              </li>
-              <li class="nav-item">
+            
+              <li class="nav-item ">
                 <a href="{{route('admin.listCategoryProduct')}}" class="nav-link <?php if(in_array($segment_check, array('list-category-product', 'category-product'))){ echo 'active'; } ?>">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>Thể loại sản phẩm</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('admin.listVariableProduct')}}" class="nav-link <?php if(in_array($segment_check, array('list-variable-product', 'variable-product'))){ echo 'active'; } ?>">
-                  <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Biến thể sản phẩm</p>
-                </a>
-              </li>
+              
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item hidden">
             <a href="{{route('admin.listBrand')}}" class="nav-link <?php if(in_array($segment_check, array('list-brand', 'brand'))){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-blog"></i>
               <p>
@@ -140,15 +130,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{route('admin.discountCode')}}" class="nav-link <?php if(in_array($segment_check, array('list-discount-code', 'discount-code'))){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-percent"></i>
-              <p>
-                Mã giảm giá
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
+        
+          <li class="nav-item hidden">
             <a href="{{route('admin.slider')}}" class="nav-link <?php if(in_array($segment_check, array('list-slider', 'slider'))){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-images"></i>
               <p>
@@ -156,15 +139,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{route('admin.listVideo')}}" class="nav-link <?php if(in_array($segment_check, array('list-video', 'video'))){ echo 'active'; } ?>">
-              <i class="nav-icon fas fa-film"></i>
-              <p>
-                Videos
-              </p>
-            </a>
-          </li>
-          {{--
+         
+          
           <li class="nav-item has-treeview <?php if(in_array($segment_check, array('list-users', 'user'))){ echo 'menu-open'; } ?>">
             <a href="javascript:void(0)" class="nav-link <?php if(in_array($segment_check, array('list-users', 'user'))){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-users"></i>
@@ -188,10 +164,10 @@
               </li>
             </ul>
           </li>
-          --}}
+         
           <!-- Setting -->
           <li class="nav-header">Setting</li>
-          <li class="nav-item">
+          <li class="nav-item hidden">
             <a href="{{route('admin.themeOption')}}" class="nav-link">
               <i class="nav-icon fas fa-sliders-h"></i>
               <p>
@@ -224,31 +200,6 @@
             </a>
           </li>
           <!-- Export Excel -->
-          <li class="nav-header">Export Excel</li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-export-customer" class="nav-link">
-              <i class="nav-icon fas fa-file-excel"></i>
-              <p>
-                Export Customers
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-export-order" class="nav-link">
-              <i class="nav-icon fas fa-file-excel"></i>
-              <p>
-                Export Orders
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('admin.exportProducts')}}" class="nav-link">
-              <i class="nav-icon fas fa-file-excel"></i>
-              <p>
-                Export Products
-              </p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
