@@ -14,7 +14,7 @@ class Orders extends Model
         'order_address',
         'order_state',
         'updated_at',
-        'created_at',
+        'order_created',
         'order_receivedDate'
         // 'last_name_kanji',
         // 'first_name_kanji',

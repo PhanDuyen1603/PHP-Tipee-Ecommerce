@@ -186,12 +186,12 @@
 </style>
 
 <section>
-
+  <?php $totalPrice  = 0;?>
     <div class="container">
         <h1 style="text-align: center">Tra cứu đơn hàng</h1>
         @foreach($user_order as $key => $order)
             <?php $time_received =  $order['order_receivedDate'];?>
-            <?php $time_created = $order['order_receivedDate'];?>
+            <?php $time_created = $order['order_created'];?>
         @endforeach
         <div id="timeline_section">
             <div class="row">
@@ -206,7 +206,7 @@
 							<div class="timeline-panel">
 								<div class="timeline-heading">
 									<h4 class="timeline-title">Đặt hàng thành công</h4>
-                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><?php $diff = date_diff($time_created,NOW())?></small></p>
+                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><?php  ?></small></p>
 								</div>
 								<div class="timeline-body">
 									<p><?php echo $time_received ;?></p>
@@ -222,7 +222,7 @@
 								</div>
 								<div class="timeline-body">
 									<p><?php $date = new DateTime($time_received);
-                                        $date->add(new DateInterval('PT1H'));
+                                        $date->add(new DateInterval('PT1H25S'));
                                         echo $date->format('Y-m-d H:i:s');?></p>
 								</div>
 							</div>
@@ -233,10 +233,12 @@
 							<div class="timeline-panel">
 								<div class="timeline-heading">
 									<h4 class="timeline-title">Vận chuyển</h4>
-									<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+									<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i></small></p>
 								</div>
 								<div class="timeline-body">
-									<p><?php echo $time_received ;?></p>
+									<p><?php $date = new DateTime($time_received);
+                    $date->add(new DateInterval('PT1H50S'));
+                    echo $date->format('Y-m-d H:i:s');?></p>
 								</div>
 							</div>
                         </li>	
@@ -245,10 +247,10 @@
 							<div class="timeline-panel">
 								<div class="timeline-heading">
 									<h4 class="timeline-title">Nhận hàng</h4>
-									<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+									<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i></small></p>
 								</div>
 								<div class="timeline-body">
-									<p></p>
+									<p><?php echo $time_received ;?></p>
 								</div>
 							</div>
 						</li>					
@@ -261,7 +263,9 @@
             <h3></h3>
         </div>
         <div class="orders">
-            <h3>Đơn hàng bao gồm</h3>
+          <div class="page-header">
+					  <h2>Tình trạng đơn hàng</h2>
+					</div>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -279,12 +283,14 @@
                         <td>{{number_format($order->order_price) . ' đ'}}</td>
                     </tr>                   
                 </tbody>               
+                <?php  $totalPrice += $order->order_totalPrice?>
                @endforeach
                
                 
                
                 
             </table>
+            <h4 style="float:right;">Tổng tiền: <span style="font-weight:bold">{{number_format($totalPrice) . ' đ'}}</span></h4>
         </div>
        
     </div>

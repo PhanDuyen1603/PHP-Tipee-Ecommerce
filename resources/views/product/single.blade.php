@@ -109,17 +109,17 @@
                                        <div class="pro_view_name3 wishlist_detais_note">
                                           <ul class="add-to-links-wishlist">
                                              <?php
-                                                $is_login = 0;
-                                                if(Auth::check()){
-                                                	$check_wishlist = App\Model\Wishlist::where('id_product' , '=' , $data_customers->id)
-                                                		->where('user_id' , '=', Auth::user()->id)
-                                                		->get();
-                                                	$is_login = 1;
-                                                }
+                                                // $is_login = 0;
+                                                // if(Auth::check()){
+                                                // 	$check_wishlist = App\Model\Wishlist::where('id_product' , '=' , $data_customers->id)
+                                                // 		->where('user_id' , '=', Auth::user()->id)
+                                                // 		->get();
+                                                // 	$is_login = 1;
+                                                // }
                                                 ?>
                                              {{-- <li>
                                                 <a href="javascript:void(0)" onclick="<?php
-                                                   echo "addToWishList('".$data_customers->id."'); return false;";
+                                                   // echo "addToWishList('".$data_customers->id."'); return false;";
                                                    ?>" class="link-wishlist" title="Add to Wishlist">
                                                 @if(isset($check_wishlist) && count($check_wishlist) > 0)
                                                 <i class="fa fa-heart" aria-hidden="true"></i> <span class="txt">Đã thích</span> ( <span class="ft"></span> ) 
@@ -149,7 +149,25 @@
                                        <h1 class="title_product_detail"><?php
                                           echo ($data_customers->title)?($data_customers->title):($data_customers->seo_title); ?></h1>
                                        <div class="style__StyledProductAction-sc-1b8sgmz-0 dafovQ">
-                                          <div class="icon-wrap" data-view-id="pdp_details_like"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-like.svg"></div>
+
+                                          <form action="{{route('wishList.save')}}" method="POST">
+                                             @csrf
+                                             <input type="hidden" name="wish_product" class="wish_product" value="{{$data_customers->id}}">
+                                             <?php if(Auth::user()){?>
+                                                <button type="submit" style="background-color:white; outline:none">
+                                             <?php }else{ ?>
+                                                <button type="button" style="background-color:white">
+                                                <?php }?>
+                                                <?php if($wishListOfUser != null){?>
+                                                   <div class="icon-wrap" data-view-id="pdp_details_like"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-liked.svg"></div>
+
+                                                <?php }else{?>
+                                                   <div class="icon-wrap" data-view-id="pdp_details_like"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-like.svg"></div>
+
+                                                   <?php }?>
+                                             </button>
+                                          </form>
+
                                           <div class="icon-wrap shareFB" data-view-id="pdp_details_share"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-account-social.svg"></div>
                                        </div>
                                        <div class="brand-block-row clear">

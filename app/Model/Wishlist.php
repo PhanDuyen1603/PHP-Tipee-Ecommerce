@@ -2,17 +2,18 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Wishlist extends Model
 {
     public $timestamps = false;
-    protected $table = 'wishlist';
+    protected $table = 'wishlists';
     protected $fillable =[
-        'id',
-        'id_product',
-        'user_id',
+        'wish_product',
+        'wish_user',
         'created_at',
         'updated_at'
     ];
+    protected $primaryKey = 'wish_id';
 }

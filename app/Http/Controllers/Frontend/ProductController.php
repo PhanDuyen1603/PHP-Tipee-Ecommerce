@@ -15,16 +15,48 @@ use App\Model\CategoryProduct;
 use App\Model\Product;
 use App\Model\Ratings;
 use App\Model\Carts;
+use App\Model\Wishlist;
 
 class ProductController extends Controller
 {
-    public function productDetail($slug){
-        $data_customers = Product::where('slug',$slug)->first();
-        $category = '';
-
+    public function show_wishList(){
         if(Auth::user()){
             $userId = Auth::user()->id;
             $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+            $wishListOfUser = WishList::Where('wish_user',$userId)->join('Products','Products.id','=','wish_product')
+            ->orderBy('wish_id','desc')->get();           
+        }
+        return view('pages.product.show_wishList')->with('wishListOfUser',$wishListOfUser)->with('count_cart',$count_cart);
+    }
+
+    public function save_wishList(Request $request){
+        $data = $request->all();
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $wishListOfUser = Wishlist::Where('wish_user',$userId)->where('wish_product',$data['wish_product'])->first();
+            if($wishListOfUser != null){
+                $wishListOfUser->delete();
+            }else{
+                $new_wishList = new Wishlist();
+                $new_wishList['wish_user'] = $userId;
+                $new_wishList['wish_product'] = $data['wish_product'];
+                $new_wishList->save();
+            }
+        }
+        return redirect()->back();
+    }
+
+
+
+    public function productDetail($slug){
+        $data_customers = Product::where('slug',$slug)->first();
+        $category = '';
+        
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+            $wishListOfUser = WishList::Where('wish_user',$userId)->Where('wish_product',$data_customers['id'])->first();
+            
         }else{
             $count_cart = 0;
         }
@@ -34,8 +66,10 @@ class ProductController extends Controller
        $rating_star = round($rating_star);
 
         return view('product.single', compact('data_customers','category'))
-        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_cart',$count_cart);
+        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_cart',$count_cart)->with('wishListOfUser',$wishListOfUser);
     }
+
+
 
     public function add_rating(Request $request){
          //rating
