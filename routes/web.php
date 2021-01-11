@@ -46,6 +46,17 @@ Route::get('/search', 'Frontend\SearchController@search')->name('admin.searchPos
 
 Route::get('/san-pham/{slug}','Frontend\ProductController@productDetail')->name('product.detail');
 
+//RATING
+Route::post('/add-rating','Frontend\ProductController@add_rating')->name('product.rating');
+
+
+//CART
+Route::post('/save-cart','Frontend\CartController@save_cart')->name('cart.save');
+// Route::post('/add-cart','CartController@add_cart'); //add-cart-ajax
+Route::get('/show-cart','Frontend\CartController@show_cart');
+
+
+
 // //CATEGORY ADMIN QUẢN LÝ
 // Route::get('/add-category','Category@add_category');
 // Route::get('/edit-category/{category_id}','Category@edit_category');
@@ -81,10 +92,6 @@ Route::get('/san-pham/{slug}','Frontend\ProductController@productDetail')->name(
 // Route::post('/save-product','Product@save_product');
 // Route::post('/update-product/{product_id}','Product@update_product');
 
-//CART
-// Route::post('/save-cart','CartController@save_cart');
-// Route::post('/add-cart','CartController@add_cart'); //add-cart-ajax
-// Route::get('/show-cart','CartController@show_cart');
 
 
 
