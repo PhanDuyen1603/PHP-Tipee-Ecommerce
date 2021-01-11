@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content') 
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <section>
 
     <div class="container">
@@ -12,21 +12,26 @@
 
         </div>
         <div class="orders">
-            <div class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>Tên sản phẩm</td>
-                        <td>Số lượng</td>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
                     </tr>
                 </thead>
-                @foreach($user_order as $key => $order)
+                 @foreach($user_order as $key => $order)
                 <tbody>
                     <tr>
-                        <td></td>
+                        <td>{{$order->title}}</td>
+                        <td>{{$order->order_quantity}}</td>
                     </tr>
                 </tbody>
-                @endforeach
-            </div>
+               @endforeach
+               
+            
+               
+                
+            </table>
         </div>
        
     </div>

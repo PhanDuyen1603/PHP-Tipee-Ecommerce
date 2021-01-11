@@ -9,10 +9,7 @@
 @php
 $total = 0;
 @endphp
-@foreach($cartOfUser as $key => $cart)
-@php
-    $total += $cart['cart_totalPrice'];
-@endphp
+
 <section id="cart_items">
     <div class="container">
         <div class="breadcrumbs">
@@ -22,10 +19,10 @@ $total = 0;
             </ol>
         </div>
         <div class="table-responsive cart_info">
-            <?php 
-                //$content = Cart::content();
-                //print_r($content);
-                ?>
+            <?php
+                foreach($cartOfUser as $key => $value)
+                if($value['cart_id'] != null){    
+            ?>
             <table class="table table-condensed">                  
                 <thead>
                     <tr class="cart_menu">
@@ -37,6 +34,14 @@ $total = 0;
                         <td></td>
                     </tr>
                 </thead>
+                <?php }else{?>
+                    <h2>Bạn chưa chọn mua sản phẩm nào</h2>
+                    <h2><a href="{{route('index')}}">Quay lại trang chủ</a></h2>
+                <?php } ?>
+                @foreach($cartOfUser as $key => $cart)
+                @php
+                    $total += $cart->cart_totalPrice;   
+                @endphp
                 <tbody>
                
                     <tr>
@@ -79,8 +84,9 @@ $total = 0;
                             </form>
                         </td>
                     </tr>
-               {{-- @endforeach --}}
                 </tbody>
+                @endforeach
+
             </table>
         </div>
     </div>
@@ -88,33 +94,28 @@ $total = 0;
 
 <section id="pay">
     <div class="container">
-        @foreach($user_info as $key => $user)
         <div class="card">
             <div class="card-body">     
-                <form action="{{route('cart.order')}}" method="POST">        
+                <form action="{{route('order.save')}}" method="POST">        
                     @csrf 
                 <ul style="list-style-type: none">
                    
                     <li>Tổng tiền <span>{{number_format($total,0,',','.').' đ'}}</span> (Đã bao gồm thuế)</li>
 
                     <li>Phí vận chuyển: <span>Free</span></li>
-                    <li>Thành tiền<span>{{number_format($total,0,',','.').' đ'}}</span></li>
+                    <li>Thành tiền: <span>{{number_format($total,0,',','.').' đ'}}</span></li>
                     <li>Phương thức thanh toán: <span></span>tiền mặt</li>
                     <li>Địa chỉ giao hàng:  <br>
                         <input type="text" name="order_address" class="order_address" value=""></li>
-                </ul>          
-                    <input type="hidden" name="order_customer" class="order_customer" value="{{$cart->cart_user}}">
-                    <input type="hidden" name="order_product" class="order_product" value="{{$cart->cart_product}}">
-                    <input type="hidden" name="order_price" class="order_price" value="{{$cart->cart_totalPrice}}">
-                   
+                </ul>                          
                     <button type="submit" class="btn btn-success">Đặt mua</button>
                 </form>
             </div>
         </div>    
-        @endforeach     
     </div>
 </section>
-@endforeach
+
+
 {{-- NÚT TĂNG GIẢM --}}
 <script>
     $(document).ready(function(){

@@ -54,7 +54,8 @@ Route::post('/add-rating','Frontend\ProductController@add_rating')->name('produc
 Route::post('/save-cart','Frontend\CartController@save_cart')->name('cart.save');
 Route::post('/delete-cart','Frontend\CartController@delete_cart')->name('cart.delete');
 Route::get('/show-cart','Frontend\CartController@show_cart')->name('cart.show');
-Route::post('/show-order','Frontend\CartController@order_cart')->name('cart.order');
+Route::post('/save-order','Frontend\CartController@save_order')->name('order.save');
+Route::get('/show-order','Frontend\CartController@show_order')->name('order.show');
 
 
 

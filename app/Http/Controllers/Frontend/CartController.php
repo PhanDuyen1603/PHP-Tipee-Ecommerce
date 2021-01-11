@@ -20,28 +20,40 @@ use App\Facades\WebService;
 class CartController extends Controller
 {
     public function show_order(){
-
+        $userId = Auth::user()->id;
+        $user_order = Orders::Where('order_customer',$userId)->join('Products','products.id','=','Orders.order_product')
+        ->get();
+        
+        return view('pages.cart.show_orderState')->with('user_order',$user_order);
     }
 
-    public function order_cart(Request $request){
+    public function save_order(Request $request){
         $data = $request->all(); 
-        $newOrder = new Orders();
-        $newOrder['order_customer'] = $data['order_customer'];
-        $newOrder['order_product'] = $data['order_product'];
-        $newOrder['order_price'] = $data['order_price'];
-        $newOrder['order_address'] = $data['order_address'];
-        $newOrder['order_state'] = 'Đang giao';
-        $newOrder->save();
-
-        // $user_order = Orders::Where('order_customer',$newOrder['order'])
-
+        $userId = Auth::user()->id;
+        $carts = Carts::Where('cart_user',$userId)->get();
+        foreach($carts as $key => $cart){
+            $newOrder = new Orders();
+            $newOrder['order_customer'] = $cart['cart_user'];
+            $newOrder['order_product'] = $cart['cart_product'];
+            $newOrder['order_quantity'] = $cart['cart_quantity'];
+            $newOrder['order_price'] = $cart['cart_totalPrice'];
+            $newOrder['order_address'] = $data['order_address'];
+            $newOrder['order_state'] = 'Đang giao';
+            $newOrder->save();
+            $cart->delete();
+        }
+        return $this->show_order();
+        // $user_ordered = Orders::Where('order_customer',$userId)->join('Products','products.id','=','Orders.order_product')
+        // ->get();
+        
         // return view('pages.cart.show_orderState')->with('user_order',$user_order);
+        // return view('pages.cart.show_orderState');
     }
 
     public function show_cart(){
         if(Auth::User()){
             $userId = Auth::User()->id;
-            $cartOfUser = Carts::Where('cart_user',$userId)->join('Products','Products.Id','=','carts.cart_product')
+            $cartOfUser = Carts::Where('cart_user',$userId)->join('Products','Products.id','=','carts.cart_product')
             ->orderBy('cart_id','desc')->limit(10)->get();
             $user_info = User::Where('id',$userId)->get();
             return view('pages.cart.show_cart')->with('cartOfUser',$cartOfUser)->with('user_info',$user_info);
