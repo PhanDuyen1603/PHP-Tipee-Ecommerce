@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -11,6 +10,7 @@ use App\Model\Carts;
 use App\Model\Product;
 use App\Model\Orders;
 use App\Model\Order_details;
+use Carbon\Carbon;
 
 use Validator;
 use Mail;
@@ -19,9 +19,7 @@ use App\Libraries\Helpers;
 use App\Facades\WebService;
 
 class CartController extends Controller
-{
-    private $order_new;
-    
+{    
     public function save_order(Request $request){
         $data = $request->all(); 
         $userId = Auth::user()->id;
@@ -38,10 +36,10 @@ class CartController extends Controller
             $newOderDetails['order_price'] = $cart['cart_totalPrice'];
             
             $newOrder['order_customer'] = $userId ;  
-            $newOrder['order_address'] = $data['order_address'];   
-
+            $newOrder['order_address'] = $data['order_address'];  
+            $dt = Carbon::now(); 
+            $newOrder['order_receivedDate'] = $dt->addDays(3);
             $newOrder->save();
-            $this->order_new = $newOrder['order_id'];
             $newOderDetails['order'] = $newOrder['order_id'];
             $newOderDetails->save();
 
@@ -51,20 +49,52 @@ class CartController extends Controller
     }
 
     public function show_order(){
-        $userId = Auth::user()->id;
-        //LẤY ĐƠN HÀNG VỪA MỚI ORDER
-        $user_order = Orders::Where('order_customer',$userId)->Where('order_id',$this->order_new)->join('Order_details','order','=','order_id')
-        ->join('Products','products.id','=','order_product')->get();
+        //HIỂN THỊ ĐƠN HÀNG ĐANG GIAO (CHƯA GIAO)
+        //CHƯA GIAO <=> THỜI GIAN NHẬN HÀNG > THỜI GIAN HIỆN TẠI
 
-        return view('pages.cart.show_orderState')->with('user_order', $user_order);
+        //tình trạng: created_at = now() -> đã nhận đơn đặt hàng
+        // < 3 -> đang giao
+        // = 3 đã giao
+
+        $dt = Carbon::now();
+
+        $userId = Auth::user()->id;      
+       
+        $user_order = Orders::Where('order_customer',$userId)->where('orders.order_receivedDate', '>', NOW())
+        ->join('Order_details','order','=','order_id')
+        ->join('Products','products.id','=','order_product')->orderBy('order_id','desc')->get();
+
+        if(Auth::user()){   
+            $userId = Auth::user()->id;
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+        }else{
+            $count_cart = 0;
+        }
+
+        return view('pages.cart.show_orderState')->with('user_order', $user_order)->with('count_cart',$count_cart);
     }
 
     public function show_all_order(){
+        //HIỂN THỊ TẤT CẢ ĐƠN HÀNG
         $userId = Auth::user()->id;
         $user_order = Orders::Where('order_customer',$userId)->join('Order_details','order','=','order_id')
-        ->join('Products','products.id','=','order_product')->get();
+        ->join('Products','products.id','=','order_product')->orderBy('order_id','desc')->get();
 
-        return view('pages.cart.show_all_order')->with('user_order', $user_order);
+        foreach($user_order as $key => $order){
+            if($order['order_receivedDate'] <= NOW()){
+                $order['order_state'] = 'Đã giao';
+                $order->save();
+            }
+        }
+
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+        }else{
+            $count_cart = 0;
+        }
+
+        return view('pages.cart.show_all_order')->with('user_order', $user_order)->with('count_cart',$count_cart);
     }
 
     public function show_cart(){
@@ -73,7 +103,10 @@ class CartController extends Controller
             $cartOfUser = Carts::Where('cart_user',$userId)->join('Products','Products.id','=','carts.cart_product')
             ->orderBy('cart_id','desc')->limit(10)->get();
             $user_info = User::Where('id',$userId)->get();
-            return view('pages.cart.show_cart')->with('cartOfUser',$cartOfUser)->with('user_info',$user_info);
+
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity'); 
+
+            return view('pages.cart.show_cart')->with('cartOfUser',$cartOfUser)->with('user_info',$user_info)->with('count_cart',$count_cart);
         }    
     }
 

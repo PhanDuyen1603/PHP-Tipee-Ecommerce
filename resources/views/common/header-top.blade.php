@@ -17,8 +17,9 @@
       <div data-view-id="header_user_shortcut" class="order">
          <a title="Theo dõi đơn hàng"
             data-view-id="header_user_shortcut_order_tracking" href="">
-            <div class="check-order"><i class="tikicon icon-tracking"></i><span style="text-decoration: none" class="check-order-title">Theo
-               dõi<br>đơn hàng</span>
+            <div class="check-order"><i class="tikicon icon-tracking"></i>
+               <a href="{{route('order.show')}}"><span style="text-decoration: none" class="check-order-title">Theo
+                  dõi<br>đơn hàng</span></a>
             </div>
          </a>
          <div data-view-id="header_user_shortcut_notification" class="check-order"><i
@@ -65,9 +66,12 @@
          <div data-view-id="header_user_shortcut_cart" class=" cart">
             {{-- tạm thời chưa dùng route, 1 là user id  --}}
             <a href="{{route('cart.show')}}">
-               <div class="cart-ct"><i class="tikicon icon-cart"></i><span class="check-order-title">Giỏ hàng<span
-                  {{-- class="cart-index">{{$count_product}}</span></span></div> --}}
-                  class="cart-index">0</span></span></div>
+               <div class="cart-ct"><i class="tikicon icon-cart"></i><span class="check-order-title">Giỏ hàng
+                  <?php if(Auth::user()){ ?>
+                     <span class="cart-index">{{$count_cart}}</span></span></div>
+                  <?php }else{?>
+                     <span class="cart-index">0</span></span></div>
+                  <?php }?>
             </a>
          </div>
       </div>

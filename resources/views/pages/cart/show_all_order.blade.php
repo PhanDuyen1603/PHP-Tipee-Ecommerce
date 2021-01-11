@@ -14,26 +14,27 @@
     <div class="container">
         <h1 style="text-align: center">Đơn hàng của bạn</h1>
         <div class="orders">
-            <h3>Đơn hàng bao gồm</h3>
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Ngày mua</th>
                         <th scope="col">Số lượng</th>
+                        <th scope="col">Thành tiền</th>
+                        <th scope="col">Tình trạng</th>
                     </tr>
                 </thead>
                  @foreach($user_order as $key => $order)
                 <tbody>
                     <tr>
                         <td>{{$order->title}}</td>
+                        <td>{{$order->created_at->format('Y-m-d')}}</td>
                         <td>{{$order->order_quantity}}</td>
+                        <td>{{number_format($order->order_price) . ' đ'}}</td>
+                        <td>{{$order->order_state}}</td>
                     </tr>
                 </tbody>
-               @endforeach
-               
-            
-               
-                
+               @endforeach      
             </table>
         </div>
        

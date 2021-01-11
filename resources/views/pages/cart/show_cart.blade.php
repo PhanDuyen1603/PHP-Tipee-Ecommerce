@@ -19,25 +19,18 @@ $total = 0;
             </ol>
         </div>
         <div class="table-responsive cart_info">
-            <?php
-                foreach($cartOfUser as $key => $value)
-                if($value['cart_id'] != null){    
-            ?>
             <table class="table table-condensed">                  
                 <thead>
                     <tr class="cart_menu">
                         <td class="image">Hình ảnh</td>
                         <td class="description">Tên sản phẩm</td>
-                        <td class="price">Giá</td>
+                        <td class="price">Đơn giá</td>
                         <td class="quantity">Số lượng</td>
                         <td class="total">Thành tiền</td>
                         <td></td>
                     </tr>
                 </thead>
-                <?php }else{?>
-                    <h2>Bạn chưa chọn mua sản phẩm nào</h2>
-                    <h2><a href="{{route('index')}}">Quay lại trang chủ</a></h2>
-                <?php } ?>
+          
                 @foreach($cartOfUser as $key => $cart)
                 @php
                     $total += $cart->cart_totalPrice;   
