@@ -259,16 +259,31 @@
                                           <div class="inner">Bạn hãy <span>NHẬP ĐỊA CHỈ</span> nhận hàng để được dự báo thời gian &amp; chi phí giao hàng một cách chính xác nhất.</div>
                                        </div>
                                        
+                                       <form action="{{route('cart.save')}}" method="POST">
+                                          @csrf
                                        <div class="indexstyle__AddToCart-qd1z2k-7 fZaWsF add-to-cart">
                                           <div class="qty-and-message">
                                              <div class="QualityInput__Wrapper-sc-15mlmyf-0 iyaBQp">
                                                 <p class="label">Số Lượng</p>
-                                                <div class="group-input"><button class="disable"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"></button><input type="text" value="1" class="input"><button><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"></button></div>
+                                                <div class="group-input">
+                                                   <button class="disable"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"></button>
+                                                   <input name="input" type="text" value="1" class="input">
+                                                   <button class="disable"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"></button>
+                                                </div>
                                              </div>
                                           </div>
-                                          <div class="group-button"><button class="btn btn-add-to-cart" data-view-id="pdp_add_to_cart_button">Chọn mua</button></div>
+                                          <div class="group-button">                                            
+                                             <input type="hidden" name="cart_product" class="cart_product" value="{{$data_customers->id}}">
+                                             <input type="hidden" name="cart_user" class="cart_user" value="{{Auth::user()->id}}">                                            
+                                             <?php
+                                                if(Auth::user()){ ?>              
+                                                <button type="submit" class="btn btn-add-to-cart" data-view-id="pdp_add_to_cart_button">Chọn mua</button>
+                                             <?php }else{?>  
+                                                <button type="button" id="btnBuy" class="btn btn-add-to-cart" data-view-id="pdp_add_to_cart_button">Chọn mua</button>
+                                             <?php }?>  
+                                          </div>
                                        </div>
-
+                                       </form>
                                        <div class="container_bienthe_group @if($data_customers->group_combo != '') container_bienthe_group_combo @endif clear">
                                           @if($data_customers->group_combo == '')
                                           <div class="classlist">
@@ -518,4 +533,170 @@
    <!--container-->
 </div>
 <!--main_content-->
+
+
+{{--ĐÁNH GIÁ SẢN PHẨM BEGIN --}}
+<section class="ratings">
+   <div class="container">
+      {{-- SHOW RATING --}}
+      <h2 style="margin:50px;">ĐÁNH GIÁ SẢN PHẨM</h2>
+   
+      @foreach($ratings as $key => $rating)
+      <div style="height:300px" class="card">
+      <div class="card-body"> 
+   
+         <div class="card-title">
+            <div style="display: flex" class="customer_comment_avatar">
+            <img style="width: 50px; display:block;border-radius:50%" src="{{asset('images/product/user.png')}}" alt="">
+            <div  style="justify-content: center;
+            align-items: center;
+            display: flex;margin-left:30px;">
+                  <h5>{{$rating->name}}</h5>
+            </div>
+            
+            </div>             
+         </div>
+   
+         <div class="card-text">
+            <div class="customer_rating">
+            @for($count=1; $count<=5 ;$count++)
+                  @php
+                     if($count <= $rating->rating_star){
+                        $color = "#ffcc00";
+                     }else{
+                        $color="#ccc";
+                     }
+                  @endphp
+                  <li
+                  class="ratingClass"
+                  style="cursor: pointer; color:{{$color}}; font-size:30px; display: inline-block;"
+                  > &#9733;
+   
+                  </li> 
+            
+            @endfor
+            </div>
+         <h5 class="card-text">{{$rating->rating_title}}</h5>
+         <p class="card-text">{{$rating->rating_content}}</p>
+         <p class="card-text"><small class="text-muted">{{$rating->created_at}}</small></p>
+         </div>  
+      </div>
+      </div>
+   
+      @endforeach
+   
+      <div class="card">
+      <div class="card-body">
+         <h5 class="card-title">GỬI NHẬN XÉT CỦA BẠN</h5>
+      <?php 
+               // $msg = "Option has been registered";
+               // $url= route('admin.themeOption');
+               // Helpers::msg_move_page($msg,$url);
+      ?>
+         <form action="{{route('product.rating')}}"  method="POST">
+            @csrf
+            <div class="mb-3">
+               <label class="form-label">1. Đánh giá của bạn về sản phẩm này:</label>
+                  <ul class="list-inline">
+                  @for($count=1; $count<=5 ;$count++)
+                     @php
+                        if($count <= $rating_star){
+                           $color = "#ffcc00";
+                        }else{
+                           $color="#ccc";
+                        }
+                     @endphp
+                     <li
+                        title="Đánh giá"
+                        id="{{$data_customers->id}}-{{$count}}"
+                        data-index="{{$count}}"
+                        data-product_id="{{$data_customers->id}}"
+                        data-rating="{{$rating_star}}"
+                        class="ratingClass"
+                        style="cursor: pointer; color:{{$color}}; font-size:30px; display: inline-block;"
+                        > &#9733;
+   
+                     </li> 
+                  
+                  @endfor
+                     
+                  </ul>  
+                  <input type="hidden" name="star" class="star">
+                  <input type="hidden" name="proId" class="proId" value="{{$data_customers->id}}">
+                  <input type="hidden" name="oldStar" class="oldStar" value="{{$rating_star}}">
+                  {{-- <input type="hidden" name="userId" class="userId" value="{{Auth::user()->id}}"> --}}
+
+            </div>
+            <div class="mb-3">
+               <label class="form-label">2. Tiêu đề của nhận xét</label>
+               <input type="text" name="rating_title" id="rating_title"  class="form-control" placeholder="Nhập tiêu đề để nhận xét">
+            </div>
+            <div class="mb-3">
+               <label class="form-label">3. Viết nhận xét của bạn vào bên dưới:</label>
+               <textarea name="rating_content" id="rating_content" class="form-control" style="resize:none"  placeholder="Nhận xét của bạn về sản phẩm này" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+               <?php
+                  if(Auth::user()){ ?>              
+                  <button  type="submit" class="btn btn-warning btnRate">Gửi nhận xét</button>                
+               <?php }else{?>  
+                  <button  type="button" id="btnRate" class="btn btn-warning btnRate">Gửi nhận xét</button>     
+               <?php }?>  
+            </div>
+         </form>
+   
+      </div>
+   
+      </div>
+   </div>
+ </section>
+  {{--ĐÁNH GIÁ SẢN PHẨM END --}}
+
+<script>
+      function remove_background(product_id){
+        for(var count = 1; count <= 5; count++){
+          $('#' + product_id + '-' + count).css('color','#ccc');
+        }
+      }
+      //hover
+      $(document).on('mouseenter','.ratingClass',function(){
+          var index = $(this).data("index");
+          var product_id = $(this).data('product_id');
+
+          remove_background(product_id);
+
+          for(var count = 1; count <= index; count++){
+            $('#' + product_id + '-' + count).css('color','#ffcc00');
+          }
+      });
+      // 
+     
+      // click
+      $(document).on('click','.ratingClass',function(){
+          var index = $(this).data("index");
+          var product_id = $(this).data('product_id');
+          // remove_background(product_id);
+          $('.star').val(index);
+         
+          for(var count = 1; count <= index; count++){
+            $('#' + product_id + '-' + count).css('color','#ffcc00');
+          }    
+      });
+
+     
+
+    </script>
+   <script>
+      $(document).on('click','#btnRate',function(){
+           alert('Vui lòng đăng nhập để dánh giá sản phẩm');
+        
+      });
+
+      $(document).on('click','#btnBuy',function(){
+           alert('Vui lòng đăng nhập chọn mua sản phẩm thoả thích');
+        
+      });
+   </script>
+
+
 @endsection

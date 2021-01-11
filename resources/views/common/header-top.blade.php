@@ -64,7 +64,7 @@
          @endif
          <div data-view-id="header_user_shortcut_cart" class=" cart">
             {{-- tạm thời chưa dùng route, 1 là user id  --}}
-            <a href="http://127.0.0.1:8000/cart/1">
+            <a href="{{route('cart.show')}}">
                <div class="cart-ct"><i class="tikicon icon-cart"></i><span class="check-order-title">Giỏ hàng<span
                   {{-- class="cart-index">{{$count_product}}</span></span></div> --}}
                   class="cart-index">0</span></span></div>
