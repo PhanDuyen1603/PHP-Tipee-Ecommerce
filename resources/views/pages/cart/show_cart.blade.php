@@ -33,7 +33,7 @@ $total = 0;
                         <td></td>
                     </tr>
                 </thead>
-              
+          
                 @foreach($cartOfUser as $key => $cart)
                 @php
                     $total += $cart->cart_totalPrice;   

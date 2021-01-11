@@ -8,6 +8,8 @@ use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use App\Model\Product;
+use App\Model\Carts;
+
 use App\WebService\WebService;
 use Illuminate\Support\Facades\Auth,Cart;
 //  $path = public_path('\cart\vendor\autoload.php');
@@ -24,7 +26,15 @@ class HomeController extends Controller
         $productNews = Product::orderBy('id','desc')->limit(10)->get();
         $productSales = Product::skip(10)->take(10)->orderBy('id','desc')->limit(10)->get();
         $productFavourite = Product::skip(20)->take(10)->orderBy('id','desc')->limit(10)->get();
-        return view('home.index', compact('productNews','productSales','productFavourite'));
+
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+        }else{
+            $count_cart = 0;
+        }
+
+        return view('home.index', compact('productNews','productSales','productFavourite'))->with('count_cart',$count_cart);
     }
     // search
     public function themeSearch(Request $request){

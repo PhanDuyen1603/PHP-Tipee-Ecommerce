@@ -12,6 +12,7 @@ use App\Libraries\Helpers;
 use App\Facades\WebService;
 use App\User,DB;
 use App\Model\CategoryProduct;
+use App\Model\Carts;
 
 class CategoryController extends Controller
 {
@@ -26,7 +27,15 @@ class CategoryController extends Controller
         ->groupBy('products.slug')
         ->select('products.*','category_products.categoryName','category_products.categorySlug','category_products.categoryDescription','category_products.categoryID','category_products.categoryContent')
         ->paginate(10);
-        return view('product.category', compact('products','category'));
+
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+        }else{
+            $count_cart = 0;
+        }
+
+        return view('product.category', compact('products','category'))->with('count_cart',$count_cart);
     }
     
 }

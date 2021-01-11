@@ -14,6 +14,7 @@ use App\Models\User,DB;
 use App\Model\CategoryProduct;
 use App\Model\Product;
 use App\Model\Ratings;
+use App\Model\Carts;
 
 class ProductController extends Controller
 {
@@ -21,12 +22,19 @@ class ProductController extends Controller
         $data_customers = Product::where('slug',$slug)->first();
         $category = '';
 
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+        }else{
+            $count_cart = 0;
+        }
        // LẤY RATING
        $ratings = Ratings::join('Users','Users.id','=','Ratings.rating_user')->where('rating_product',$data_customers->id)->orderBy('rating_id','desc')->limit(7)->get();
        $rating_star = Ratings::where('rating_product',$data_customers->id)->avg('rating_star');
        $rating_star = round($rating_star);
 
-        return view('product.single', compact('data_customers','category'))->with('rating_star',$rating_star)->with('ratings',$ratings);
+        return view('product.single', compact('data_customers','category'))
+        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_cart',$count_cart);
     }
 
     public function add_rating(Request $request){
