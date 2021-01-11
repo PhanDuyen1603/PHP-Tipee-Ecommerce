@@ -10,34 +10,30 @@
 $total = 0;
 @endphp
 
+<div class="cart_layout">
 <section id="cart_items">
-    <div class="container">
+    <div class="oder-cart">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
               <li><a href="{{route('index')}}">Trang chủ</a></li>
               <li style="margin-left:10px;"> Giỏ hàng của bạn</li>
             </ol>
+<h2 class="cart-products__title">Giỏ hàng</h2>
+
         </div>
         <div class="table-responsive cart_info">
-            <?php
-                foreach($cartOfUser as $key => $value)
-                if($value['cart_id'] != null){    
-            ?>
             <table class="table table-condensed">                  
                 <thead>
                     <tr class="cart_menu">
                         <td class="image">Hình ảnh</td>
                         <td class="description">Tên sản phẩm</td>
-                        <td class="price">Giá</td>
+                        <td class="price">Đơn giá</td>
                         <td class="quantity">Số lượng</td>
                         <td class="total">Thành tiền</td>
                         <td></td>
                     </tr>
                 </thead>
-                <?php }else{?>
-                    <h2>Bạn chưa chọn mua sản phẩm nào</h2>
-                    <h2><a href="{{route('index')}}">Quay lại trang chủ</a></h2>
-                <?php } ?>
+              
                 @foreach($cartOfUser as $key => $cart)
                 @php
                     $total += $cart->cart_totalPrice;   
@@ -93,27 +89,31 @@ $total = 0;
 </section> <!--/#cart_items-->
 
 <section id="pay">
-    <div class="container">
+    <div class="pay-card">
         <div class="card">
-            <div class="card-body">     
+            <div class="card-body" style="
+        ">     
                 <form action="{{route('order.save')}}" method="POST">        
                     @csrf 
-                <ul style="list-style-type: none">
-                   
-                    <li>Tổng tiền <span>{{number_format($total,0,',','.').' đ'}}</span> (Đã bao gồm thuế)</li>
-
-                    <li>Phí vận chuyển: <span>Free</span></li>
-                    <li>Thành tiền: <span>{{number_format($total,0,',','.').' đ'}}</span></li>
-                    <li>Phương thức thanh toán: <span></span>tiền mặt</li>
-                    <li>Địa chỉ giao hàng:  <br>
-                        <input type="text" name="order_address" class="order_address" value="" required></li>
-                </ul>                          
-                    <button type="submit" class="btn btn-success">Đặt mua</button>
+                <div class="calc-money"><div class="prices"><ul class="prices__items"><li class="prices__item"><span class="prices__text">Tạm tính</span><span class="prices__value">{{number_format($total,0,',','.').' đ'}}</span></li></ul><p class="prices__total"><span class="prices__text">Thành tiền</span><span class="prices__value prices__value--final">{{number_format($total,0,',','.').' đ'}}<i>(Đã bao gồm VAT nếu có)</i></span></p></div></div>
+                    
                 </form>
+
             </div>
+           
         </div>    
+        <button type="submit" class="cart__submit">Tiến hành đặt hàng</button>
     </div>
 </section>
+
+<div class="ship-address">
+    <span class="text">Địa chỉ nhận hàng</span>
+    <p class="title-oders"><b class="name">{{Auth::user()->name}}</b><p class="line-straight-oder"></p><b class="phone" style="font-weight: 600">{{Auth::user()->phone}}</b></p>
+    <input type="text" name="order_address" class="order_address" placeholder="Bạn muốn giao hàng tới đâu ?" value="" required>
+   
+    </li>
+</div>
+</div>
 
 
 {{-- NÚT TĂNG GIẢM --}}

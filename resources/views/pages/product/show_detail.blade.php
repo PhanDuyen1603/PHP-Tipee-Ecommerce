@@ -379,7 +379,7 @@
   <h2 style="margin:50px;">ĐÁNH GIÁ SẢN PHẨM</h2>
 
   @foreach($ratings as $key => $rating)
-  <div style="height:300px" class="card">
+  <div style="height:300px" class="card ">
     <div class="card-body"> 
 
       <div class="card-title">

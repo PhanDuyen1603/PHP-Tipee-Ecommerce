@@ -541,12 +541,13 @@
 
 {{--ĐÁNH GIÁ SẢN PHẨM BEGIN --}}
 <section class="ratings">
+   <h2 class="nav-link active jHTCJn review-title">ĐÁNH GIÁ SẢN PHẨM</h2>
    <div class="container">
       {{-- SHOW RATING --}}
-      <h2 style="margin:50px;">ĐÁNH GIÁ SẢN PHẨM</h2>
+     
    
       @foreach($ratings as $key => $rating)
-      <div style="height:300px" class="card">
+      <div style="height:300px" class="card review-cart">
       <div class="card-body"> 
    
          <div class="card-title">
@@ -589,7 +590,7 @@
    
       @endforeach
    
-      <div class="card">
+      <div class="card review-cart">
       <div class="card-body">
          <h5 class="card-title">GỬI NHẬN XÉT CỦA BẠN</h5>
       <?php 
