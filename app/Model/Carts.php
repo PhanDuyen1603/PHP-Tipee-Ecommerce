@@ -15,6 +15,6 @@ class Carts extends Model
         'updated_at',
         'created_at'
     ];
-    protected $table = 'cart';
+    protected $table = 'carts';
     protected $primaryKey = 'cart_id';
 }

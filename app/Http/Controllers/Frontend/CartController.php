@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Model\Cart;
-use App\Model\Theme;
+use App\Models\User;
+use App\Model\Carts;
+use App\Model\Product;
+use App\Model\Orders;
 
 use Validator;
 use Mail;
@@ -18,53 +19,72 @@ use App\Facades\WebService;
 
 class CartController extends Controller
 {
-    public function show_cart($userId){
+    public function show_order(){
 
-        $cartOfUser = Cart::Where('cart_user',$userId)->join('Theme','Theme.Id','=','cart.cart_product')
-        ->where('cart_user',$userId)->orderBy('cart_id','desc')->get();
-
-        return view('pages.cart.show_cart')->with('cartOfUser',$cartOfUser);
     }
 
-    public function save_cart(Request $request){
-        //$data = $request->all();
+    public function order_cart(Request $request){
+        $data = $request->all(); 
+        $newOrder = new Orders();
+        $newOrder['order_customer'] = $data['order_customer'];
+        $newOrder['order_product'] = $data['order_product'];
+        $newOrder['order_price'] = $data['order_price'];
+        $newOrder['order_address'] = $data['order_address'];
+        $newOrder['order_state'] = 'Đang giao';
+        $newOrder->save();
+
+        // $user_order = Orders::Where('order_customer',$newOrder['order'])
+
+        // return view('pages.cart.show_orderState')->with('user_order',$user_order);
+    }
+
+    public function show_cart(){
+        if(Auth::User()){
+            $userId = Auth::User()->id;
+            $cartOfUser = Carts::Where('cart_user',$userId)->join('Products','Products.Id','=','carts.cart_product')
+            ->orderBy('cart_id','desc')->limit(10)->get();
+            $user_info = User::Where('id',$userId)->get();
+            return view('pages.cart.show_cart')->with('cartOfUser',$cartOfUser)->with('user_info',$user_info);
+        }    
+    }
+
+    public function delete_cart(Request $request){
+        $data = $request->all();
+        // $cartOfUser = Carts::Where('cart_user',$data['userId'])->where('cart_product',$data['cart_product'])->first();
+        $cartOfUser = Carts::Where('cart_id',$data['cart_id'])->first();
+        $cartOfUser->delete();
+        $deleteMsg = "Đã xoá sản phẩm khỏi giỏ hàng";
+        return redirect()->back()->with('deleteMsg',$deleteMsg);
+        
+    }
+
+   public function save_cart(Request $request){
+       $data = $request->all();
       
-        // //TÌM CART CỦA USER ĐÓ VỚi SẢN PHẨM ĐÓ, NẾU CÓ RỒI CHỈ CẦN UPDATE SỐ LƯỢNG, KHÔNG CẦN THÊM NỮA
-        // // //tạm thờI gán user bằng một cái đã, chưa làm user
-        // $cart_find = Cart::Where('cart_user',1)->where('cart_product',$data['cart_product'])->first();
-        // $productPrice = Theme::Select('price_promotion')->where('id',$cart_find['cart_product'])->first(); 
+        //TÌM CART CỦA USER ĐÓ VỚi SẢN PHẨM ĐÓ
+        // NẾU CÓ RỒI THÌ CỘNG THÊM SỐ LƯỢNG
+        // CHƯA CÓ THÌ GÁN
+       if(Auth::user())
+       {
+            $cart_find = Carts::Where('cart_user',$data['cart_user'])->where('cart_product',$data['cart_product'])->first();
+            if($cart_find){
+                $cart_find['cart_quantity'] += $data['input'];
+                $productPrice = Product::Select('price_promotion')->where('id',$cart_find['cart_product'])->first(); 
+                $cart_find['cart_totalPrice'] = (float)$productPrice['price_promotion'] * (float)$cart_find ['cart_quantity'];  
+                $cart_find->save();
+ 
+            }else{
+                $newCart = new Carts();
+                $newCart['cart_user'] = $data['cart_user'];
+                $newCart['cart_product'] = $data['cart_product'];
+                $newCart['cart_quantity'] = $data['input'];
+                $productPrice = Product::Select('price_promotion')->where('id',$newCart['cart_product'])->first(); 
+                $newCart['cart_totalPrice'] = (float)$productPrice['price_promotion'] * (float)$newCart['cart_quantity'];
+                $newCart->save();
 
-        // if($cart_find){
-        //     $cart_find['cart_quantity'] += $data['qty'];
-        //     $cart_find['cart_totalPrice'] = (float)$productPrice['price_promotion'] * (float)$cart_find ['cart_quantity'];  
-        //     $cart_find->save();
-        //     return redirect('http://127.0.0.1:8000/product-detail/'.$cart_find['cart_product']);
-        // }
-
-        // $cart = new Cart();
-
-        // //tạm thờI gán user bằng một cái đã, chưa làm user
-        // $cart['cart_user'] = 1;
-        // $cart['cart_product'] = $data['cart_product'];
-
-        // //KIỂM TRA NẾU TRONG CART CỦA USER ĐÓ CÓ SẢN PHẨM RỒI THÌ TĂNG SỐ LƯỢNG LÊN
-        // $cartOfUser = Cart::Where('cart_user',$cart['cart_user'])->get();
-        // foreach($cartOfUser as $key => $value){
-        //     if($value['cart_product'] ==  $cart['cart_product']){
-        //         $cart['cart_quantity'] += $data['qty'];
-        //     }
-        //     else{
-        //         $cart['cart_quantity'] = $data['qty'];
-        //     }
-        // }
-
-        // $productPrice = Theme::Select('price_promotion')->where('id',$cart['cart_product'])->first(); 
-
-        // //tính tổng tiềN
-        // $cart['cart_totalPrice'] = (float)$productPrice['price_promotion'] * (float)$cart['cart_quantity'];
-                 
-        // $cart->save();
-        //return redirect()->back();
-        echo"fdafd";
+            }
+       }
+               
+        return redirect()->back();
     }
 }

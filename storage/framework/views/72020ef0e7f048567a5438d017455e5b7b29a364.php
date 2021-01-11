@@ -65,7 +65,7 @@
          <?php endif; ?>
          <div data-view-id="header_user_shortcut_cart" class=" cart">
             
-            <a href="http://127.0.0.1:8000/cart/1">
+            <a href="<?php echo e(route('cart.show')); ?>">
                <div class="cart-ct"><i class="tikicon icon-cart"></i><span class="check-order-title">Giỏ hàng<span
                   
                   class="cart-index">0</span></span></div>

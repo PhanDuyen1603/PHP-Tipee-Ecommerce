@@ -52,8 +52,9 @@ Route::post('/add-rating','Frontend\ProductController@add_rating')->name('produc
 
 //CART
 Route::post('/save-cart','Frontend\CartController@save_cart')->name('cart.save');
-// Route::post('/add-cart','CartController@add_cart'); //add-cart-ajax
-Route::get('/show-cart','Frontend\CartController@show_cart');
+Route::post('/delete-cart','Frontend\CartController@delete_cart')->name('cart.delete');
+Route::get('/show-cart','Frontend\CartController@show_cart')->name('cart.show');
+Route::post('/show-order','Frontend\CartController@order_cart')->name('cart.order');
 
 
 

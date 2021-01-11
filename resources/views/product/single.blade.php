@@ -267,22 +267,20 @@
                                                 <p class="label">Số Lượng</p>
                                                 <div class="group-input">
                                                    <button class="disable"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"></button>
-                                                   <input type="text" value="1" class="input">
-                                                   <button><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"></button></div>
+                                                   <input name="input" type="text" value="1" class="input">
+                                                   <button class="disable"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"></button>
+                                                </div>
                                              </div>
                                           </div>
-                                          <div class="group-button">
-                                             
-                                             <input type="hidden" class="cart_product" value="{{$data_customers->id}}">
-                                             <input type="hidden" class="cart_user" value="">
-                                             
+                                          <div class="group-button">                                            
+                                             <input type="hidden" name="cart_product" class="cart_product" value="{{$data_customers->id}}">
+                                             <input type="hidden" name="cart_user" class="cart_user" value="{{Auth::user()->id}}">                                            
                                              <?php
                                                 if(Auth::user()){ ?>              
                                                 <button type="submit" class="btn btn-add-to-cart" data-view-id="pdp_add_to_cart_button">Chọn mua</button>
                                              <?php }else{?>  
                                                 <button type="button" id="btnBuy" class="btn btn-add-to-cart" data-view-id="pdp_add_to_cart_button">Chọn mua</button>
                                              <?php }?>  
-
                                           </div>
                                        </div>
                                        </form>
