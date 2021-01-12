@@ -168,7 +168,6 @@
                                              </button>
                                           </form>
 
-                                          <div class="icon-wrap shareFB" data-view-id="pdp_details_share"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-account-social.svg"></div>
                                        </div>
                                        <div class="brand-block-row clear">
                                           @if($data_customers->id_brand > 0 )
