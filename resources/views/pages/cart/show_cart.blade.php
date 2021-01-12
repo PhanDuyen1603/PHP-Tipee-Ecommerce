@@ -96,23 +96,24 @@ $total = 0;
                 <form action="{{route('order.save')}}" method="POST">        
                     @csrf 
                 <div class="calc-money"><div class="prices"><ul class="prices__items"><li class="prices__item"><span class="prices__text">Tạm tính</span><span class="prices__value">{{number_format($total,0,',','.').' đ'}}</span></li></ul><p class="prices__total"><span class="prices__text">Thành tiền</span><span class="prices__value prices__value--final">{{number_format($total,0,',','.').' đ'}}<i>(Đã bao gồm VAT nếu có)</i></span></p></div></div>
-                    
+                    <button type="submit" class="cart__submit">Tiến hành đặt hàng</button>
+                    <div class="ship-address">
+                        <span class="text">Địa chỉ nhận hàng</span>
+                        <p class="title-oders"><b class="name">{{Auth::user()->name}}</b><p class="line-straight-oder"></p><b class="phone" style="font-weight: 600">{{Auth::user()->phone}}</b></p>
+                        <input type="text" name="order_address" class="order_address" placeholder="Bạn muốn giao hàng tới đâu ?" value="" required>
+                       
+                        </li>
+                    </div>
                 </form>
-
+                
             </div>
            
         </div>    
-        <button type="submit" class="cart__submit">Tiến hành đặt hàng</button>
+    
     </div>
 </section>
 
-<div class="ship-address">
-    <span class="text">Địa chỉ nhận hàng</span>
-    <p class="title-oders"><b class="name">{{Auth::user()->name}}</b><p class="line-straight-oder"></p><b class="phone" style="font-weight: 600">{{Auth::user()->phone}}</b></p>
-    <input type="text" name="order_address" class="order_address" placeholder="Bạn muốn giao hàng tới đâu ?" value="" required>
-   
-    </li>
-</div>
+
 </div>
 
 

@@ -11,8 +11,10 @@
 
 <section>
 
-    <div class="container">
-        <h1 style="text-align: center">Đơn hàng của bạn</h1>
+    <div class="container" style="    background: white;
+    margin-top: 40px;
+    padding: 20px;">
+        <h1 class="heading" style="margin-left: 0px">Đơn hàng của tôi</h1>
         <div class="orders">
             <table class="table table-hover">
                 <thead>
@@ -27,7 +29,7 @@
                  @foreach($user_order as $key => $order)
                 <tbody>
                     <tr>
-                        <td>{{$order->title}}</td>
+                        <td class="name">{{$order->title}}</td>
                         <td>{{$order->created_at->format('Y-m-d')}}</td>
                         <td>{{$order->order_quantity}}</td>
                         <td>{{number_format($order->order_price) . ' đ'}}</td>
