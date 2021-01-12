@@ -59,6 +59,7 @@ Route::get('/show-cart','Frontend\CartController@show_cart')->name('cart.show');
 Route::post('/save-order','Frontend\CartController@save_order')->name('order.save');
 Route::get('/show-order','Frontend\CartController@show_order')->name('order.show');
 Route::get('/all-order','Frontend\CartController@show_all_order')->name('order.all');
+Route::post('/update-order_state','Frontend\CartController@update_orderState')->name('order_state.update');
 
 
 //WISHLIST

@@ -41,7 +41,7 @@ $seo = WebService::getSEO($data_seo);
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Filter Orders</h3>
+                        <h3 class="card-title">Danh sách các đơn hàng</h3>
                     </div> <!-- /.card-header -->
                     <div class="card-body">
                         <div class="clear">
@@ -52,16 +52,16 @@ $seo = WebService::getSEO($data_seo);
                             </ul>
                             <div class="fr">
                                 <form method="GET" action="{{route('admin.searchOrder')}}" id="frm-filter-post" class="form-inline">
-                                    <select class="custom-select mr-2" name="order_status">
+                                    {{-- <select class="custom-select mr-2" name="order_status">
                                         <option value="">Tình trạng đơn hàng</option>
-                                        <option value="1" @if($_GET['order_status'] == 1) selected @endif>Mới đặt</option>
-                                        <option value="2" @if($_GET['order_status'] == 2) selected @endif>Giao J&T</option>
-                                        <option value="3" @if($_GET['order_status'] == 3) selected @endif>Đã hủy</option>
-                                        <option value="4" @if($_GET['order_status'] == 4) selected @endif>Đợi xử lý</option>
-                                        <option value="5" @if($_GET['order_status'] == 5) selected @endif>Liên hệ sau</option>
-                                    </select>
-                                    <input type="text" class="form-control" value="<?php if(isset($_GET['search_title'])){ echo $_GET['search_title']; } ?>" name="search_title" id="search_title" placeholder="Mã đơn hàng">
-                                    <button type="submit" class="btn btn-primary ml-2">Tìm kiếm</button>
+                                        <option value="1" >Chờ xử lý</option>
+                                        <option value="2" >Huỷ</option>
+                                        <option value="3">Đang xử lý</option>
+                                        <option value="4">Đang giao hàng</option>
+                                        <option value="5">Hoàn thành</option>
+                                    </select> --}}
+                                    {{-- <input type="text" class="form-control" value="<?php if(isset($_GET['search_title'])){ echo $_GET['search_title']; } ?>" name="search_title" id="search_title" placeholder="Mã đơn hàng"> --}}
+                                    {{-- <button type="submit" class="btn btn-primary ml-2">Tìm kiếm</button> --}}
                                 </form>
                             </div>
                         </div>
@@ -73,6 +73,8 @@ $seo = WebService::getSEO($data_seo);
                         </div>
                         <br/>
                         <div class="table-responsive">
+                            <form action="{{route('order_state.update')}}" method="POST">
+                                @csrf
                             <table class="table table-bordered" id="table_index">
                                 <thead>
                                     <tr>
@@ -81,7 +83,9 @@ $seo = WebService::getSEO($data_seo);
                                         <th scope="col" class="text-center">Họ tên</th>
                                         <th scope="col" class="text-center">Thời gian đặt</th>
                                         <th scope="col" class="text-center">Tổng giá trị</th>
-                                        <th scope="col" class="text-center">Tình trạng</th>
+                                        {{-- <th scope="col" class="text-center">Chọn tình trạng</th> --}}
+
+                                        <th scope="col" class="text-center">Tình trạng hiện tại</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,55 +97,31 @@ $seo = WebService::getSEO($data_seo);
                                         <td>{{$data->name}}</td>
                                         <td>{{$data->order_created}}</td>
                                         <td>{{$data->order_totalPrice}}</td>
+                                        
+{{--                                             
+                                                <select id=""  class="custom-select mr-2 state" name="order_status" data-id="{{$data->order_id   }}">                            
+                                                    <option value="5">Tình trạng đơn hàng</option>
+                                                    <option value="Chờ xử lý" >Chờ xử lý</option>
+                                                    <option value="Huỷ" >Huỷ</option>
+                                                    <option value="Đang xử lý">Đang xử lý</option>
+                                                    <option value="Đang giao hàng">Đang giao hàng</option>
+                                                    <option value="Hoàn thành">Hoàn thành</option>
+                                                </select>
+                                            --}}
+                                          
+                                        
+          
                                         <td>{{$data->order_state}}</td>
+                                        <input type="hidden" name="order_id" class="order_id" value="{{$data->order_id}}"/>
+                                        <input id="{{$data->order_id}}" type="hidden" name="order_state" class="order_state input-state" value="{{$data->order_state}}"/>
                                     </tr>
-                                    {{-- <tr> --}}
-                                        {{-- <td class="text-center"><input type="checkbox" id="{{$data->order_id}}" name="seq_list[]" value="{{$data->order_id}}"></td>
-                                        <td class="text-center">
-                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->order_id))}}">
-                                                <b>{{$data->order_id}}</b>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->order_id))}}">
-                                                {{$data->name}}
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            {{$data->order_created}}
-                                        </td>
-                                        <td class="text-center">
-                                            <span class='b' style='color: red;'>{{number_format($data->order_totalPrice)}} VNĐ</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span>{{$data->order_state}}</span> --}}
-                                            <?php 
-                                                // switch ($data->order_state) {
-                                                //     case 1:
-                                                //         echo "<span class='b' style='color: green;'>Mới đặt</span>";
-                                                //         break;
-                                                //     case 2:
-                                                //         echo "<span class='b' style='color: #ffa500;'>Giao J&T</span>";
-                                                //         break;
-                                                //     case 3:
-                                                //         echo "<span class='b' style='color: red;'>Đã hủy</span>";
-                                                //         break;
-                                                //     case 4:
-                                                //         echo "<span class='b' style='color: #ffb100;'>Đợi xử lý</span>";
-                                                //         break;
-                                                //     case 5:
-                                                //         echo "<span class='b' style='color: #0025db;'>Liên hệ sau</span>";
-                                                //         break;
-                                                //     default:
-                                                //         break;
-                                                // }
-                                                
-                                            ?>
-                                        {{-- </td>
-                                    </tr> --}}
+                             
                                     @endforeach
+                                   
                                 </tbody>
                             </table>
+                            <button type="submit" class="btn btn-primary ml-2">Cập nhật</button>
+                        </form>
                         </div>
                         <div class="fr">
                             {{-- {!! $data_order->links() !!} --}}
@@ -152,4 +132,15 @@ $seo = WebService::getSEO($data_seo);
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
 </section>
+<script>
+    
+     Array.from(document.getElementsByClassName('state')).foreach((element) => {
+            element.addEventListener("change", function (event) {
+                console.log(element.data.id)
+            let value = this.value;
+            document.getElementById(element.data.id).value= value;
+        })
+    })
+ </script> 
 @endsection
+

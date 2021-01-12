@@ -20,6 +20,15 @@ use App\Facades\WebService;
 
 class CartController extends Controller
 {    
+    public function update_orderState(Request $request){
+        $data = $request->all();
+        $order_update = Orders::Where('order_id',$data['order_id'])->first();
+        $order_update['order_state'] = $data['order_state'];
+        $order_update->save();
+        // dd($data['order_state']);
+        return redirect()->back();
+    }
+
     public function save_order(Request $request){
         $data = $request->all(); 
         $userId = Auth::user()->id;
