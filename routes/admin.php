@@ -27,8 +27,12 @@
          Route::post('/ajax/load_variable', 'Admin\AjaxController@loadVariable')->name('admin.ajax.load_variable');
 
          //Orders
-         Route::get('/list-order', 'Admin\OrderController@listOrder')->name('admin.listOrder');
-         Route::get('/search-order', 'Admin\OrderController@searchOrder')->name('admin.searchOrder');
+         Route::get('/list-order', 'Admin\OrderController@list_order')->name('admin.listOrder');
+         // Route::get('/list-order', 'Admin\OrderController@listOrder')->name('admin.listOrder');
+         Route::get('/search-order', 'Admin\OrderController@list_order')->name('admin.searchOrder');
+         Route::get('/revenue', 'Admin\OrderController@revenue')->name('admin.revenue');
+
+         // Route::get('/search-order', 'Admin\OrderController@searchOrder')->name('admin.searchOrder');
          Route::get('/order/{id}', 'Admin\OrderController@orderDetail')->name('admin.orderDetail');
          Route::post('/order/post', 'Admin\OrderController@postOrderDetail')->name('admin.postOrderDetail');
 

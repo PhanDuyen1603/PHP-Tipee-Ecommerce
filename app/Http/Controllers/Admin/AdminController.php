@@ -16,6 +16,7 @@ use App\Exports\OrderExport;
 use App\Exports\ProductExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\WebService\WebService;
+use App\Model\Orders;
 
 class AdminController extends Controller
 {
@@ -38,6 +39,7 @@ class AdminController extends Controller
     public function changePassword(){
         return view('admin.change-password');   
     }
+
 
     public function postChangePassword(Request $rq){
         $user = Auth::guard('admin')->user();

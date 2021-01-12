@@ -85,28 +85,29 @@ $seo = WebService::getSEO($data_seo);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($data_order as $data)
+                                    {{-- @foreach($data_order as $data) --}}
+                                    @foreach($user_order as $data) 
                                     <tr>
-                                        <td class="text-center"><input type="checkbox" id="{{$data->cart_id}}" name="seq_list[]" value="{{$data->cart_id}}"></td>
+                                        <td class="text-center"><input type="checkbox" id="{{$data->order_id}}" name="seq_list[]" value="{{$data->order_id}}"></td>
                                         <td class="text-center">
-                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->cart_id))}}">
-                                                <b>{{$data->cart_code}}</b>
+                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->order_id))}}">
+                                                <b>{{$data->order_id}}</b>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->cart_id))}}">
-                                                {{$data->cart_hoten}}
+                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->order_id))}}">
+                                                {{$data->name}}
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            {{$data->created}}
+                                            {{$data->order_created}}
                                         </td>
                                         <td class="text-center">
-                                            <span class='b' style='color: red;'>{{WebService::formatMoney12($data->cart_total)}} VNĐ</span>
+                                            <span class='b' style='color: red;'>{{WebService::formatMoney12($data->order_totalPrice)}} VNĐ</span>
                                         </td>
                                         <td class="text-center">
                                             <?php 
-                                                switch ($data->cart_status) {
+                                                switch ($data->order_state) {
                                                     case 1:
                                                         echo "<span class='b' style='color: green;'>Mới đặt</span>";
                                                         break;

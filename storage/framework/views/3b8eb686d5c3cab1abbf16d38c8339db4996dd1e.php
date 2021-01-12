@@ -265,6 +265,7 @@
                                        </ul>
 
                                        <div class="DeliveryZone__StyledDeliveryZoneEmpty-sc-1maxvle-0 lijGxt">
+                                          <span>Số lượng yêu thích <h4><?php echo e($wishTimes); ?></h4></span>
                                           <div class="inner">Bạn hãy <span>NHẬP ĐỊA CHỈ</span> nhận hàng để được dự báo thời gian &amp; chi phí giao hàng một cách chính xác nhất.</div>
                                        </div>
                                        

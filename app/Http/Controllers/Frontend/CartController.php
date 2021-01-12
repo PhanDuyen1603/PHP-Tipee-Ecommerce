@@ -50,11 +50,6 @@ class CartController extends Controller
 
     public function show_order(){
         //HIỂN THỊ ĐƠN HÀNG ĐANG GIAO (CHƯA GIAO)
-        //CHƯA GIAO <=> THỜI GIAN NHẬN HÀNG > THỜI GIAN HIỆN TẠI
-
-        //tình trạng: created_at = now() -> đã nhận đơn đặt hàng
-        // < 3 -> đang giao
-        // = 3 đã giao
 
         $dt = Carbon::now();
 
@@ -64,6 +59,12 @@ class CartController extends Controller
         ->join('Order_details','order','=','order_id')
         ->join('Products','products.id','=','order_product')->orderBy('order_id','desc')->get();
 
+        $orders = Orders::Where('order_customer',$userId)->where('orders.order_receivedDate', '>', NOW())->get();
+        $totalPrice = 0;
+        foreach($orders as $key => $val){
+            $totalPrice += $val->order_totalPrice;
+        }
+
         if(Auth::user()){   
             $userId = Auth::user()->id;
             $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
@@ -71,7 +72,7 @@ class CartController extends Controller
             $count_cart = 0;
         }
 
-        return view('pages.cart.show_orderState')->with('user_order', $user_order)->with('count_cart',$count_cart);
+        return view('pages.cart.show_orderState')->with('user_order', $user_order)->with('count_cart',$count_cart)->with('totalPrice',$totalPrice);
     }
 
     public function show_all_order(){

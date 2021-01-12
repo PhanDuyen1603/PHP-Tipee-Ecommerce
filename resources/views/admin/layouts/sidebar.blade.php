@@ -122,6 +122,7 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="{{route('admin.listOrder')}}" class="nav-link <?php if(in_array($segment_check, array('list-order', 'order'))){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-shopping-cart"></i>
@@ -131,6 +132,15 @@
             </a>
           </li>
         
+          <li class="nav-item">
+            <a href="{{route('admin.revenue')}}" class="nav-link <?php if(in_array($segment_check, array('list-order', 'order'))){ echo 'active'; } ?>">
+              <i class="nav-icon fas fa-dollar-sign"></i>
+              <p>
+                Doanh thu
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item hidden">
             <a href="{{route('admin.slider')}}" class="nav-link <?php if(in_array($segment_check, array('list-slider', 'slider'))){ echo 'active'; } ?>">
               <i class="nav-icon fas fa-images"></i>

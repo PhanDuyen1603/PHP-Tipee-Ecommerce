@@ -186,7 +186,7 @@
 </style>
 
 <section>
-  <?php $totalPrice  = 0;?>
+  
     <div class="container">
         <h1 style="text-align: center">Tra cứu đơn hàng</h1>
         @foreach($user_order as $key => $order)
@@ -283,7 +283,7 @@
                         <td>{{number_format($order->order_price) . ' đ'}}</td>
                     </tr>                   
                 </tbody>               
-                <?php  $totalPrice += $order->order_totalPrice?>
+               
                @endforeach
                
                 

@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function show_wishList(){
         if(Auth::user()){
             $userId = Auth::user()->id;
+            
             $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
             $wishListOfUser = WishList::Where('wish_user',$userId)->join('Products','Products.id','=','wish_product')
             ->orderBy('wish_id','desc')->get();           
@@ -51,7 +52,7 @@ class ProductController extends Controller
     public function productDetail($slug){
         $data_customers = Product::where('slug',$slug)->first();
         $category = '';
-        
+        $wishTimes = 0;
         if(Auth::user()){
             $userId = Auth::user()->id;
             $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
@@ -65,8 +66,10 @@ class ProductController extends Controller
        $rating_star = Ratings::where('rating_product',$data_customers->id)->avg('rating_star');
        $rating_star = round($rating_star);
 
+       $wishTimes = Wishlist::Where('wish_product',$data_customers['id'])->count();
+
         return view('product.single', compact('data_customers','category'))
-        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_cart',$count_cart)->with('wishListOfUser',$wishListOfUser);
+        ->with('rating_star',$rating_star)->with('ratings',$ratings)->with('count_cart',$count_cart)->with('wishListOfUser',$wishListOfUser)->with('wishTimes',$wishTimes);
     }
 
 

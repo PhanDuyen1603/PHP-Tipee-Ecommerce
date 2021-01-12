@@ -9,6 +9,9 @@ use App\Libraries\Helpers;
 use Illuminate\Support\Str;
 use DB, File, Image, Config;
 use Illuminate\Pagination\Paginator;
+use App\Model\Orders;
+use App\Model\Carbon;
+
 
 class OrderController extends Controller
 {
@@ -25,6 +28,40 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function revenue(){
+        $state = 'Đã giao';
+        $revenueByDate = Orders::Where('order_state',$state)->groupBy('order_receivedDate');//->sum('order_totalPrice');
+
+        $revenueByMonth_object = DB::table("Orders")
+        // ->select(DB::raw("(SUM(order_totalPrice)) as total"))
+            // ->orderBy('order_receivedDate')
+            ->groupBy(DB::raw("MONTH(order_receivedDate)"))->get();;
+            
+        $revenueByYear_object = DB::table("Orders")
+        // ->select(DB::raw("(SUM(order_totalPrice)) as total"))
+            // ->orderBy('order_receivedDate')
+            ->groupBy(DB::raw("YEAR(order_receivedDate)"))->get();
+
+
+        $total = 0;    
+        foreach($revenueByMonth_object as $key => $val){
+            $total += $val->order_totalPrice;
+        }
+       
+        // foreach($revenueByYear_object as $key => $val){
+        //     $revenueByYear =  $val->total;
+        // }
+
+        echo $total. "<br>";
+    }
+
+    public function list_order(){
+        $user_order = Orders::join('Users','Users.id','=','order_customer')->orderBy('order_id','desc')->get();
+        return view('admin.orders.filter')->with('user_order',$user_order);
+    }
+
+
 
     public function listOrder(){
         $data_order = Addtocard::select('addtocard.*')

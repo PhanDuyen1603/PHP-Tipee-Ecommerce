@@ -68,7 +68,7 @@ $seo = WebService::getSEO($data_seo);
                         <br/>
                         <div class="clear">
                             <div class="fr">
-                                {!! $data_order->links() !!}
+                                {{-- {!! $data_order->links() !!} --}}
                             </div>
                         </div>
                         <br/>
@@ -85,55 +85,66 @@ $seo = WebService::getSEO($data_seo);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($data_order as $data)
+                                    {{-- @foreach($data_order as $data) --}}
+                                    @foreach($user_order as $data)
                                     <tr>
-                                        <td class="text-center"><input type="checkbox" id="{{$data->cart_id}}" name="seq_list[]" value="{{$data->cart_id}}"></td>
-                                        <td class="text-center">
-                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->cart_id))}}">
-                                                <b>{{$data->cart_code}}</b>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->cart_id))}}">
-                                                {{$data->cart_hoten}}
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            {{$data->created}}
-                                        </td>
-                                        <td class="text-center">
-                                            <span class='b' style='color: red;'>{{number_format($data->cart_total)}} VNĐ</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php 
-                                                switch ($data->cart_status) {
-                                                    case 1:
-                                                        echo "<span class='b' style='color: green;'>Mới đặt</span>";
-                                                        break;
-                                                    case 2:
-                                                        echo "<span class='b' style='color: #ffa500;'>Giao J&T</span>";
-                                                        break;
-                                                    case 3:
-                                                        echo "<span class='b' style='color: red;'>Đã hủy</span>";
-                                                        break;
-                                                    case 4:
-                                                        echo "<span class='b' style='color: #ffb100;'>Đợi xử lý</span>";
-                                                        break;
-                                                    case 5:
-                                                        echo "<span class='b' style='color: #0025db;'>Liên hệ sau</span>";
-                                                        break;
-                                                    default:
-                                                        break;
-                                                }
-                                            ?>
-                                        </td>
+                                        <td class="text-center"><input type="checkbox" id="{{$data->order_id}}" name="seq_list[]" value="{{$data->order_id}}"></td>
+                                        <td>{{$data->order_id}}</td>
+                                        <td>{{$data->name}}</td>
+                                        <td>{{$data->order_created}}</td>
+                                        <td>{{$data->order_totalPrice}}</td>
+                                        <td>{{$data->order_state}}</td>
                                     </tr>
+                                    {{-- <tr> --}}
+                                        {{-- <td class="text-center"><input type="checkbox" id="{{$data->order_id}}" name="seq_list[]" value="{{$data->order_id}}"></td>
+                                        <td class="text-center">
+                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->order_id))}}">
+                                                <b>{{$data->order_id}}</b>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="row-title" href="{{route('admin.orderDetail', array($data->order_id))}}">
+                                                {{$data->name}}
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            {{$data->order_created}}
+                                        </td>
+                                        <td class="text-center">
+                                            <span class='b' style='color: red;'>{{number_format($data->order_totalPrice)}} VNĐ</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>{{$data->order_state}}</span> --}}
+                                            <?php 
+                                                // switch ($data->order_state) {
+                                                //     case 1:
+                                                //         echo "<span class='b' style='color: green;'>Mới đặt</span>";
+                                                //         break;
+                                                //     case 2:
+                                                //         echo "<span class='b' style='color: #ffa500;'>Giao J&T</span>";
+                                                //         break;
+                                                //     case 3:
+                                                //         echo "<span class='b' style='color: red;'>Đã hủy</span>";
+                                                //         break;
+                                                //     case 4:
+                                                //         echo "<span class='b' style='color: #ffb100;'>Đợi xử lý</span>";
+                                                //         break;
+                                                //     case 5:
+                                                //         echo "<span class='b' style='color: #0025db;'>Liên hệ sau</span>";
+                                                //         break;
+                                                //     default:
+                                                //         break;
+                                                // }
+                                                
+                                            ?>
+                                        {{-- </td>
+                                    </tr> --}}
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="fr">
-                            {!! $data_order->links() !!}
+                            {{-- {!! $data_order->links() !!} --}}
                         </div>
                     </div> <!-- /.card-body -->
                 </div><!-- /.card -->
