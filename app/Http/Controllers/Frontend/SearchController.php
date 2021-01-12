@@ -11,6 +11,7 @@ use Redirect;
 use App\Libraries\Helpers;
 use App\Facades\WebService;
 use App\User,DB;
+use App\Model\Carts;
 
 class SearchController extends Controller
 {
@@ -33,10 +34,16 @@ class SearchController extends Controller
                 ->paginate(10);
                 $data_customers->appends(['query_string' => $name_product]);
 
+                if(Auth::user())
+                {
+                    $userId = Auth::user()->id;
+                    $count_cart = Carts::where('cart_user',$userId)->sum('cart_quantity');  
+                }
+
                 return view('product.search')
                 ->with('name_product',$name_product)
                     ->with('list_categories',$list_category)
-                    ->with('productSearch',$data_customers);
+                    ->with('productSearch',$data_customers)->with('count_cart',$count_cart);
         } else{
             return view('errors.404');
         }
